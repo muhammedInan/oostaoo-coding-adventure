@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Oostaoo Coding Adventure</string>
+
+    <string name="registration">Créer un compte</string>
+    <string name="connection">Connexion</string>
+    <string name="email">Email</string>
+    <string name="password">Mot de passe</string>
+    <string name="connected">Connected</string>
+    <string name="already_client">Déjà client ?</string>
+    <string name="new_customer">Nouveau client</string>
+
+    <string name="error_empty_login">Entrez une adresse mail</string>
+    <string name="error_invalid_email">Email invalide</string>
+    <string name="error_empty_password">Entrez un mot de passe</string>
+    <string name="error_connection">Connexion erronée</string>
 </resources>
