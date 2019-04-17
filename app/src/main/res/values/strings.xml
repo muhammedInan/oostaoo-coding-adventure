@@ -3,14 +3,18 @@
 
     <string name="registration">Créer un compte</string>
     <string name="connection">Connexion</string>
+    <string name="username">Username</string>
     <string name="email">Email</string>
     <string name="password">Mot de passe</string>
     <string name="connected">Connected</string>
     <string name="already_client">Déjà client ?</string>
     <string name="new_customer">Nouveau client</string>
 
-    <string name="error_empty_login">Entrez une adresse mail</string>
+    <string name="error_empty_username">Entrez un username</string>
+    <string name="error_empty_email">Entrez une adresse mail</string>
     <string name="error_invalid_email">Email invalide</string>
     <string name="error_empty_password">Entrez un mot de passe</string>
     <string name="error_connection">Connexion erronée</string>
+
+    <string name="WS_BASE_URL">http://ec2-35-180-87-221.eu-west-3.compute.amazonaws.com:1337</string>
 </resources>
