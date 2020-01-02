@@ -58,6 +58,38 @@ const ELEMENT_DATA: PeriodicElement[] = [
   { name: "Jérémie Lenoir", mail: "Neon", gestion: "Privileges", symbol: "" }
 ];
 
+const CHECKBOX_DATA = [{
+  id: 1,
+  name: "LEVEL 2 ACCOUNTING DYNAMIC",
+  checked: false,
+  matTooltip: "bblabla",
+  isChecked: false,
+},{
+  id: 2,
+  name: "LEVEL 3 - SALES dynamic",
+  checked: false,
+  matTooltip: "bblabla",
+  isChecked: false,
+},{
+  id: 3,
+  name: "LEVEL 4 - RH dynamic",
+  checked: false,
+  matTooltip: "bblabla",
+  isChecked: false,
+}, {
+  id: 4,
+  name: "LEVEL 5 - CTO",
+  checked: false,
+  matTooltip: "bblabla",
+  isChecked: false,
+}, {
+  id: 5,
+  name: "LEVEL 6 - ADMINISTRATEUR",
+  checked: false,
+  matTooltip: "bblabla",
+  isChecked: false,
+}]
+
 @Component({
   selector: "app-utilisateurs",
   templateUrl: "./utilisateurs.component.html",
@@ -65,8 +97,9 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class UtilisateursComponent implements OnInit {
   constructor(public apiClientService: ApiClientService) {
+    this.checkbox_list = CHECKBOX_DATA;
   }
-
+  public checkbox_list :any[];
   public PrenomValue = "";
   public NomValue = "";
   public UserName = "";
@@ -157,6 +190,16 @@ export class UtilisateursComponent implements OnInit {
     this.nomIsactiveUpdate = false;
     this.emailIsactiveUpdate = false;
     this.prenomIsactiveUpdate = false;
+  }
+
+  public list_change(id) {
+    for (let value of Object.values(this.checkbox_list)) {
+      if(value.id === id) {
+        value.isChecked = !value.isChecked;
+      } else {
+        value.isChecked = false;
+      }
+    }
   }
 
   public addUser(){
