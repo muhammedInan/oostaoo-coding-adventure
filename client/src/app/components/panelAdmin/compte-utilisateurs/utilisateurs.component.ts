@@ -64,6 +64,7 @@ const CHECKBOX_DATA = [{
   checked: false,
   matTooltip: "bblabla",
   isChecked: false,
+  role: ''
 },{
   id: 2,
   name: "LEVEL 3 - SALES dynamic",
@@ -123,6 +124,7 @@ export class UtilisateursComponent implements OnInit {
   public nomIsactiveUpdate = false;
   public prenomIsactiveUpdate = false;
   public emailIsactiveUpdate = false;
+  public selectedRole;
 
   public displayedColumns: string[] = ["name", "mail", "gestion", "symbol"];
   public dataSource = ELEMENT_DATA;
@@ -196,6 +198,7 @@ export class UtilisateursComponent implements OnInit {
     for (let value of Object.values(this.checkbox_list)) {
       if(value.id === id) {
         value.isChecked = !value.isChecked;
+        this.selectedRole = value.role;
       } else {
         value.isChecked = false;
       }
