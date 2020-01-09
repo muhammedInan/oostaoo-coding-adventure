@@ -323,6 +323,16 @@ export class UtilisateursComponent implements OnInit {
     .toPromise()
     .then(async res => {
       console.log('editiede successfully', res);
+      this.users = this.users.map((user, index) => {
+        if(user.id === this.editingUser.id) {
+          const role = this.checkbox_list.find(roleItem => roleItem.roleId === userPayload.role)
+          return {...userPayload, role};
+        } else {
+          return user;
+        }
+      });
+      this.param_cog();
+      this.openSnackBar('Utilisateur édité avec succès', 'Fermer');
     })
     .catch(err => console.log(err))
   }
