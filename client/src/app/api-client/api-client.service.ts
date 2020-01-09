@@ -87,4 +87,9 @@ export class ApiClientService {
     );
   }
 
+  patch(path: string, payload: any): Observable<any> {
+    return this.http.patch<any>(path, payload).pipe(
+      catchError(this.handleError)
+    )
+  }
 }

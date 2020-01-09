@@ -26,7 +26,7 @@
 
         <div class="modall-content">
 
-           <form (ngSubmit)="addUser()" class="form" method="POST" #form>
+           <form (ngSubmit)="handleSubmit()" class="form" method="POST" #form>
 
               <div class="content-form-first">
 
@@ -461,7 +461,7 @@
                 <td class="table_body_cell">{{user.email}}</td>
                 <td class="table_body_cell">{{user.role.name}}</td>
                 <td  class="table_body_cell table_icon">
-                  <i (click)="param_cog_deux()" class="fas fa-pencil-alt icon"></i>
+                  <i (click)="openForm(user)" class="fas fa-pencil-alt icon"></i>
                   <i
                   (click)=deleteUser(user.id)
                   class="fas fa-trash-alt icon"></i>

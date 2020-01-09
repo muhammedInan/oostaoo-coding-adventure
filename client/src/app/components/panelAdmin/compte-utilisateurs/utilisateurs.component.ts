@@ -141,7 +141,8 @@ export class UtilisateursComponent implements OnInit {
   public nomIsactiveUpdate = false;
   public prenomIsactiveUpdate = false;
   public emailIsactiveUpdate = false;
-
+  public editingId = null;
+  public editingUser = null;
 
   public displayedColumns: string[] = ["name", "mail", "gestion", "symbol"];
   public dataSource = ELEMENT_DATA;
@@ -201,6 +202,19 @@ export class UtilisateursComponent implements OnInit {
 
   public param_cog_deux() {
     this.shadowcog2 = true;
+  }
+
+  public openForm(user) {
+    this.editingUser = user;
+    this.editingId = user.id;
+
+    this.shadowcog1 = true;
+
+    this.formulaire.nativeElement.prenom.value = user.prenom;
+    this.formulaire.nativeElement.nom.value = user.nom;
+    this.formulaire.nativeElement.email.value = user.email;
+
+    this.list_change(user.role.id);
   }
 
   public param_cog_non_active_deux() {
@@ -288,6 +302,38 @@ export class UtilisateursComponent implements OnInit {
         this.openSnackBar('Utilisateur ajouté avec succès', 'Fermer');
       })
     .catch(function(res){ console.log(res) })
+  }
+
+  public editUser(user) {
+    this.PrenomValue = this.formulaire.nativeElement.prenom.value;
+    this.NomValue = this.formulaire.nativeElement.nom.value;
+    this.EmailValue = this.formulaire.nativeElement.email.value;
+    this.UserName = `${this.PrenomValue}-${this.NomValue}`;
+
+    const userPayload = ({
+      ...this.editUser,
+      prenom: this.PrenomValue,
+      nom: this.NomValue,
+      email: this.EmailValue,
+      username: this.UserName,
+      role: this.selectedRoleId
+    });
+
+    this.apiClientService.put(`${API_URI_USER}/${user.id}`, userPayload)
+    .toPromise()
+    .then(async res => {
+      console.log('editiede successfully', res);
+    })
+    .catch(err => console.log(err))
+  }
+
+
+  public handleSubmit() {
+    if (this.editingUser) {  // en mode editing 
+      this.editUser(this.editingUser);
+    } else {
+      this.addUser();
+    }
   }
 
   public Hundelesubmit() {
