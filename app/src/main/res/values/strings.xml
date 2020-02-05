@@ -16,5 +16,4 @@
     <string name="error_empty_password">Entrez un mot de passe</string>
     <string name="error_connection">Connexion erronée</string>
 
-    <string name="WS_BASE_URL">http://ec2-35-180-87-221.eu-west-3.compute.amazonaws.com:1337</string>
 </resources>
