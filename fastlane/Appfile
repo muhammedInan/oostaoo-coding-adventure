@@ -1,0 +1,2 @@
+json_key_file("~/Documents/api-8824765467710538326-626417-c88b2846fdee.json") # Path to the json secret file - Follow https://docs.fastlane.tools/actions/supply/#setup to get one
+package_name("com.oostaoo.org.oostaoocodingadventure") # e.g. com.krausefx.app
