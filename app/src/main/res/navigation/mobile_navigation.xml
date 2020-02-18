@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_my_tests">
+
+    <fragment
+        android:id="@+id/nav_my_tests"
+        android:name="com.oostaoo.org.oostaoocodingadventure.ui.myTests.MyTestsFragment"
+        android:label="@string/menu_my_tests"
+        tools:layout="@layout/fragment_my_tests" />
+
+    <fragment
+        android:id="@+id/nav_new_test"
+        android:name="com.oostaoo.org.oostaoocodingadventure.ui.newTest.NewTestFragment"
+        android:label="@string/menu_new_test"
+        tools:layout="@layout/fragment_new_test" />
+
+    <fragment
+        android:id="@+id/nav_user_profile"
+        android:name="com.oostaoo.org.oostaoocodingadventure.ui.userProfile.UserProfileFragment"
+        android:label="@string/menu_user_profile"
+        tools:layout="@layout/fragment_user_profile" />
+
+    <fragment
+        android:id="@+id/nav_business_profile"
+        android:name="com.oostaoo.org.oostaoocodingadventure.ui.businessProfile.BusinessProfileFragment"
+        android:label="@string/menu_business_profile"
+        tools:layout="@layout/fragment_business_profile" />
+
+    <fragment
+        android:id="@+id/nav_facturation"
+        android:name="com.oostaoo.org.oostaoocodingadventure.ui.facturation.FacturationFragment"
+        android:label="@string/menu_facturation"
+        tools:layout="@layout/fragment_facturation" />
+
+    <fragment
+        android:id="@+id/nav_data_protection"
+        android:name="com.oostaoo.org.oostaoocodingadventure.ui.dataProtection.DataProtectionFragment"
+        android:label="@string/menu_data_protection"
+        tools:layout="@layout/fragment_data_protection" />
+
+    <fragment
+        android:id="@+id/nav_users"
+        android:name="com.oostaoo.org.oostaoocodingadventure.ui.users.UsersFragment"
+        android:label="@string/menu_users"
+        tools:layout="@layout/fragment_users" />
+</navigation>

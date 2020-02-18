@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item android:title="@string/testings">
+        <menu>
+            <item
+                android:id="@+id/nav_my_tests"
+                android:title="@string/menu_my_tests" />
+            <item
+                android:id="@+id/nav_new_test"
+                android:title="@string/menu_new_test" />
+        </menu>
+    </item>
+
+    <item android:title="@string/profile">
+        <menu>
+            <item
+                android:id="@+id/nav_user_profile"
+                android:title="@string/menu_user_profile" />
+            <item
+                android:id="@+id/nav_business_profile"
+                android:title="@string/menu_business_profile" />
+            <item
+                android:id="@+id/nav_facturation"
+                android:title="@string/menu_facturation" />
+            <item
+                android:id="@+id/nav_data_protection"
+                android:title="@string/menu_data_protection" />
+            <item
+                android:id="@+id/nav_users"
+                android:title="@string/menu_users" />
+            <item
+                android:id="@+id/nav_deconnection"
+                android:title="@string/menu_deconnection" />
+        </menu>
+    </item>
+
+</menu>

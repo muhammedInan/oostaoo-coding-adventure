@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Oostaoo Coding Adventure</string>
+    <string name="app_name">Roodeo</string>
 
     <string name="registration">Créer un compte</string>
     <string name="connection">Connexion</string>
@@ -15,5 +15,24 @@
     <string name="error_invalid_email">Email invalide</string>
     <string name="error_empty_password">Entrez un mot de passe</string>
     <string name="error_connection">Connexion erronée</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="testings">Testings</string>
+    <string name="menu_my_tests">Mes tests</string>
+    <string name="menu_new_test">Nouveau test</string>
+
+    <string name="profile">Profil</string>
+    <string name="menu_user_profile">Profil utilisateur</string>
+    <string name="menu_business_profile">Profil entreprise</string>
+    <string name="menu_facturation">Facturation</string>
+    <string name="menu_data_protection">Protection des données</string>
+    <string name="menu_users">Utilisateurs</string>
+    <string name="menu_deconnection">Déconnexion</string>
 
 </resources>
