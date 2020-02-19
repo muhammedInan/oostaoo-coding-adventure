@@ -3,8 +3,8 @@ package com.oostaoo.org.oostaoocodingadventure
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.oostaoo.org.oostaoocodingadventure.interfaces.APIService
 import com.oostaoo.org.oostaoocodingadventure.model.LoginRequestResult
 import kotlinx.android.synthetic.main.activity_connection.*
@@ -86,8 +86,12 @@ class ConnectionActivity: AppCompatActivity() {
                     val loginRequestResult: LoginRequestResult = response.body()!!
                     val editor: SharedPreferences.Editor = sharedpreferences.edit()
                     editor.remove("identifier")
+                    editor.remove("password")
+                    editor.remove("email")
+                    editor.remove("id")
                     editor.putString("identifier", identifier)
                     editor.putString("password", password)
+                    editor.putString("email", loginRequestResult.user.email)
                     editor.putInt("id", loginRequestResult.user.id)
                     editor.apply()
                     goHome()

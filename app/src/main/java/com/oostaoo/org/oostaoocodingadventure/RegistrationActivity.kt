@@ -2,11 +2,10 @@ package com.oostaoo.org.oostaoocodingadventure
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.oostaoo.org.oostaoocodingadventure.interfaces.APIService
 import com.oostaoo.org.oostaoocodingadventure.utils.isEmailValid
-import kotlinx.android.synthetic.main.activity_connection.edit_password
 import kotlinx.android.synthetic.main.activity_registration.*
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody

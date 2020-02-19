@@ -1,6 +1,9 @@
 package com.oostaoo.org.oostaoocodingadventure.interfaces;
 
+import com.oostaoo.org.oostaoocodingadventure.model.Campaign;
 import com.oostaoo.org.oostaoocodingadventure.model.LoginRequestResult;
+
+import java.util.List;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -20,5 +23,5 @@ public interface APIService {
     Call<Object> createUser(@Body RequestBody body);
 
     @GET("api/campaigns")
-    Call<Object> getCampaigns(@Query("user_in") Integer user_in);
+    Call<List<Campaign>> getCampaigns(@Query("user_in") Integer user_in);
 }

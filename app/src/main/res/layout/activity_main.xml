@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.oostaoo.org.oostaoocodingadventure.MainActivity"
-    android:background="@color/background_grey">
+    tools:context="com.oostaoo.org.oostaoocodingadventure.MainActivity">
 
     <TextView
         android:layout_width="wrap_content"

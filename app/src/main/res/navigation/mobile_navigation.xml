@@ -9,7 +9,11 @@
         android:id="@+id/nav_my_tests"
         android:name="com.oostaoo.org.oostaoocodingadventure.ui.myTests.MyTestsFragment"
         android:label="@string/menu_my_tests"
-        tools:layout="@layout/fragment_my_tests" />
+        tools:layout="@layout/fragment_my_tests" >
+        <action
+            android:id="@+id/action_nav_my_tests_to_nav_test_candidats"
+            app:destination="@id/nav_test_candidats" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_new_test"
@@ -46,4 +50,11 @@
         android:name="com.oostaoo.org.oostaoocodingadventure.ui.users.UsersFragment"
         android:label="@string/menu_users"
         tools:layout="@layout/fragment_users" />
+
+    <fragment
+        android:id="@+id/nav_test_candidats"
+        android:name="com.oostaoo.org.oostaoocodingadventure.ui.testCandidats.TestCandidatsFragment"
+        android:label="@string/menu_users"
+        tools:layout="@layout/fragment_users" />
+
 </navigation>
