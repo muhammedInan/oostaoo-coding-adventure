@@ -12,6 +12,7 @@
         android:id="@+id/my_tests_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
     </FrameLayout>
 
     <include
@@ -26,6 +27,19 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_home"
-        app:menu="@menu/activity_home_drawer" />
+        app:menu="@menu/activity_home_drawer" >
+
+        <Button
+            android:id="@+id/bt_deconnection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="bottom"
+            android:text="@string/menu_deconnection"
+            android:background="@null"
+            android:textAllCaps="false"/>
+
+    </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>

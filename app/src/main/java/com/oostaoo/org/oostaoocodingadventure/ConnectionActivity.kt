@@ -26,14 +26,14 @@ class ConnectionActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_connection)
-
         sharedpreferences = getSharedPreferences("sharedpreferences", 0)
         identifier = sharedpreferences.getString("identifier", "")!!
         password = sharedpreferences.getString("password", "")!!
         if(identifier != "" && password != "") {
             request()
         }
+
+        setContentView(R.layout.activity_connection)
 
         button_registration.setOnClickListener {
             startActivity(Intent(this, RegistrationActivity::class.java))
@@ -58,11 +58,6 @@ class ConnectionActivity: AppCompatActivity() {
         }
     }
 
-    private fun goHome() {
-        startActivity(Intent(this, HomeActivity::class.java))
-        finish()
-    }
-
     private fun request() {
         val okHttpClient = OkHttpClient.Builder()
                 .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
@@ -85,10 +80,6 @@ class ConnectionActivity: AppCompatActivity() {
                 if (response != null) {
                     val loginRequestResult: LoginRequestResult = response.body()!!
                     val editor: SharedPreferences.Editor = sharedpreferences.edit()
-                    editor.remove("identifier")
-                    editor.remove("password")
-                    editor.remove("email")
-                    editor.remove("id")
                     editor.putString("identifier", identifier)
                     editor.putString("password", password)
                     editor.putString("email", loginRequestResult.user.email)
@@ -105,5 +96,10 @@ class ConnectionActivity: AppCompatActivity() {
                 Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun goHome() {
+        startActivity(Intent(this, HomeActivity::class.java))
+        finish()
     }
 }

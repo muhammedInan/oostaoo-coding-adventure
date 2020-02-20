@@ -10,6 +10,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface APIService {
@@ -24,4 +25,7 @@ public interface APIService {
 
     @GET("api/campaigns")
     Call<List<Campaign>> getCampaigns(@Query("user_in") Integer user_in);
+
+    @GET("api/campaigns/{id}")
+    Call<Campaign> getCampaign(@Path("id") int id);
 }

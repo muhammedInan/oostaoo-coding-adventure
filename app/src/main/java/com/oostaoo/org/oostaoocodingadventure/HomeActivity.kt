@@ -1,5 +1,6 @@
 package com.oostaoo.org.oostaoocodingadventure
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -38,6 +39,18 @@ class HomeActivity : AppCompatActivity(), MyTestsFragment.OnListFragmentInteract
                 R.id.nav_business_profile, R.id.nav_facturation, R.id.nav_data_protection, R.id.nav_users), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        bt_deconnection.setOnClickListener {
+            val sharedpreferences = getSharedPreferences("sharedpreferences", 0)
+            val editor: SharedPreferences.Editor = sharedpreferences.edit()
+            editor.remove("identifier")
+            editor.remove("password")
+            editor.remove("email")
+            editor.remove("id")
+            editor.apply()
+            startActivity(Intent(this, ConnectionActivity::class.java))
+            finish()
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
