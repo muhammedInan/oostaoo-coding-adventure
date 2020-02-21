@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.oostaoo.org.oostaoocodingadventure.R
-import com.oostaoo.org.oostaoocodingadventure.model.Campaign
+import com.oostaoo.org.oostaoocodingadventure.database.campaign.Campaign
 import com.oostaoo.org.oostaoocodingadventure.ui.myTests.MyTestsFragment
 import kotlinx.android.synthetic.main.fragment_campaign_card.view.*
 
@@ -35,7 +35,7 @@ class MyCampaignRecyclerViewAdapter(private val mValues: List<Campaign>,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         holder.mName.text = mValues[position].Name
-        holder.mNbInvite.text = StringBuilder(mValues[position].candidats.size.toString() + " invité(s)")
+        holder.mNbInvite.text = StringBuilder(mValues[position].candidats!!.size.toString() + " invité(s)")
         holder.mNbTermine.text = StringBuilder(mValues[position].NbCandidatFinish.toString() + " terminé(s)")
         with(holder.mView) {
             tag = mValues[position]

@@ -33,5 +33,6 @@
     <string name="menu_data_protection">Protection des données</string>
     <string name="menu_users">Utilisateurs</string>
     <string name="menu_deconnection">Déconnexion</string>
+    <string name="tv_select_role">Sélectionnez un rôle</string>
 
 </resources>

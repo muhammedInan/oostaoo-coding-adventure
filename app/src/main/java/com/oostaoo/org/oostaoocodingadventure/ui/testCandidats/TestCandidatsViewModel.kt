@@ -3,8 +3,8 @@ package com.oostaoo.org.oostaoocodingadventure.ui.testCandidats
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.oostaoo.org.oostaoocodingadventure.database.campaign.Campaign
 import com.oostaoo.org.oostaoocodingadventure.interfaces.APIService
-import com.oostaoo.org.oostaoocodingadventure.model.Campaign
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call

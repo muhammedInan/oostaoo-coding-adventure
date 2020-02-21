@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.oostaoo.org.oostaoocodingadventure.interfaces.APIService
-import com.oostaoo.org.oostaoocodingadventure.model.LoginRequestResult
+import com.oostaoo.org.oostaoocodingadventure.database.loginRequestResult.LoginRequestResult
 import kotlinx.android.synthetic.main.activity_connection.*
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
@@ -82,7 +82,7 @@ class ConnectionActivity: AppCompatActivity() {
                     val editor: SharedPreferences.Editor = sharedpreferences.edit()
                     editor.putString("identifier", identifier)
                     editor.putString("password", password)
-                    editor.putString("email", loginRequestResult.user.email)
+                    editor.putString("email", loginRequestResult.user!!.email)
                     editor.putInt("id", loginRequestResult.user.id)
                     editor.apply()
                     goHome()

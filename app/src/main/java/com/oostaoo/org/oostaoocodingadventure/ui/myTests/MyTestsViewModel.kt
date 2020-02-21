@@ -5,8 +5,12 @@ import android.content.SharedPreferences
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.oostaoo.org.oostaoocodingadventure.database.AppDatabase
+import com.oostaoo.org.oostaoocodingadventure.database.DataRepository
+import com.oostaoo.org.oostaoocodingadventure.database.campaign.Campaign
 import com.oostaoo.org.oostaoocodingadventure.interfaces.APIService
-import com.oostaoo.org.oostaoocodingadventure.model.Campaign
+import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -22,19 +26,19 @@ class MyTestsViewModel(application: Application) : AndroidViewModel(application)
     }
     val text: LiveData<String> = _text
 
-    private var mutableLiveData = MutableLiveData<List<Campaign>>()
     private val sharedPreferences: SharedPreferences =  application.getSharedPreferences("sharedpreferences", 0)
     private val userId = sharedPreferences.getInt("id", 0)
+    private val repository: DataRepository = DataRepository().getInstance(AppDatabase.getDatabase(application))!!
 
     init {
         requestCampaigns()
     }
 
     fun getCampaigns(): LiveData<List<Campaign>> {
-        return mutableLiveData
+        return repository.getCampaigns()
     }
 
-    fun requestCampaigns(): LiveData<List<Campaign>> {
+    fun requestCampaigns() {
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .build()
@@ -49,13 +53,16 @@ class MyTestsViewModel(application: Application) : AndroidViewModel(application)
         myCall.enqueue(object : Callback<List<Campaign>> {
             override fun onResponse(call: Call<List<Campaign>>, response: Response<List<Campaign>>) {
                 val campaigns = response.body()
-                mutableLiveData.value = campaigns
+                for (campaign in campaigns!!) {
+                    insert(campaign)
+                }
             }
 
-            override fun onFailure(call: Call<List<Campaign>>, t: Throwable) {
-                mutableLiveData.value = null
-            }
+            override fun onFailure(call: Call<List<Campaign>>, t: Throwable) {}
         })
-        return mutableLiveData
+    }
+
+    fun insert(campaign: Campaign) = viewModelScope.launch {
+        repository.insertCampaign(campaign)
     }
 }

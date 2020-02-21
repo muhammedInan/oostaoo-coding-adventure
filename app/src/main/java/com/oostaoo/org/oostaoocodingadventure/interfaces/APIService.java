@@ -1,10 +1,8 @@
 package com.oostaoo.org.oostaoocodingadventure.interfaces;
 
-import com.oostaoo.org.oostaoocodingadventure.model.Campaign;
-import com.oostaoo.org.oostaoocodingadventure.model.LoginRequestResult;
-
+import com.oostaoo.org.oostaoocodingadventure.database.campaign.Campaign;
+import com.oostaoo.org.oostaoocodingadventure.database.loginRequestResult.LoginRequestResult;
 import java.util.List;
-
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;

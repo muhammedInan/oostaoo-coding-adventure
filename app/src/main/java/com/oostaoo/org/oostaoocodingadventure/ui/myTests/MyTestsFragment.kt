@@ -1,7 +1,6 @@
 package com.oostaoo.org.oostaoocodingadventure.ui.myTests
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,19 +12,15 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.oostaoo.org.oostaoocodingadventure.HomeActivity
 import com.oostaoo.org.oostaoocodingadventure.R
 import com.oostaoo.org.oostaoocodingadventure.adapter.MyCampaignRecyclerViewAdapter
-import com.oostaoo.org.oostaoocodingadventure.model.Campaign
-import kotlinx.android.synthetic.main.activity_home.*
+import com.oostaoo.org.oostaoocodingadventure.database.campaign.Campaign
 import kotlinx.android.synthetic.main.fragment_my_tests.*
-import kotlinx.android.synthetic.main.nav_header_home.view.*
 
 class MyTestsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     private lateinit var myTestsViewModel: MyTestsViewModel
     private val owner = this
-    private var listCampaigns: List<Campaign>? = null
     private var listener: OnListFragmentInteractionListener? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -41,32 +36,27 @@ class MyTestsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         swipe_container_campaigns.setProgressViewOffset(true, 0, 180)
         swipe_container_campaigns.isRefreshing = true
 
-        myTestsViewModel.getCampaigns().observe(owner, Observer {
-            listCampaigns = it
-            if (listCampaigns != null) {
-                updateAdapter()
-            } else {
-                Toast.makeText(context, "Error", Toast.LENGTH_LONG).show()
-            }
+        myTestsViewModel.getCampaigns().observe(viewLifecycleOwner, Observer {campaigns ->
+            updateAdapter(campaigns)
             swipe_container_campaigns.isRefreshing = false
         })
     }
 
     override fun onRefresh() {
         swipe_container_campaigns.isRefreshing = true
-        myTestsViewModel.requestCampaigns().observe(owner, Observer {
-            listCampaigns = it
-            updateAdapter()
+        myTestsViewModel.requestCampaigns()
+        myTestsViewModel.getCampaigns().observe(owner, Observer { campaigns ->
+            updateAdapter(campaigns)
         })
         swipe_container_campaigns.isRefreshing = false
     }
 
-    private fun updateAdapter() {
+    private fun updateAdapter(campaigns: List<Campaign>) {
 
         if (rv_list_campaigns is RecyclerView) {
             with(rv_list_campaigns) {
                 layoutManager = LinearLayoutManager(context)
-                adapter = MyCampaignRecyclerViewAdapter(listCampaigns!!, listener)
+                adapter = MyCampaignRecyclerViewAdapter(campaigns, listener)
             }
         }
     }
