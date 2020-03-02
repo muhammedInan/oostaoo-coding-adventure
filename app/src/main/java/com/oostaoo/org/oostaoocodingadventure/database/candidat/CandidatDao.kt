@@ -12,7 +12,7 @@ interface CandidatDao {
     @Query("SELECT * from candidat_table ORDER BY idCandidat ASC")
     fun getCandidats(): LiveData<List<Candidat>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(candidat: Candidat)
 
     @Query("DELETE FROM candidat_table")

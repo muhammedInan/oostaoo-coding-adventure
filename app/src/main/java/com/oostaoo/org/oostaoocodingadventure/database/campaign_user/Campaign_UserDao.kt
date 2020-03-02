@@ -12,7 +12,7 @@ interface Campaign_UserDao {
     @Query("SELECT * from campaign_user_table ORDER BY idCampaign_User ASC")
     fun getCampaign_Users(): LiveData<List<Campaign_User>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(campaign_User: Campaign_User)
 
     @Query("DELETE FROM campaign_user_table")

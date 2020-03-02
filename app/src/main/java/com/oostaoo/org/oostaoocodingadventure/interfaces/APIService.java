@@ -2,6 +2,9 @@ package com.oostaoo.org.oostaoocodingadventure.interfaces;
 
 import com.oostaoo.org.oostaoocodingadventure.database.campaign.Campaign;
 import com.oostaoo.org.oostaoocodingadventure.database.loginRequestResult.LoginRequestResult;
+import com.oostaoo.org.oostaoocodingadventure.database.profile.Profile;
+import com.oostaoo.org.oostaoocodingadventure.database.technology.Technology;
+
 import java.util.List;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -26,4 +29,10 @@ public interface APIService {
 
     @GET("api/campaigns/{id}")
     Call<Campaign> getCampaign(@Path("id") int id);
+
+    @GET("api/profiles")
+    Call<List<Profile>> getProfiles();
+
+    @GET("api/technologies")
+    Call<List<Technology>> getTechnologies();
 }

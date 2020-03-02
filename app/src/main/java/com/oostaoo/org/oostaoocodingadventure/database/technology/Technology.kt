@@ -1,8 +1,7 @@
 package com.oostaoo.org.oostaoocodingadventure.database.technology
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
+import com.oostaoo.org.oostaoocodingadventure.database.question.Question
 
 @Entity(tableName = "technology_table")
 class Technology(@PrimaryKey @ColumnInfo(name = "idTechnology") val id: Int,
@@ -10,4 +9,4 @@ class Technology(@PrimaryKey @ColumnInfo(name = "idTechnology") val id: Int,
                  val description: String?,
                  val created_at: String?,
                  val updated_at: String?,
-                 val profile: Int?)
+                 @TypeConverters val questions: List<Question>?)

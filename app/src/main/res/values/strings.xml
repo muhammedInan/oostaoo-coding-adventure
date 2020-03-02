@@ -33,6 +33,27 @@
     <string name="menu_data_protection">Protection des données</string>
     <string name="menu_users">Utilisateurs</string>
     <string name="menu_deconnection">Déconnexion</string>
-    <string name="tv_select_role">Sélectionnez un rôle</string>
+    <string name="menu_test_candidats">Test Candidats</string>
+    <string name="menu_list_questions">Liste des questions</string>
+    <string name="select_role">Sélectionnez un rôle</string>
+    <string name="or">OU</string>
+    <string name="select_technology">Sélectionnez les technologies à tester</string>
+    <string name="select_experience">Sélectionnez l’expérience requise</string>
+    <string name="junior">Junior</string>
+    <string name="senior">Sénior</string>
+    <string name="expert">Expert</string>
+    <string name="questions_next_step">Etape suivante : Questions</string>
+    <string name="campaign_name">Nom de la campagne</string>
+    <string name="language">En quelle langue les questions doivent-elles être posées à vos candidats ?</string>
+    <string name="fr">FR</string>
+    <string name="en">EN</string>
+    <string name="es">ES</string>
+    <string name="jp">JP</string>
+    <string name="copy_paste">Voulez-vous empêcher l\'utilisation du copier/coller pendant le test ?</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="send_report">Souhaitez-vous envoyer le rapport simplifié au candidat à l\'issue de son test ?</string>
+    <string name="enter_name_campaign">Entrez le nom de la campagne</string>
+    <string name="choose">Choisir</string>
 
 </resources>

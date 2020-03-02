@@ -82,6 +82,7 @@ class ConnectionActivity: AppCompatActivity() {
                     val editor: SharedPreferences.Editor = sharedpreferences.edit()
                     editor.putString("identifier", identifier)
                     editor.putString("password", password)
+                    editor.putString("jwt", loginRequestResult.jwt)
                     editor.putString("email", loginRequestResult.user!!.email)
                     editor.putInt("id", loginRequestResult.user.id)
                     editor.apply()

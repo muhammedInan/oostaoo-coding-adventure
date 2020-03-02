@@ -12,7 +12,7 @@ interface RapportDao {
     @Query("SELECT * from rapport_table ORDER BY timeRep ASC")
     fun getRapports(): LiveData<List<Rapport>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(rapport: Rapport)
 
     @Query("DELETE FROM rapport_table")

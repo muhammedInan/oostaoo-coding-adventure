@@ -12,7 +12,7 @@ interface UserDao {
     @Query("SELECT * from user_table ORDER BY idUser ASC")
     fun getUsers(): LiveData<List<User>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(user: User)
 
     @Query("DELETE FROM user_table")

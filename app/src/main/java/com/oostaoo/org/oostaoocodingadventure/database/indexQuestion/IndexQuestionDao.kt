@@ -12,7 +12,7 @@ interface IndexQuestionDao {
     @Query("SELECT * from index_question_table ORDER BY idIndexQuestion ASC")
     fun getindexQuestions(): LiveData<List<IndexQuestion>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(indexQuestion: IndexQuestion)
 
     @Query("DELETE FROM index_question_table")

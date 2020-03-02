@@ -12,7 +12,7 @@ interface LoginRequestResultDao {
     @Query("SELECT * from login_request_result_table ORDER BY jwt ASC")
     fun getLoginRequestResults(): LiveData<List<LoginRequestResult>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(loginRequestResult: LoginRequestResult)
 
     @Query("DELETE FROM login_request_result_table")

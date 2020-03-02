@@ -12,7 +12,10 @@ interface TechnologyDao {
     @Query("SELECT * from technology_table ORDER BY idTechnology ASC")
     fun getTechnologies(): LiveData<List<Technology>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Query("SELECT * from technology_table WHERE name = :name")
+    fun getTechnology(name: String): LiveData<Technology>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(technology: Technology)
 
     @Query("DELETE FROM technology_table")

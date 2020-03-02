@@ -21,11 +21,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MyTestsViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is my tests Fragment"
-    }
-    val text: LiveData<String> = _text
-
     private val sharedPreferences: SharedPreferences =  application.getSharedPreferences("sharedpreferences", 0)
     private val userId = sharedPreferences.getInt("id", 0)
     private val repository: DataRepository = DataRepository().getInstance(AppDatabase.getDatabase(application))!!
@@ -53,8 +48,11 @@ class MyTestsViewModel(application: Application) : AndroidViewModel(application)
         myCall.enqueue(object : Callback<List<Campaign>> {
             override fun onResponse(call: Call<List<Campaign>>, response: Response<List<Campaign>>) {
                 val campaigns = response.body()
-                for (campaign in campaigns!!) {
-                    insert(campaign)
+                if(campaigns != null) {
+                    deleteAllCampaigns()
+                    for (campaign in campaigns) {
+                        insert(campaign)
+                    }
                 }
             }
 
@@ -64,5 +62,9 @@ class MyTestsViewModel(application: Application) : AndroidViewModel(application)
 
     fun insert(campaign: Campaign) = viewModelScope.launch {
         repository.insertCampaign(campaign)
+    }
+
+    fun deleteAllCampaigns() = viewModelScope.launch {
+        repository.deleteAllCampaigns()
     }
 }

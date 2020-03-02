@@ -54,7 +54,13 @@
     <fragment
         android:id="@+id/nav_test_candidats"
         android:name="com.oostaoo.org.oostaoocodingadventure.ui.testCandidats.TestCandidatsFragment"
-        android:label="@string/menu_users"
-        tools:layout="@layout/fragment_users" />
+        android:label="@string/menu_test_candidats"
+        tools:layout="@layout/fragment_test_candidats" />
+
+    <fragment
+        android:id="@+id/nav_list_questions"
+        android:name="com.oostaoo.org.oostaoocodingadventure.ui.listQuestions.ListQuestionsFragment"
+        android:label="@string/menu_list_questions"
+        tools:layout="@layout/fragment_list_questions" />
 
 </navigation>

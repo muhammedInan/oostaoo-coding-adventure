@@ -50,10 +50,5 @@ class MyCampaignRecyclerViewAdapter(private val mValues: List<Campaign>,
         val mName: TextView = mView.tv_name
         val mNbInvite: TextView = mView.tv_nb_invite
         val mNbTermine: TextView = mView.tv_nb_termine
-
-        override fun toString(): String {
-
-            return super.toString()
-        }
     }
 }

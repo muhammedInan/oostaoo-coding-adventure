@@ -12,7 +12,10 @@ interface CampaignDao {
     @Query("SELECT * from campaign_table ORDER BY idCampaign ASC")
     fun getCampaigns(): LiveData<List<Campaign>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Query("SELECT * from campaign_table WHERE idCampaign = :idCampaign")
+    fun getCampaign(idCampaign: Int): LiveData<Campaign>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(campaign: Campaign)
 
     @Query("DELETE FROM campaign_table")

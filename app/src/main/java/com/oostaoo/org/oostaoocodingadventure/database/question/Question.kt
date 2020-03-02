@@ -3,6 +3,8 @@ package com.oostaoo.org.oostaoocodingadventure.database.question
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.oostaoo.org.oostaoocodingadventure.database.technology.Technology
 
 @Entity(tableName = "question_table")
 class Question(@PrimaryKey @ColumnInfo(name = "idQuestion") val id: Int,

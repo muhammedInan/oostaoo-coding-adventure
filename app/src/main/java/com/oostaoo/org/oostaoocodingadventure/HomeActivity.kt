@@ -14,11 +14,13 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.oostaoo.org.oostaoocodingadventure.database.campaign.Campaign
+import com.oostaoo.org.oostaoocodingadventure.ui.listQuestions.ListQuestionsFragment
 import com.oostaoo.org.oostaoocodingadventure.ui.myTests.MyTestsFragment
+import com.oostaoo.org.oostaoocodingadventure.ui.newTest.NewTestFragment
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.nav_header_home.view.*
 
-class HomeActivity : AppCompatActivity(), MyTestsFragment.OnListFragmentInteractionListener {
+class HomeActivity : AppCompatActivity(), MyTestsFragment.OnListFragmentInteractionListener , NewTestFragment.OnButtonListQuestionsClickListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navController: NavController
@@ -69,5 +71,11 @@ class HomeActivity : AppCompatActivity(), MyTestsFragment.OnListFragmentInteract
         val bundle = Bundle()
         bundle.putInt("id", item.id)
         navController.navigate(R.id.nav_test_candidats, bundle)
+    }
+
+    override fun onButtonListQuestionsClick(listTechnologiesName: ArrayList<String>) {
+        val bundle = Bundle()
+        bundle.putStringArrayList("listTechnologiesName", listTechnologiesName)
+        navController.navigate(R.id.nav_list_questions, bundle)
     }
 }

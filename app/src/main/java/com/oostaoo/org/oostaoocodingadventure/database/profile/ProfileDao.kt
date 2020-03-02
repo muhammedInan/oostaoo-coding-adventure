@@ -12,7 +12,7 @@ interface ProfileDao {
     @Query("SELECT * from profile_table ORDER BY idProfile ASC")
     fun getProfiles(): LiveData<List<Profile>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(profile: Profile)
 
     @Query("DELETE FROM profile_table")

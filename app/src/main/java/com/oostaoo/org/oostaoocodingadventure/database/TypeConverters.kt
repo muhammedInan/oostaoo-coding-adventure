@@ -12,16 +12,16 @@ import com.oostaoo.org.oostaoocodingadventure.database.technology.Technology
 class TypeConverters {
 
     @TypeConverter
-    fun fromTechnologyList(value: List<Technology>): String {
+    fun fromTechnologyList(value: List<Technology>?): String {
         val gson = Gson()
-        val type = object : TypeToken<List<Technology>>() {}.type
+        val type = object : TypeToken<List<Technology>?>() {}.type
         return gson.toJson(value, type)
     }
 
     @TypeConverter
-    fun toTechnologyList(value: String): List<Technology> {
+    fun toTechnologyList(value: String): List<Technology>? {
         val gson = Gson()
-        val type = object : TypeToken<List<Technology>>() {}.type
+        val type = object : TypeToken<List<Technology>?>() {}.type
         return gson.fromJson(value, type)
     }
 

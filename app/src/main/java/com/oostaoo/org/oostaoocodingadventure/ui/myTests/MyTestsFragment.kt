@@ -5,10 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -24,7 +23,7 @@ class MyTestsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     private var listener: OnListFragmentInteractionListener? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        myTestsViewModel = ViewModelProviders.of(this).get(MyTestsViewModel::class.java)
+        myTestsViewModel = ViewModelProvider(this).get(MyTestsViewModel::class.java)
 
         return inflater.inflate(R.layout.fragment_my_tests, container, false)
     }
@@ -37,7 +36,9 @@ class MyTestsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         swipe_container_campaigns.isRefreshing = true
 
         myTestsViewModel.getCampaigns().observe(viewLifecycleOwner, Observer {campaigns ->
-            updateAdapter(campaigns)
+            if (campaigns.isNotEmpty()) {
+                updateAdapter(campaigns)
+            }
             swipe_container_campaigns.isRefreshing = false
         })
     }
