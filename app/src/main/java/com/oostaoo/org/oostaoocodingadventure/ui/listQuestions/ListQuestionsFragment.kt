@@ -6,6 +6,7 @@ import android.text.TextUtils
 import android.view.*
 import android.view.View.*
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -19,9 +20,30 @@ import com.oostaoo.org.oostaoocodingadventure.R
 import com.oostaoo.org.oostaoocodingadventure.database.question.Question
 import com.oostaoo.org.oostaoocodingadventure.database.technology.Technology
 import kotlinx.android.synthetic.main.fragment_list_questions.*
+import java.util.*
 import kotlin.collections.ArrayList
 
 class ListQuestionsFragment: Fragment() {
+
+    enum class Level {
+        FACILE {
+            override fun getLevel(): Int {
+                return 1
+            }
+        },
+        MOYEN {
+            override fun getLevel(): Int {
+                return 2
+            }
+        },
+        EXPERT {
+            override fun getLevel(): Int {
+                return 3
+            }
+        };
+
+        abstract fun getLevel(): Int
+    }
 
     private lateinit var listQuestionsViewModel: ListQuestionsViewModel
 
@@ -211,6 +233,88 @@ class ListQuestionsFragment: Fragment() {
                     tv_technology.id,
                     ConstraintSet.BOTTOM,
                     10
+                )
+                constraintSet.applyTo(layout)
+
+                //LEVEL
+                val level = Level.valueOf(question.level!!.toUpperCase(Locale.getDefault())).getLevel()
+
+                val iv_bt_radio_level1 = ImageView(context)
+                iv_bt_radio_level1.id = generateViewId()
+                val paramsLevel1 = ConstraintLayout.LayoutParams(42, 42)
+                iv_bt_radio_level1.layoutParams = paramsLevel1
+                if (level >= 1) {
+                    iv_bt_radio_level1.setImageResource(R.drawable.ic_bt_radio_enable)
+                } else {
+                    iv_bt_radio_level1.setImageResource(R.drawable.ic_bt_radio_disable)
+                }
+                layout.addView(iv_bt_radio_level1)
+                constraintSet.clone(layout)
+                constraintSet.connect(
+                    iv_bt_radio_level1.id,
+                    ConstraintSet.START,
+                    ConstraintSet.PARENT_ID,
+                    ConstraintSet.START,
+                    10
+                )
+                constraintSet.connect(
+                    iv_bt_radio_level1.id,
+                    ConstraintSet.BOTTOM,
+                    ConstraintSet.PARENT_ID,
+                    ConstraintSet.BOTTOM,
+                    20
+                )
+                constraintSet.applyTo(layout)
+
+                val iv_bt_radio_level2 = ImageView(context)
+                iv_bt_radio_level2.id = generateViewId()
+                val paramsLevel2 = ConstraintLayout.LayoutParams(42, 42)
+                iv_bt_radio_level2.layoutParams = paramsLevel2
+                if (level >= 2) {
+                    iv_bt_radio_level2.setImageResource(R.drawable.ic_bt_radio_enable)
+                } else {
+                    iv_bt_radio_level2.setImageResource(R.drawable.ic_bt_radio_disable)
+                }
+                layout.addView(iv_bt_radio_level2)
+                constraintSet.clone(layout)
+                constraintSet.connect(
+                    iv_bt_radio_level2.id,
+                    ConstraintSet.START,
+                    iv_bt_radio_level1.id,
+                    ConstraintSet.END
+                )
+                constraintSet.connect(
+                    iv_bt_radio_level2.id,
+                    ConstraintSet.BOTTOM,
+                    ConstraintSet.PARENT_ID,
+                    ConstraintSet.BOTTOM,
+                    20
+                )
+                constraintSet.applyTo(layout)
+
+                val iv_bt_radio_level3 = ImageView(context)
+                iv_bt_radio_level3.id = generateViewId()
+                val paramsLevel3 = ConstraintLayout.LayoutParams(42, 42)
+                iv_bt_radio_level3.layoutParams = paramsLevel3
+                if (level >= 3) {
+                    iv_bt_radio_level3.setImageResource(R.drawable.ic_bt_radio_enable)
+                } else {
+                    iv_bt_radio_level3.setImageResource(R.drawable.ic_bt_radio_disable)
+                }
+                layout.addView(iv_bt_radio_level3)
+                constraintSet.clone(layout)
+                constraintSet.connect(
+                    iv_bt_radio_level3.id,
+                    ConstraintSet.START,
+                    iv_bt_radio_level2.id,
+                    ConstraintSet.END
+                )
+                constraintSet.connect(
+                    iv_bt_radio_level3.id,
+                    ConstraintSet.BOTTOM,
+                    ConstraintSet.PARENT_ID,
+                    ConstraintSet.BOTTOM,
+                    20
                 )
                 constraintSet.applyTo(layout)
 
