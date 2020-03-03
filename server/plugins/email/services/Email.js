@@ -64,14 +64,14 @@ module.exports = {
   send: async (options, config, cb) => {
     console.log("options SEND : ", options);
     try {
-      const options = {
-        to: "mendoza.miguel@oostaoo.com",
-        from: "lenoir.jeremie@gmail.com",
-        replyTo: "no-reply@strapi.io",
+      const optionsData = {
+        to: options.to,
+        from: options.from,
+        replyTo: options.replyTo,
         subject: "TEST2",
-        html: "TEST HTML"
+        html: options.html
       };
-      await transporter.sendMail(options);
+      await transporter.sendMail(optionsData);
       return "lol";
     } catch (e) {
       return null;
