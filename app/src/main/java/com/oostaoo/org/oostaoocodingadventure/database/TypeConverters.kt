@@ -4,6 +4,7 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.oostaoo.org.oostaoocodingadventure.database.candidat.Candidat
+import com.oostaoo.org.oostaoocodingadventure.database.candidat.PointCandidats
 import com.oostaoo.org.oostaoocodingadventure.database.question.Question
 import com.oostaoo.org.oostaoocodingadventure.database.rapport.Rapport
 import com.oostaoo.org.oostaoocodingadventure.database.technology.Technology
@@ -78,6 +79,20 @@ class TypeConverters {
     fun toStringList(value: String): List<String> {
         val gson = Gson()
         val type = object : TypeToken<List<String>>() {}.type
+        return gson.fromJson(value, type)
+    }
+
+    @TypeConverter
+    fun fromPointCandidatList(value: List<PointCandidats>): String {
+        val gson = Gson()
+        val type = object : TypeToken<List<PointCandidats>>() {}.type
+        return gson.toJson(value, type)
+    }
+
+    @TypeConverter
+    fun toPointCandidatList(value: String): List<PointCandidats> {
+        val gson = Gson()
+        val type = object : TypeToken<List<PointCandidats>>() {}.type
         return gson.fromJson(value, type)
     }
 }

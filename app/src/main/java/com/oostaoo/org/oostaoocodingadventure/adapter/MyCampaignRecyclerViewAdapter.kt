@@ -34,9 +34,21 @@ class MyCampaignRecyclerViewAdapter(private val mValues: List<Campaign>,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
+        var txtInvite = "invité"
+        var txtTermine = "terminé"
+
+        if (mValues[position].candidats!!.size > 1 || mValues[position].candidats!!.isEmpty()) txtInvite += "s"
+        if (mValues[position].NbCandidatFinish == null || mValues[position].NbCandidatFinish!! > 1) txtTermine += "s"
+
         holder.mName.text = mValues[position].Name
-        holder.mNbInvite.text = StringBuilder(mValues[position].candidats!!.size.toString() + " invité(s)")
-        holder.mNbTermine.text = StringBuilder(mValues[position].NbCandidatFinish.toString() + " terminé(s)")
+        holder.mNbInvite.text = StringBuilder(mValues[position].candidats!!.size.toString() + " $txtInvite")
+        if(mValues[position].NbCandidatFinish != null) {
+            holder.mNbTermine.text =
+                StringBuilder(mValues[position].NbCandidatFinish.toString() + " $txtTermine")
+        } else {
+            holder.mNbTermine.text =
+                StringBuilder("0 $txtTermine")
+        }
         with(holder.mView) {
             tag = mValues[position]
             setOnClickListener(mOnClickListener)

@@ -9,4 +9,5 @@
     <color name="orange_background">#CE5637</color>
     <color name="orange_next_step">#E15028</color>
     <color name="list_questions_background">#C1D5E0</color>
+    <color name="light_grey">#EFEFEF</color>
 </resources>

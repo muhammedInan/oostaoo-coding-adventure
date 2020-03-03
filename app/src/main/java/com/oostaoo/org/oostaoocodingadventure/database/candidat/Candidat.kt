@@ -1,9 +1,6 @@
 package com.oostaoo.org.oostaoocodingadventure.database.candidat
 
-import androidx.room.ColumnInfo
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 import com.oostaoo.org.oostaoocodingadventure.database.rapportCandidat.RapportCandidat
 
 @Entity(tableName = "candidat_table")
@@ -21,5 +18,15 @@ class Candidat(@PrimaryKey @ColumnInfo(name = "idCandidat") val id: Int,
                val index_question: Int?,
                val test_pause: Int?,
                val date_pause: String?,
-               @Embedded val raport_candidat: RapportCandidat?
-                /*, val points_candidat: JSONArray*/)
+               @Embedded val raport_candidat: RapportCandidat?,
+               @TypeConverters val points_candidat: List<PointCandidats>)
+
+class PointCandidats(
+    val allPointsTechnos: List<Score>?,
+    val allPointsCandidat: List<Score>?,
+    val getpourcentByCandidat: List<Score>?,
+    val totalPointsCandidat: Int?,
+    val totalPointsCampaign: Int?,
+    val PourcentTest: Int?)
+
+class Score(val technologies: String, val point: Int)

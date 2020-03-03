@@ -55,5 +55,8 @@
     <string name="send_report">Souhaitez-vous envoyer le rapport simplifié au candidat à l\'issue de son test ?</string>
     <string name="enter_name_campaign">Entrez le nom de la campagne</string>
     <string name="choose">Choisir</string>
+    <string name="delete">Supprimer</string>
+    <string name="drag_drop">Faire un appui long ou sélectionner \"Choisir\" pour déposer une question ici</string>
+    <string name="save">Enregistrer</string>
 
 </resources>
