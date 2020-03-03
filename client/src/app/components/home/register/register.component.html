@@ -47,15 +47,26 @@
       <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
     </form>
 
+    <!-- TEST FORGOT PASSWORD -->
+    <input type="text" [(ngModel)]="forgotPassword" />
+    <button (click)="forgetPassword(forgotPassword)">VALIDER FORGOT</button>
+    <!-- FIN TEST FORGOT PASSWORD -->
     <!-- <a class="button button--social-login button--github" href="#"><i class="icon fa fa-github"></i>Login With Github</a> -->
   </div>
 
- <div class="social-box">
-   
-   <a href="/connect/github" class="social-button" id="github-connect"> <span>Se connecter avec Github</span></a>
-   <a href="/connect/google" class="social-button" id="google-connect"> <span>Se connecter avec Google</span></a>
-   <a href="/connect/facebook" class="social-button" id="facebook-connect"> <span>Se connecter avec Facebook</span></a>
-   <div *ngIf="errorProvider" id="error-provider" class="alert alert-danger">{{ errorProvider }}</div>
+  <div class="social-box">
+    <a href="/connect/github" class="social-button" id="github-connect">
+      <span>Se connecter avec Github</span></a
+    >
+    <a href="/connect/google" class="social-button" id="google-connect">
+      <span>Se connecter avec Google</span></a
+    >
+    <a href="/connect/facebook" class="social-button" id="facebook-connect">
+      <span>Se connecter avec Facebook</span></a
+    >
+    <div *ngIf="errorProvider" id="error-provider" class="alert alert-danger">
+      {{ errorProvider }}
+    </div>
   </div>
   <!-- Partie de droite -->
 
@@ -74,59 +85,71 @@
       </div>
     </div>
 
-
-     <!-- Formulaire cote droit -->
-    <form class="forms" [formGroup]="registerForm" (ngSubmit)="register()" id="form_register">
+    <!-- Formulaire cote droit -->
+    <form
+      class="forms"
+      [formGroup]="registerForm"
+      (ngSubmit)="register()"
+      id="form_register"
+    >
       <h2>Nouveau client ?</h2>
 
-    <div class="form-group">
-      <label for="usernameregister"> Pseudo :</label>
-      <input
-        formControlName="usernameregister"
-        class="input-section1 form-control"
-        maxlength="64"
-        type="text"
-        [ngClass]="{ 'is-invalid': submitted && fr.usernameregister.errors }"
-
-      />
-      <div *ngIf="submitted && fr.usernameregister.errors" class="invalid-feedback">
+      <div class="form-group">
+        <label for="usernameregister"> Pseudo :</label>
+        <input
+          formControlName="usernameregister"
+          class="input-section1 form-control"
+          maxlength="64"
+          type="text"
+          [ngClass]="{ 'is-invalid': submitted && fr.usernameregister.errors }"
+        />
+        <div
+          *ngIf="submitted && fr.usernameregister.errors"
+          class="invalid-feedback"
+        >
           <div *ngIf="fr.usernameregister.errors.required">Pseudo</div>
         </div>
-    </div>
-
-    <div class="form-group">
-      <label for="emailregister">Email :</label>
-      <input
-        formControlName="emailregister"
-        class="input-section1 form-control"
-        maxlength="64"
-        type="email"
-        [ngClass]="{ 'is-invalid': submitted && fr.emailregister.errors }"
-
-      />
-      <div *ngIf="submitted && fr.emailregister.errors" class="invalid-feedback">
-      <div *ngIf="fr.emailregister.errors.required">Email requis</div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label for="passwordregister"> Mot de passe :</label>
-      <input
-        formControlName="passwordregister"
-        class="input-section1 form-control"
-        maxlength="64"
-        type="password"
-        [ngClass]="{ 'is-invalid': submitted && fr.passwordregister.errors }"
-
-      />
-      <div *ngIf="submitted && fr.passwordregister.errors" class="invalid-feedback">
-      <div *ngIf="fr.passwordregister.errors.required">Mot de passe</div>
+      <div class="form-group">
+        <label for="emailregister">Email :</label>
+        <input
+          formControlName="emailregister"
+          class="input-section1 form-control"
+          maxlength="64"
+          type="email"
+          [ngClass]="{ 'is-invalid': submitted && fr.emailregister.errors }"
+        />
+        <div
+          *ngIf="submitted && fr.emailregister.errors"
+          class="invalid-feedback"
+        >
+          <div *ngIf="fr.emailregister.errors.required">Email requis</div>
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <button class="btn btn-primary button">S'inscrire</button>
-    </div>
-    <div *ngIf="errorRegister" class="alert alert-danger">{{ errorRegister }}</div>
+
+      <div class="form-group">
+        <label for="passwordregister"> Mot de passe :</label>
+        <input
+          formControlName="passwordregister"
+          class="input-section1 form-control"
+          maxlength="64"
+          type="password"
+          [ngClass]="{ 'is-invalid': submitted && fr.passwordregister.errors }"
+        />
+        <div
+          *ngIf="submitted && fr.passwordregister.errors"
+          class="invalid-feedback"
+        >
+          <div *ngIf="fr.passwordregister.errors.required">Mot de passe</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary button">S'inscrire</button>
+      </div>
+      <div *ngIf="errorRegister" class="alert alert-danger">
+        {{ errorRegister }}
+      </div>
     </form>
   </div>
 </div>

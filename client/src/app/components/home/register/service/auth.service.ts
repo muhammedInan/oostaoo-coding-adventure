@@ -14,13 +14,13 @@ import { API_URI_CAMPAIGNS, ApiClientService, API_URI_USER, API_URI_USERS_BY_ADM
 export class AuthenticationService {
   currentUserSubject: BehaviorSubject<any>;
   constructor(private http: HttpClient, public apiClientService: ApiClientService) {
-  this.currentUserSubject = new BehaviorSubject(localStorage.getItem('currentUser'));
+    this.currentUserSubject = new BehaviorSubject(localStorage.getItem('currentUser'));
   }
 
   public get currentUserValue() {
     this.currentUserSubject = new BehaviorSubject(localStorage.getItem('currentUser'));
     console.log('currentUserSubject : ', this.currentUserSubject);
-  return this.currentUserSubject.value;
+    return this.currentUserSubject.value;
   }
 
   // login
@@ -57,6 +57,18 @@ export class AuthenticationService {
             localStorage.setItem('currentUser', user.jwt);
             this.currentUserSubject.next(user);
           }
+          return user;
+        })
+      );
+  }
+
+  forgotPassword(email: string) {
+    return this.http.post<any>(`/auth/forgot-password`, {
+      email
+    })
+      .pipe(
+        map(user => {
+          console.log('FORGOT PASSWORD user: ', user);
           return user;
         })
       );

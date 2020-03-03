@@ -1,51 +1,58 @@
 {
-    "/api": {
-        "target": "http://localhost:80",
-        "secure": false,
-        "pathRewrite":{
-            "^/":""
-        }
-    },
-    "/upload": {
-        "target": "http://localhost:80",
-        "secure": false,
-        "pathRewrite":{
-            "^/":""
-        }
-    },
-    "/connect": {
-        "target": "http://localhost:80",
-        "secure": false,
-        "pathRewrite":{
-            "^/":""
-        }
-    },
-    "/auth": {
-        "target": "http://localhost:80",
-        "secure": false,
-        "pathRewrite":{
-            "^/":""
-        }
-    },
-    "/user": {
-        "target": "http://localhost:80",
-        "secure": false,
-        "pathRewrite":{
-            "^/":""
-        }
-    },
-    "/notifications": {
-        "target": "http://localhost:80",
-        "secure": false,
-        "pathRewrite":{
-            "^/":""
-        }
-    },
-    "/feedback": {
-        "target": "http://localhost:80",
-        "secure": false,
-        "pathRewrite":{
-            "^/":""
-        }
+  "/api": {
+    "target": "http://localhost:80",
+    "secure": false,
+    "pathRewrite": {
+      "^/": ""
     }
+  },
+  "/upload": {
+    "target": "http://localhost:80",
+    "secure": false,
+    "pathRewrite": {
+      "^/": ""
+    }
+  },
+  "/connect": {
+    "target": "http://localhost:80",
+    "secure": false,
+    "pathRewrite": {
+      "^/": ""
+    }
+  },
+  "/auth": {
+    "target": "http://localhost:80",
+    "secure": false,
+    "pathRewrite": {
+      "^/": ""
+    }
+  },
+  "/auth/forgot-password": {
+    "target": "http://localhost:80",
+    "secure": false,
+    "pathRewrite": {
+      "^/": ""
+    }
+  },
+  "/user": {
+    "target": "http://localhost:80",
+    "secure": false,
+    "pathRewrite": {
+      "^/": ""
+    }
+  },
+  "/notifications": {
+    "target": "http://localhost:80",
+    "secure": false,
+    "pathRewrite": {
+      "^/": ""
+    }
+  },
+  "/feedback": {
+    "target": "http://localhost:80",
+    "secure": false,
+    "pathRewrite": {
+      "^/": ""
+    }
+  }
 }

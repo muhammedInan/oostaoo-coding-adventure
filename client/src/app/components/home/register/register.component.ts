@@ -35,6 +35,7 @@ export class RegisterComponent implements OnInit {
   errorRegister = '';
   jwt: any;
   errorProvider = '';
+  forgotPassword: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,14 +45,14 @@ export class RegisterComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private _snackBar: MatSnackBar
   ) {
-        this.route.queryParams.subscribe(params => {
-        // this.jwt = params['jwt'];
-        this.errorProvider = params['error'];
-        setTimeout(() => {
-          this.errorProvider = null;
-        }, 2000)
+    this.route.queryParams.subscribe(params => {
+      // this.jwt = params['jwt'];
+      this.errorProvider = params['error'];
+      setTimeout(() => {
+        this.errorProvider = null;
+      }, 2000)
     })
-   }
+  }
 
   ngOnInit() {
     this.jwt = this.route.snapshot.queryParams.jwt;
@@ -104,7 +105,7 @@ export class RegisterComponent implements OnInit {
       .subscribe(
         data => {
           console.log('data : ', data);
-          
+
           this.router.navigate(['/dashboard/campaigns'])
         },
         error => {
@@ -139,6 +140,19 @@ export class RegisterComponent implements OnInit {
         data => {
           this.openSnackBar('Le compte a bien été créé', 'Fermer');
           this.router.navigate(['/dashboard/campaigns']);
+        },
+        error => {
+          this.errorRegister = error;
+        }
+      );
+  }
+
+  forgetPassword(email) {
+    this.authenticationService.forgotPassword(email)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.openSnackBar('Le compte a bien été créé', 'Fermer');
         },
         error => {
           this.errorRegister = error;
