@@ -1,6 +1,7 @@
 package com.oostaoo.org.oostaoocodingadventure.ui.newTest
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
+import android.widget.RadioButton
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -21,7 +24,10 @@ class NewTestFragment : Fragment() {
 
     private lateinit var newTestViewModel: NewTestViewModel
     var profiles = ArrayList<Profile>()
-    var listenerButtonListQuestions: OnButtonListQuestionsClickListener? = null
+    private var listenerButtonListQuestions: OnButtonListQuestionsClickListener? = null
+    private lateinit var sharedPreferences: SharedPreferences
+    private var userId = 0
+    private val listProfileTitle = ArrayList<String>()
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -36,7 +42,8 @@ class NewTestFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val listProfileTitle = ArrayList<String>()
+        sharedPreferences = context!!.getSharedPreferences("sharedpreferences", 0)
+        userId = sharedPreferences.getInt("id", 0)
 
         newTestViewModel.getProfiles().observe(viewLifecycleOwner, Observer {profiles ->
             if (profiles != null) {
@@ -60,7 +67,7 @@ class NewTestFragment : Fragment() {
             if (technologies != null) {
                 val listItems = ArrayList<Item>()
                 for (technology in technologies) {
-                    val item = Item(technology.name, false)
+                    val item = Item(technology.id, technology.name, false)
                     listItems.add(item)
                 }
                 spinner_technologies.setItems(listItems)
@@ -75,7 +82,7 @@ class NewTestFragment : Fragment() {
                     if (profile.name == spinner_profiles.getItemAtPosition(position) as String) {
                         val list = ArrayList<Item>()
                         for (technology in profile.technologies!!) {
-                            val item = Item(technology.name, false)
+                            val item = Item(technology.id, technology.name, false)
                             list.add(item)
                         }
                         spinner_technologies.setSelection(list)
@@ -89,10 +96,29 @@ class NewTestFragment : Fragment() {
 
         bt_next_step_questions.setOnClickListener {
             val listTechnologiesName = ArrayList<String>()
+            val listTechnologiesId = ArrayList<Int>()
             spinner_technologies.getSelectedItems()!!.forEach {
                 listTechnologiesName.add(it.name!!)
+                listTechnologiesId.add(it.id)
             }
-            listenerButtonListQuestions?.onButtonListQuestionsClick(listTechnologiesName)
+            if (et_campaign_name.text.isNotEmpty() && rg_experience.checkedRadioButtonId > -1 &&
+                    rg_language.checkedRadioButtonId > -1 && rg_copy_paste.checkedRadioButtonId > -1 &&
+                    rg_send_report.checkedRadioButtonId > -1 && spinner_profiles.selectedItemPosition > -1 &&
+                    listTechnologiesId.size > 0 && listTechnologiesName.size > 0) {
+                listenerButtonListQuestions?.onButtonListQuestionsClick(
+                    et_campaign_name.text.toString(),
+                    (getView()!!.findViewById(rg_experience.checkedRadioButtonId) as RadioButton).text.toString(),
+                    (getView()!!.findViewById(rg_language.checkedRadioButtonId) as RadioButton).text.toString(),
+                    rg_copy_paste.getChildAt(0).isSelected,
+                    rg_send_report.getChildAt(0).isSelected,
+                    profiles[spinner_profiles.selectedItemPosition].id,
+                    userId,
+                    listTechnologiesId,
+                    listTechnologiesName
+                )
+            } else {
+                Toast.makeText(context, "Veuillez remplir tous les champs", Toast.LENGTH_LONG).show()
+            }
         }
 
     }
@@ -112,6 +138,8 @@ class NewTestFragment : Fragment() {
     }
 
     interface OnButtonListQuestionsClickListener {
-        fun onButtonListQuestionsClick(listTechnologiesName: ArrayList<String>)
+        fun onButtonListQuestionsClick(name: String, level: String, langs: String, copy_paste: Boolean,
+                                       sent_report: Boolean, profile: Int, user: Int, technologiesId: ArrayList<Int>,
+                                       technologiesName: ArrayList<String>)
     }
 }

@@ -24,6 +24,9 @@ public interface APIService {
     @POST("/auth/local/register")
     Call<Object> createUser(@Body RequestBody body);
 
+    @POST("api/campaigns")
+    Call<Campaign> postCampaign(@Body RequestBody body);
+
     @GET("api/campaigns")
     Call<List<Campaign>> getCampaigns(@Query("user_in") Integer user_in);
 

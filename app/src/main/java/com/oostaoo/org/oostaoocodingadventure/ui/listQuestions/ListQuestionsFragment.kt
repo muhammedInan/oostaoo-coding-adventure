@@ -1,6 +1,7 @@
 package com.oostaoo.org.oostaoocodingadventure.ui.listQuestions
 
 import android.content.ClipData
+import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.*
@@ -17,6 +18,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.oostaoo.org.oostaoocodingadventure.R
+import com.oostaoo.org.oostaoocodingadventure.database.campaign.SendCampaign
 import com.oostaoo.org.oostaoocodingadventure.database.question.Question
 import com.oostaoo.org.oostaoocodingadventure.database.technology.Technology
 import kotlinx.android.synthetic.main.fragment_list_questions.*
@@ -46,9 +48,19 @@ class ListQuestionsFragment: Fragment() {
     }
 
     private lateinit var listQuestionsViewModel: ListQuestionsViewModel
+    private var listenerOnPostCampaignClickListener: OnPostCampaignClickListener? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val factory = ListQuestionsViewModelFactory(arguments!!.getStringArrayList("listTechnologiesName")!!, activity!!.application)
+        override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val factory = ListQuestionsViewModelFactory(
+            arguments!!.getString("Name")!!,
+            arguments!!.getString("level")!!,
+            arguments!!.getString("langs")!!,
+            arguments!!.getBoolean("copy_paste"),
+            arguments!!.getBoolean("sent_report"),
+            arguments!!.getInt("profile"),
+            arguments!!.getInt("user"),
+            arguments!!.getIntegerArrayList("technologiesId")!!,
+            arguments!!.getStringArrayList("technologiesName")!!, activity!!.application)
         listQuestionsViewModel = ViewModelProvider(this, factory).get(ListQuestionsViewModel::class.java)
 
         return inflater.inflate(R.layout.fragment_list_questions, container, false)
@@ -87,6 +99,7 @@ class ListQuestionsFragment: Fragment() {
             }
             for (question in listQuestions) {
                 val layout = ConstraintLayout(context)
+                layout.id = question.id
 
                 layout.layoutParams = ConstraintLayout.LayoutParams(
                     ConstraintLayout.LayoutParams.MATCH_PARENT,
@@ -105,13 +118,13 @@ class ListQuestionsFragment: Fragment() {
                 val constraintSet = ConstraintSet()
 
                 //TECHNOLOGY
-                val tv_technology = TextView(context)
-                tv_technology.id = generateViewId()
+                val tvTechnology = TextView(context)
+                tvTechnology.id = generateViewId()
                 val paramsTechnology = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT)
-                tv_technology.layoutParams = paramsTechnology
+                tvTechnology.layoutParams = paramsTechnology
 
-                tv_technology.setTextColor(ContextCompat.getColor(context!!, R.color.orange_next_step))
-                tv_technology.typeface = typeface
+                tvTechnology.setTextColor(ContextCompat.getColor(context!!, R.color.orange_next_step))
+                tvTechnology.typeface = typeface
                 var questionTechnology = ""
                 for (i in 0 until questionsSizeByTechnology.size) {
                     if (listQuestions.indexOf(question) < questionsSizeByTechnology[i]) {
@@ -119,18 +132,18 @@ class ListQuestionsFragment: Fragment() {
                         break
                     }
                 }
-                tv_technology.text = questionTechnology
-                layout.addView(tv_technology)
+                tvTechnology.text = questionTechnology
+                layout.addView(tvTechnology)
                 constraintSet.clone(layout)
                 constraintSet.connect(
-                    tv_technology.id,
+                    tvTechnology.id,
                     ConstraintSet.START,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.START,
                     10
                 )
                 constraintSet.connect(
-                    tv_technology.id,
+                    tvTechnology.id,
                     ConstraintSet.TOP,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.TOP,
@@ -139,29 +152,29 @@ class ListQuestionsFragment: Fragment() {
                 constraintSet.applyTo(layout)
 
                 //POINTS
-                val tv_points = TextView(context)
-                tv_points.id = generateViewId()
+                val tvPoints = TextView(context)
+                tvPoints.id = generateViewId()
                 val paramsPoints = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT)
-                tv_points.layoutParams = paramsPoints
-                tv_points.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
-                tv_points.typeface = typeface
-                tv_points.text = StringBuilder(question.points.toString() + " points")
-                layout.addView(tv_points)
+                tvPoints.layoutParams = paramsPoints
+                tvPoints.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
+                tvPoints.typeface = typeface
+                tvPoints.text = StringBuilder(question.points.toString() + " points")
+                layout.addView(tvPoints)
                 constraintSet.clone(layout)
                 constraintSet.connect(
-                    tv_points.id,
+                    tvPoints.id,
                     ConstraintSet.START,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.START
                 )
                 constraintSet.connect(
-                    tv_points.id,
+                    tvPoints.id,
                     ConstraintSet.END,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.END
                 )
                 constraintSet.connect(
-                    tv_points.id,
+                    tvPoints.id,
                     ConstraintSet.TOP,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.TOP,
@@ -172,7 +185,7 @@ class ListQuestionsFragment: Fragment() {
                 //BUTTON
                 val buttonChoose = Button(context)
                 buttonChoose.id = question.id
-                val params = ConstraintLayout.LayoutParams(225, 90)
+                val params = ConstraintLayout.LayoutParams(235, 90)
                 buttonChoose.layoutParams = params
                 buttonChoose.setBackgroundResource(R.color.colorPrimary)
                 buttonChoose.gravity = Gravity.CENTER
@@ -202,35 +215,35 @@ class ListQuestionsFragment: Fragment() {
                 constraintSet.applyTo(layout)
 
                 //QUESTION
-                val tv_question = TextView(context)
-                tv_question.id = generateViewId()
+                val tvQuestion = TextView(context)
+                tvQuestion.id = generateViewId()
                 val paramsQuestion = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT)
-                tv_question.layoutParams = paramsQuestion
-                tv_question.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
-                tv_question.typeface = typeface
-                tv_question.maxLines = 3
-                tv_question.ellipsize = TextUtils.TruncateAt.END
-                tv_question.text = question.name
-                layout.addView(tv_question)
+                tvQuestion.layoutParams = paramsQuestion
+                tvQuestion.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
+                tvQuestion.typeface = typeface
+                tvQuestion.maxLines = 3
+                tvQuestion.ellipsize = TextUtils.TruncateAt.END
+                tvQuestion.text = question.name
+                layout.addView(tvQuestion)
                 constraintSet.clone(layout)
                 constraintSet.connect(
-                    tv_question.id,
+                    tvQuestion.id,
                     ConstraintSet.START,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.START,
                     10
                 )
                 constraintSet.connect(
-                    tv_question.id,
+                    tvQuestion.id,
                     ConstraintSet.END,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.START,
                     265
                 )
                 constraintSet.connect(
-                    tv_question.id,
+                    tvQuestion.id,
                     ConstraintSet.TOP,
-                    tv_technology.id,
+                    tvTechnology.id,
                     ConstraintSet.BOTTOM,
                     10
                 )
@@ -239,26 +252,26 @@ class ListQuestionsFragment: Fragment() {
                 //LEVEL
                 val level = Level.valueOf(question.level!!.toUpperCase(Locale.getDefault())).getLevel()
 
-                val iv_bt_radio_level1 = ImageView(context)
-                iv_bt_radio_level1.id = generateViewId()
+                val ivBtRadioLevel1 = ImageView(context)
+                ivBtRadioLevel1.id = generateViewId()
                 val paramsLevel1 = ConstraintLayout.LayoutParams(42, 42)
-                iv_bt_radio_level1.layoutParams = paramsLevel1
+                ivBtRadioLevel1.layoutParams = paramsLevel1
                 if (level >= 1) {
-                    iv_bt_radio_level1.setImageResource(R.drawable.ic_bt_radio_enable)
+                    ivBtRadioLevel1.setImageResource(R.drawable.ic_bt_radio_enable)
                 } else {
-                    iv_bt_radio_level1.setImageResource(R.drawable.ic_bt_radio_disable)
+                    ivBtRadioLevel1.setImageResource(R.drawable.ic_bt_radio_disable)
                 }
-                layout.addView(iv_bt_radio_level1)
+                layout.addView(ivBtRadioLevel1)
                 constraintSet.clone(layout)
                 constraintSet.connect(
-                    iv_bt_radio_level1.id,
+                    ivBtRadioLevel1.id,
                     ConstraintSet.START,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.START,
                     10
                 )
                 constraintSet.connect(
-                    iv_bt_radio_level1.id,
+                    ivBtRadioLevel1.id,
                     ConstraintSet.BOTTOM,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.BOTTOM,
@@ -266,25 +279,25 @@ class ListQuestionsFragment: Fragment() {
                 )
                 constraintSet.applyTo(layout)
 
-                val iv_bt_radio_level2 = ImageView(context)
-                iv_bt_radio_level2.id = generateViewId()
+                val ivBtRadioLevel2 = ImageView(context)
+                ivBtRadioLevel2.id = generateViewId()
                 val paramsLevel2 = ConstraintLayout.LayoutParams(42, 42)
-                iv_bt_radio_level2.layoutParams = paramsLevel2
+                ivBtRadioLevel2.layoutParams = paramsLevel2
                 if (level >= 2) {
-                    iv_bt_radio_level2.setImageResource(R.drawable.ic_bt_radio_enable)
+                    ivBtRadioLevel2.setImageResource(R.drawable.ic_bt_radio_enable)
                 } else {
-                    iv_bt_radio_level2.setImageResource(R.drawable.ic_bt_radio_disable)
+                    ivBtRadioLevel2.setImageResource(R.drawable.ic_bt_radio_disable)
                 }
-                layout.addView(iv_bt_radio_level2)
+                layout.addView(ivBtRadioLevel2)
                 constraintSet.clone(layout)
                 constraintSet.connect(
-                    iv_bt_radio_level2.id,
+                    ivBtRadioLevel2.id,
                     ConstraintSet.START,
-                    iv_bt_radio_level1.id,
+                    ivBtRadioLevel1.id,
                     ConstraintSet.END
                 )
                 constraintSet.connect(
-                    iv_bt_radio_level2.id,
+                    ivBtRadioLevel2.id,
                     ConstraintSet.BOTTOM,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.BOTTOM,
@@ -292,25 +305,25 @@ class ListQuestionsFragment: Fragment() {
                 )
                 constraintSet.applyTo(layout)
 
-                val iv_bt_radio_level3 = ImageView(context)
-                iv_bt_radio_level3.id = generateViewId()
+                val ivBtRadioLevel3 = ImageView(context)
+                ivBtRadioLevel3.id = generateViewId()
                 val paramsLevel3 = ConstraintLayout.LayoutParams(42, 42)
-                iv_bt_radio_level3.layoutParams = paramsLevel3
+                ivBtRadioLevel3.layoutParams = paramsLevel3
                 if (level >= 3) {
-                    iv_bt_radio_level3.setImageResource(R.drawable.ic_bt_radio_enable)
+                    ivBtRadioLevel3.setImageResource(R.drawable.ic_bt_radio_enable)
                 } else {
-                    iv_bt_radio_level3.setImageResource(R.drawable.ic_bt_radio_disable)
+                    ivBtRadioLevel3.setImageResource(R.drawable.ic_bt_radio_disable)
                 }
-                layout.addView(iv_bt_radio_level3)
+                layout.addView(ivBtRadioLevel3)
                 constraintSet.clone(layout)
                 constraintSet.connect(
-                    iv_bt_radio_level3.id,
+                    ivBtRadioLevel3.id,
                     ConstraintSet.START,
-                    iv_bt_radio_level2.id,
+                    ivBtRadioLevel2.id,
                     ConstraintSet.END
                 )
                 constraintSet.connect(
-                    iv_bt_radio_level3.id,
+                    ivBtRadioLevel3.id,
                     ConstraintSet.BOTTOM,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.BOTTOM,
@@ -319,29 +332,29 @@ class ListQuestionsFragment: Fragment() {
                 constraintSet.applyTo(layout)
 
                 //TIME
-                val tv_time = TextView(context)
-                tv_time.id = generateViewId()
+                val tvTime = TextView(context)
+                tvTime.id = generateViewId()
                 val paramsTime = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT)
-                tv_time.layoutParams = paramsTime
-                tv_time.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
-                tv_time.typeface = typeface
-                tv_time.text = secondsToString(question.time!!)
-                layout.addView(tv_time)
+                tvTime.layoutParams = paramsTime
+                tvTime.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
+                tvTime.typeface = typeface
+                tvTime.text = secondsToString(question.time!!)
+                layout.addView(tvTime)
                 constraintSet.clone(layout)
                 constraintSet.connect(
-                    tv_time.id,
+                    tvTime.id,
                     ConstraintSet.START,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.START
                 )
                 constraintSet.connect(
-                    tv_time.id,
+                    tvTime.id,
                     ConstraintSet.END,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.END
                 )
                 constraintSet.connect(
-                    tv_time.id,
+                    tvTime.id,
                     ConstraintSet.BOTTOM,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.BOTTOM,
@@ -352,6 +365,26 @@ class ListQuestionsFragment: Fragment() {
                 top.addView(layout)
             }
         })
+        bt_send_test.setOnClickListener {
+            if (bottom.childCount > 1) {
+                val listQuestionsSelected = ArrayList<Int>()
+                for (i in 1 until bottom.childCount) {
+                    listQuestionsSelected.add(bottom.getChildAt(i).id)
+                }
+                val sendCampaign = SendCampaign(
+                    listQuestionsViewModel.getName(),
+                    listQuestionsViewModel.getLevel(),
+                    listQuestionsViewModel.getLangs(),
+                    listQuestionsViewModel.getCopyPaste(),
+                    listQuestionsViewModel.getSentReport(),
+                    listQuestionsViewModel.getProfile(),
+                    listQuestionsViewModel.getUser(),
+                    listQuestionsViewModel.getTechnologiesId(),
+                    listQuestionsSelected)
+                listQuestionsViewModel.postCampaign(sendCampaign)
+                listenerOnPostCampaignClickListener?.onPostCampaignClickListener()
+            }
+        }
     }
 
     inner class MyDragListener : OnDragListener {
@@ -367,6 +400,15 @@ class ListQuestionsFragment: Fragment() {
                     val owner = view.parent as ViewGroup
                     owner.removeView(view)
                     val container = v as LinearLayout
+                    if (container == bottom) {
+                        tv_drag_drop.visibility = GONE
+                        (((view as ConstraintLayout) as ViewGroup).getChildAt(2) as Button).text = getString(R.string.delete)
+                    } else if (container == top) {
+                        if (bottom.childCount == 0) {
+                            tv_drag_drop.visibility = VISIBLE
+                        }
+                        (((view as ConstraintLayout) as ViewGroup).getChildAt(2) as Button).text = getString(R.string.choose)
+                    }
                     container.addView(view)
                     view.visibility = VISIBLE
                 }
@@ -383,6 +425,20 @@ class ListQuestionsFragment: Fragment() {
         return String.format("%02d:%02d:%02d", hours, minutes, pTime % 60)
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnPostCampaignClickListener) {
+            listenerOnPostCampaignClickListener = context
+        } else {
+            throw RuntimeException("$context must implement OnPostCampaignClickListener")
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        listenerOnPostCampaignClickListener = null
+    }
+
     inner class MyButtonClickListener : OnClickListener {
 
         override fun onClick(view: View?) {
@@ -394,8 +450,21 @@ class ListQuestionsFragment: Fragment() {
             } else {
                 top
             }
+            if (container == bottom) {
+                tv_drag_drop.visibility = GONE
+                (view as Button).text = getString(R.string.delete)
+            } else {
+                if (bottom.childCount == 0) {
+                    tv_drag_drop.visibility = VISIBLE
+                }
+                (view as Button).text = getString(R.string.choose)
+            }
             container.addView(view.parent as View)
             view.visibility = VISIBLE
         }
+    }
+
+    interface OnPostCampaignClickListener {
+        fun onPostCampaignClickListener()
     }
 }

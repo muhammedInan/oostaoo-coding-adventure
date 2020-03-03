@@ -14,13 +14,15 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.oostaoo.org.oostaoocodingadventure.database.campaign.Campaign
+import com.oostaoo.org.oostaoocodingadventure.database.campaign.SendCampaign
 import com.oostaoo.org.oostaoocodingadventure.ui.listQuestions.ListQuestionsFragment
 import com.oostaoo.org.oostaoocodingadventure.ui.myTests.MyTestsFragment
 import com.oostaoo.org.oostaoocodingadventure.ui.newTest.NewTestFragment
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.nav_header_home.view.*
 
-class HomeActivity : AppCompatActivity(), MyTestsFragment.OnListFragmentInteractionListener , NewTestFragment.OnButtonListQuestionsClickListener {
+class HomeActivity : AppCompatActivity(), MyTestsFragment.OnListFragmentInteractionListener,
+    NewTestFragment.OnButtonListQuestionsClickListener, ListQuestionsFragment.OnPostCampaignClickListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navController: NavController
@@ -73,9 +75,23 @@ class HomeActivity : AppCompatActivity(), MyTestsFragment.OnListFragmentInteract
         navController.navigate(R.id.nav_test_candidats, bundle)
     }
 
-    override fun onButtonListQuestionsClick(listTechnologiesName: ArrayList<String>) {
+    override fun onButtonListQuestionsClick(name: String, level: String, langs: String, copy_paste: Boolean,
+                                            sent_report: Boolean, profile: Int, user: Int, technologiesId: ArrayList<Int>,
+                                            technologiesName: ArrayList<String>) {
         val bundle = Bundle()
-        bundle.putStringArrayList("listTechnologiesName", listTechnologiesName)
+        bundle.putString("Name", name)
+        bundle.putString("level", level)
+        bundle.putString("langs", langs)
+        bundle.putBoolean("copy_paste", copy_paste)
+        bundle.putBoolean("sent_report", sent_report)
+        bundle.putInt("profile", profile)
+        bundle.putInt("user", user)
+        bundle.putIntegerArrayList("technologiesId", technologiesId)
+        bundle.putStringArrayList("technologiesName",technologiesName)
         navController.navigate(R.id.nav_list_questions, bundle)
+    }
+
+    override fun onPostCampaignClickListener() {
+        navController.navigate(R.id.nav_my_tests)
     }
 }

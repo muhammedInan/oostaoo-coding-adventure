@@ -74,10 +74,6 @@
 
             </LinearLayout>
 
-
-
-
-
         </ScrollView>
 
         <ScrollView
@@ -94,11 +90,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="280dp"
-                android:background="@color/white"
-                android:orientation="vertical"/>
+                android:background="@color/light_grey"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_drag_drop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginTop="140dp"
+                    android:text="@string/drag_drop"
+                    android:textSize="12sp"/>
+
+            </LinearLayout>
 
         </ScrollView>
 
     </GridLayout>
+
+    <Button
+        android:id="@+id/bt_send_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/background_next_step"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:text="@string/save"
+        android:textAllCaps="false"
+        android:textColor="@color/orange_next_step"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
