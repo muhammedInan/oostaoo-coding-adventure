@@ -21,11 +21,6 @@ class UserProfileFragment : Fragment() {
     ): View? {
         userProfileViewModel =
                 ViewModelProviders.of(this).get(UserProfileViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_user_profile, container, false)
-        val textView: TextView = root.findViewById(R.id.text_slideshow)
-        userProfileViewModel.text.observe(this, Observer {
-            textView.text = it
-        })
-        return root
+        return inflater.inflate(R.layout.fragment_user_profile, container, false)
     }
 }

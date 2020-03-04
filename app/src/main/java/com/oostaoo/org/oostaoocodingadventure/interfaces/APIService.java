@@ -16,7 +16,7 @@ import retrofit2.http.Query;
 
 public interface APIService {
 
-    String BASE_URL = "http://roodeo.com";
+    String BASE_URL = "https://roodeo.com";
 
     @POST("/auth/local")
     Call<LoginRequestResult> logUser(@Body RequestBody body);

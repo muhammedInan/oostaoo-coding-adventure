@@ -23,7 +23,7 @@
     <string name="empty_string" />
 
     <string name="testings">Testings</string>
-    <string name="menu_my_tests">Mes tests</string>
+    <string name="menu_my_tests">Tests d\'évaluations</string>
     <string name="menu_new_test">Nouveau test</string>
 
     <string name="profile">Profil</string>
