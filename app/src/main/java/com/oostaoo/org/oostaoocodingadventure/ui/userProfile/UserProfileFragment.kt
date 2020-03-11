@@ -27,19 +27,6 @@ class UserProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        userProfileViewModel.getUser().observe(viewLifecycleOwner, Observer { user ->
-
-            if(user != null) {
-                et_first_name.setText(user.prenom, TextView.BufferType.EDITABLE)
-                et_name.setText(user.nom, TextView.BufferType.EDITABLE)
-                et_phone_number.setText(user.tel, TextView.BufferType.EDITABLE)
-                et_mobile_number.setText(user.mobile, TextView.BufferType.EDITABLE)
-                et_signature.setText(user.signature, TextView.BufferType.EDITABLE)
-                et_current_email.setText(user.email, TextView.BufferType.EDITABLE)
-
-            }
-        })
-
         //PAYS
         val spinnerCountryAdapter: ArrayAdapter<String> =
             ArrayAdapter(context!!, android.R.layout.simple_spinner_item, getCountries())
@@ -47,26 +34,32 @@ class UserProfileFragment : Fragment() {
         spinner_countries.adapter = spinnerCountryAdapter
 
         //LANGUE
-        val languagesList = ArrayList<String>()
-        languagesList.add("Français")
-        languagesList.add("Anglais")
         val spinnerLanguageAdapter: ArrayAdapter<String> =
-            ArrayAdapter(context!!, android.R.layout.simple_spinner_item, languagesList)
+            ArrayAdapter(context!!, android.R.layout.simple_spinner_item, listOf("Français", "Anglais"))
         spinnerLanguageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner_languages.adapter = spinnerLanguageAdapter
 
         //FONCTION
-        val functionsList = ArrayList<String>()
-        functionsList.add("Commercial")
-        functionsList.add("Direction")
-        functionsList.add("Equipe technique")
-        functionsList.add("Marketing/Communication")
-        functionsList.add("Ressources humaines")
-        functionsList.add("Autre")
         val spinnerFunctionAdapter: ArrayAdapter<String> =
-            ArrayAdapter(context!!, android.R.layout.simple_spinner_item, functionsList)
+            ArrayAdapter(context!!, android.R.layout.simple_spinner_item, listOf("Commercial", "Direction",
+                "Equipe technique", "Marketing/Communication", "Ressources humaines", "Autre"))
         spinnerFunctionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner_function.adapter = spinnerFunctionAdapter
+
+        userProfileViewModel.getUser().observe(viewLifecycleOwner, Observer { user ->
+
+            if(user != null) {
+                et_first_name.setText(user.prenom)
+                et_name.setText(user.nom)
+                spinner_countries.setSelection(spinnerCountryAdapter.getPosition(user.pays))
+                spinner_languages.setSelection(spinnerLanguageAdapter.getPosition(user.langue))
+                et_phone_number.setText(user.tel)
+                et_mobile_number.setText(user.mobile)
+                spinner_function.setSelection(spinnerFunctionAdapter.getPosition(user.function))
+                et_signature.setText(user.signature)
+                et_current_email.setText(user.email)
+            }
+        })
     }
 
     private fun getCountries() : ArrayList<String> {

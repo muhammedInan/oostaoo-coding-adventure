@@ -12,6 +12,9 @@ interface EntrepriseDao {
     @Query("SELECT * from entreprise_table ORDER BY idEntreprise ASC")
     fun getEntreprises(): LiveData<List<Entreprise>>
 
+    @Query("SELECT * from entreprise_table WHERE idEntreprise = :id")
+    fun getEntreprise(id: Int): LiveData<Entreprise>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entereprise: Entreprise)
 

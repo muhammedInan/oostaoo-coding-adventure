@@ -21,5 +21,4 @@ class Entreprise(@PrimaryKey @ColumnInfo(name = "idEntreprise") val id: Int,
                  val created_at: String?,
                  val updated_at: String?,
                  val lang: String?,
-                 val industrie: String?,
-                 val useradmin: Int?)
+                 val industrie: String?)

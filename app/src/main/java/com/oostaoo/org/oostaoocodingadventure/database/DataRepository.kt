@@ -2,6 +2,7 @@ package com.oostaoo.org.oostaoocodingadventure.database
 
 import androidx.lifecycle.LiveData
 import com.oostaoo.org.oostaoocodingadventure.database.campaign.Campaign
+import com.oostaoo.org.oostaoocodingadventure.database.entreprise.Entreprise
 import com.oostaoo.org.oostaoocodingadventure.database.profile.Profile
 import com.oostaoo.org.oostaoocodingadventure.database.question.Question
 import com.oostaoo.org.oostaoocodingadventure.database.technology.Technology
@@ -87,5 +88,15 @@ class DataRepository() {
 
     fun getUser(idUser: Int): LiveData<User> {
         return mDatabase.userDao().getUser(idUser)
+    }
+
+    //Entreprise
+
+    suspend fun insertEntreprise(entreprise: Entreprise) {
+        mDatabase.entrepriseDao().insert(entreprise)
+    }
+
+    fun getEntreprise(idEntreprise: Int): LiveData<Entreprise> {
+        return mDatabase.entrepriseDao().getEntreprise(idEntreprise)
     }
 }

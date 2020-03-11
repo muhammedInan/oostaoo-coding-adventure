@@ -23,6 +23,5 @@ class User(val username: String,
            val mobile: String?,
            val function: String?,
            val signature: String?,
-           @Embedded val entreprise: Entreprise?,
            val adminId: Int?,
            val tests_available: Int?)

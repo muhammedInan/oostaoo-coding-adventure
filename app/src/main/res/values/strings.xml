@@ -71,5 +71,23 @@
     <string name="signature">Signature</string>
     <string name="new_password">Nouveau mot de passe *</string>
     <string name="confirm_password">Confirmer le mot de passe *</string>
+    <string name="completion_fiche">Complétion de\nvotre fiche</string>
+    <string name="edit_details">Éditez les détails de votre entreprise dans la langue de votre choix</string>
+    <string name="choose_language">Choisissez votre langue</string>
+    <string name="business_logo">Logo de l\'entreprise</string>
+    <string name="business_name">Nom de l\'entreprise</string>
+    <string name="business_email">Adresse email de l\'entreprise</string>
+    <string name="business_phone">Numéro de téléphone</string>
+    <string name="industry">Industrie</string>
+    <string name="nb_employee">Nombre d\'employés</string>
+    <string name="nb_developers">Nombre de développeurs</string>
+    <string name="link_video">Lien vidéo</string>
+    <string name="link_site">Lien du site</string>
+    <string name="teaser_business">Teaser de l\'entreprise</string>
+    <string name="add_images">Ajouter des images (10 max)</string>
+    <string name="linkedin">Linkedin</string>
+    <string name="facebook">Facebook</string>
+    <string name="twitter">Twitter</string>
+    <string name="save_changes">Enregistrer les changements</string>
 
 </resources>

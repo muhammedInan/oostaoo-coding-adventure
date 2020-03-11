@@ -1,6 +1,7 @@
 package com.oostaoo.org.oostaoocodingadventure.interfaces;
 
 import com.oostaoo.org.oostaoocodingadventure.database.campaign.Campaign;
+import com.oostaoo.org.oostaoocodingadventure.database.entreprise.Entreprise;
 import com.oostaoo.org.oostaoocodingadventure.database.loginRequestResult.LoginRequestResult;
 import com.oostaoo.org.oostaoocodingadventure.database.profile.Profile;
 import com.oostaoo.org.oostaoocodingadventure.database.technology.Technology;
@@ -42,4 +43,7 @@ public interface APIService {
 
     @GET("users/{id}")
     Call<User> getUser(@Path("id") int id);
+
+    @GET("api/entreprises/{id}")
+    Call<Entreprise> getEntreprise(@Path("id") int id);
 }

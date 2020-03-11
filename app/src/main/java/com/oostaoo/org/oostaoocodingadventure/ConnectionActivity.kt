@@ -85,6 +85,7 @@ class ConnectionActivity: AppCompatActivity() {
                     editor.putString("jwt", loginRequestResult.jwt)
                     editor.putString("email", loginRequestResult.user!!.email)
                     editor.putInt("id", loginRequestResult.user.id)
+                    editor.putInt("idEntreprise", loginRequestResult.user.entreprise!!)
                     editor.apply()
                     goHome()
                 }

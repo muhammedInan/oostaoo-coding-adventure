@@ -11,4 +11,5 @@
     <color name="list_questions_background">#C1D5E0</color>
     <color name="light_grey">#EFEFEF</color>
     <color name="profile_color">#212529</color>
+    <color name="progress_bar_color">#6A84A0</color>
 </resources>
