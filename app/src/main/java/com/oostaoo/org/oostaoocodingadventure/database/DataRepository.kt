@@ -5,6 +5,7 @@ import com.oostaoo.org.oostaoocodingadventure.database.campaign.Campaign
 import com.oostaoo.org.oostaoocodingadventure.database.profile.Profile
 import com.oostaoo.org.oostaoocodingadventure.database.question.Question
 import com.oostaoo.org.oostaoocodingadventure.database.technology.Technology
+import com.oostaoo.org.oostaoocodingadventure.database.user.User
 
 class DataRepository() {
 
@@ -64,10 +65,6 @@ class DataRepository() {
         return mDatabase.technologyDao().getTechnologies()
     }
 
-    fun getTechnology(name: String): LiveData<Technology> {
-        return mDatabase.technologyDao().getTechnology(name)
-    }
-
     suspend fun insertTechnology(technology: Technology) {
         mDatabase.technologyDao().insert(technology)
     }
@@ -82,7 +79,13 @@ class DataRepository() {
         mDatabase.questionDao().insert(question)
     }
 
-    suspend fun getQuestions(idTechnology: Int) {
-        mDatabase.questionDao().getQuestions()
+    //User
+
+    suspend fun insertUser(user: User) {
+        mDatabase.userDao().insert(user)
+    }
+
+    fun getUser(idUser: Int): LiveData<User> {
+        return mDatabase.userDao().getUser(idUser)
     }
 }

@@ -4,6 +4,7 @@ import com.oostaoo.org.oostaoocodingadventure.database.campaign.Campaign;
 import com.oostaoo.org.oostaoocodingadventure.database.loginRequestResult.LoginRequestResult;
 import com.oostaoo.org.oostaoocodingadventure.database.profile.Profile;
 import com.oostaoo.org.oostaoocodingadventure.database.technology.Technology;
+import com.oostaoo.org.oostaoocodingadventure.database.user.User;
 
 import java.util.List;
 import okhttp3.RequestBody;
@@ -38,4 +39,7 @@ public interface APIService {
 
     @GET("api/technologies")
     Call<List<Technology>> getTechnologies();
+
+    @GET("users/{id}")
+    Call<User> getUser(@Path("id") int id);
 }

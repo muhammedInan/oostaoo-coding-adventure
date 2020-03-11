@@ -11,6 +11,8 @@ import com.oostaoo.org.oostaoocodingadventure.database.campaign_user.Campaign_Us
 import com.oostaoo.org.oostaoocodingadventure.database.campaign_user.Campaign_UserDao
 import com.oostaoo.org.oostaoocodingadventure.database.candidat.Candidat
 import com.oostaoo.org.oostaoocodingadventure.database.candidat.CandidatDao
+import com.oostaoo.org.oostaoocodingadventure.database.entreprise.Entreprise
+import com.oostaoo.org.oostaoocodingadventure.database.entreprise.EntrepriseDao
 import com.oostaoo.org.oostaoocodingadventure.database.indexQuestion.IndexQuestion
 import com.oostaoo.org.oostaoocodingadventure.database.indexQuestion.IndexQuestionDao
 import com.oostaoo.org.oostaoocodingadventure.database.loginRequestResult.LoginRequestResult
@@ -31,14 +33,15 @@ import com.oostaoo.org.oostaoocodingadventure.database.user.User
 import com.oostaoo.org.oostaoocodingadventure.database.user.UserDao
 
 @Database(entities = arrayOf(Campaign::class, Campaign_User::class, Candidat::class,
-    IndexQuestion::class, LoginRequestResult::class, Profile::class, Question::class,
-    Rapport::class, RapportCandidat::class, Role::class, Technology::class, User::class),
-    version = 1)
+    Entreprise::class, IndexQuestion::class, LoginRequestResult::class, Profile::class,
+    Question::class, Rapport::class, RapportCandidat::class, Role::class, Technology::class,
+    User::class), version = 1)
 @TypeConverters(com.oostaoo.org.oostaoocodingadventure.database.TypeConverters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun campaignDao(): CampaignDao
     abstract fun campaignUserDao(): Campaign_UserDao
     abstract fun candidatDao(): CandidatDao
+    abstract fun entrepriseDao(): EntrepriseDao
     abstract fun indexQuestionDao(): IndexQuestionDao
     abstract fun loginRequestResultDao(): LoginRequestResultDao
     abstract fun profileDao(): ProfileDao

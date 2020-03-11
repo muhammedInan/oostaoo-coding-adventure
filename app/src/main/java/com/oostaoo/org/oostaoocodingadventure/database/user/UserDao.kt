@@ -12,6 +12,9 @@ interface UserDao {
     @Query("SELECT * from user_table ORDER BY idUser ASC")
     fun getUsers(): LiveData<List<User>>
 
+    @Query("SELECT * from user_table WHERE idUser = :id")
+    fun getUser(id: Int): LiveData<User>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(user: User)
 

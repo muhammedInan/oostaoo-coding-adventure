@@ -1,15 +1,14 @@
-package com.oostaoo.org.oostaoocodingadventure.database.user
+package com.oostaoo.org.oostaoocodingadventure.database.user_login_request_result
 
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.oostaoo.org.oostaoocodingadventure.database.entreprise.Entreprise
 import com.oostaoo.org.oostaoocodingadventure.database.role.Role
 
-@Entity(tableName = "user_table")
-class User(val username: String,
-           @PrimaryKey @ColumnInfo(name = "idUser") val id: Int,
+@Entity(tableName = "user__login_request_result_table")
+class User_LoginRequestResult(val username: String,
+           @PrimaryKey @ColumnInfo(name = "idUser_LoginRequestResult") val id: Int,
            val email: String?,
            val provider: String?,
            val confirmed: Boolean?,
@@ -23,6 +22,6 @@ class User(val username: String,
            val mobile: String?,
            val function: String?,
            val signature: String?,
-           @Embedded val entreprise: Entreprise?,
+           val entreprise: Int?,
            val adminId: Int?,
            val tests_available: Int?)
