@@ -19,7 +19,11 @@
         android:id="@+id/nav_new_test"
         android:name="com.oostaoo.org.oostaoocodingadventure.ui.newTest.NewTestFragment"
         android:label="@string/menu_new_test"
-        tools:layout="@layout/fragment_new_test" />
+        tools:layout="@layout/fragment_new_test" >
+        <action
+            android:id="@+id/action_nav_new_test_to_nav_list_questions"
+            app:destination="@id/nav_list_questions" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_user_profile"
@@ -55,12 +59,31 @@
         android:id="@+id/nav_test_candidats"
         android:name="com.oostaoo.org.oostaoocodingadventure.ui.testCandidats.TestCandidatsFragment"
         android:label="@string/menu_test_candidats"
-        tools:layout="@layout/fragment_test_candidats" />
+        tools:layout="@layout/fragment_test_candidats" >
+        <action
+            android:id="@+id/action_nav_test_candidats_to_nav_info_candidat"
+            app:destination="@id/nav_info_candidat" />
+        <action
+            android:id="@+id/action_nav_test_candidats_to_nav_add_candidat"
+            app:destination="@id/nav_add_candidat" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_list_questions"
         android:name="com.oostaoo.org.oostaoocodingadventure.ui.listQuestions.ListQuestionsFragment"
         android:label="@string/menu_list_questions"
         tools:layout="@layout/fragment_list_questions" />
+
+    <fragment
+        android:id="@+id/nav_info_candidat"
+        android:name="com.oostaoo.org.oostaoocodingadventure.ui.testInfoCandidat.TestInfoCandidatFragment"
+        android:label="@string/menu_list_questions"
+        tools:layout="@layout/fragment_info_candidat" />
+
+    <fragment
+        android:id="@+id/nav_add_candidat"
+        android:name="com.oostaoo.org.oostaoocodingadventure.ui.addCandidat.AddCandidatFragment"
+        android:label="@string/menu_add_candidat"
+        tools:layout="@layout/add_candidat_fragment" />
 
 </navigation>

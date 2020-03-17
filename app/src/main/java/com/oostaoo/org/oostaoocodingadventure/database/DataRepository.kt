@@ -90,6 +90,10 @@ class DataRepository() {
         return mDatabase.userDao().getUser(idUser)
     }
 
+    fun getUsers(adminId: Int) : LiveData<List<User>> {
+        return mDatabase.userDao().getUsers(adminId)
+    }
+
     //Entreprise
 
     suspend fun insertEntreprise(entreprise: Entreprise) {

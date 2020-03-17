@@ -48,11 +48,9 @@ class TestCandidatsViewModel(idCampaign: Int, application: Application) : Androi
                     insertCampaign(campaign)
                 }
             }
-
             override fun onFailure(call: Call<Campaign>, t: Throwable) {}
         })
     }
-
     fun insertCampaign(campaign: Campaign) = viewModelScope.launch {
         repository.insertCampaign(campaign)
     }

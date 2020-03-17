@@ -14,14 +14,16 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.oostaoo.org.oostaoocodingadventure.database.campaign.Campaign
-import com.oostaoo.org.oostaoocodingadventure.database.campaign.SendCampaign
+import com.oostaoo.org.oostaoocodingadventure.database.candidat.Candidat
 import com.oostaoo.org.oostaoocodingadventure.ui.listQuestions.ListQuestionsFragment
 import com.oostaoo.org.oostaoocodingadventure.ui.myTests.MyTestsFragment
 import com.oostaoo.org.oostaoocodingadventure.ui.newTest.NewTestFragment
+import com.oostaoo.org.oostaoocodingadventure.ui.testCandidats.TestCandidatsFragment
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.nav_header_home.view.*
 
-class HomeActivity : AppCompatActivity(), MyTestsFragment.OnListFragmentInteractionListener,
+class HomeActivity : AppCompatActivity(), MyTestsFragment.OnCampaignListFragmentInteractionListener,
+    TestCandidatsFragment.OnCandidatListFragmentInteractionListener, TestCandidatsFragment.OnAddCandidatListener,
     NewTestFragment.OnButtonListQuestionsClickListener, ListQuestionsFragment.OnPostCampaignClickListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -68,11 +70,21 @@ class HomeActivity : AppCompatActivity(), MyTestsFragment.OnListFragmentInteract
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    override fun onListFragmentInteraction(item: Campaign) {
+    override fun onCampaignListFragmentInteraction(item: Campaign) {
 
         val bundle = Bundle()
         bundle.putInt("id", item.id)
         navController.navigate(R.id.nav_test_candidats, bundle)
+    }
+    override fun onCandidatListFragmentInteraction(item: Candidat) {
+
+        val bundle = Bundle()
+        bundle.putInt("id", item.id)
+        navController.navigate(R.id.nav_info_candidat, bundle)
+    }
+
+    override fun onAddCandidatInteraction() {
+        navController.navigate(R.id.nav_add_candidat)
     }
 
     override fun onButtonListQuestionsClick(name: String, level: String, langs: String, copy_paste: Boolean,

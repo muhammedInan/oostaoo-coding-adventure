@@ -20,7 +20,7 @@ class MyTestsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     private lateinit var myTestsViewModel: MyTestsViewModel
     private val owner = this
-    private var listener: OnListFragmentInteractionListener? = null
+    private var listener: OnCampaignListFragmentInteractionListener? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         myTestsViewModel = ViewModelProvider(this).get(MyTestsViewModel::class.java)
@@ -66,7 +66,7 @@ class MyTestsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
         super.onAttach(context)
 
-        if (context is OnListFragmentInteractionListener) listener = context
+        if (context is OnCampaignListFragmentInteractionListener) listener = context
         else throw RuntimeException("$context must implement OnListFragmentInteractionListener")
     }
 
@@ -76,8 +76,8 @@ class MyTestsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         listener = null
     }
 
-    interface OnListFragmentInteractionListener {
+    interface OnCampaignListFragmentInteractionListener {
 
-        fun onListFragmentInteraction(item: Campaign)
+        fun onCampaignListFragmentInteraction(item: Campaign)
     }
 }

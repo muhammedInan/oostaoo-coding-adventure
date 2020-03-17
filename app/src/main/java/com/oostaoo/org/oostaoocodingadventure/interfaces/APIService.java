@@ -44,6 +44,9 @@ public interface APIService {
     @GET("users/{id}")
     Call<User> getUser(@Path("id") int id);
 
+    @GET("users")
+    Call<List<User>> getUsers();
+
     @GET("api/entreprises/{id}")
     Call<Entreprise> getEntreprise(@Path("id") int id);
 }

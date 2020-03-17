@@ -19,7 +19,7 @@ class Candidat(@PrimaryKey @ColumnInfo(name = "idCandidat") val id: Int,
                val test_pause: Int?,
                val date_pause: String?,
                @Embedded val raport_candidat: RapportCandidat?,
-               @TypeConverters val points_candidat: List<PointCandidats>)
+               @TypeConverters val points_candidat: List<PointCandidats>?)
 
 class PointCandidats(
     val allPointsTechnos: List<Score>?,

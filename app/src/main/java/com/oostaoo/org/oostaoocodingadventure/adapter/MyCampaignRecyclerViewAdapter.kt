@@ -11,7 +11,7 @@ import com.oostaoo.org.oostaoocodingadventure.ui.myTests.MyTestsFragment
 import kotlinx.android.synthetic.main.fragment_campaign_card.view.*
 
 class MyCampaignRecyclerViewAdapter(private val mValues: List<Campaign>,
-                                    private val mListener: MyTestsFragment.OnListFragmentInteractionListener?)
+                                    private val mListener: MyTestsFragment.OnCampaignListFragmentInteractionListener?)
     : RecyclerView.Adapter<MyCampaignRecyclerViewAdapter.ViewHolder>() {
 
     private val mOnClickListener: View.OnClickListener
@@ -20,7 +20,7 @@ class MyCampaignRecyclerViewAdapter(private val mValues: List<Campaign>,
 
         mOnClickListener = View.OnClickListener { v ->
             val item = v.tag as Campaign
-            mListener?.onListFragmentInteraction(item)
+            mListener?.onCampaignListFragmentInteraction(item)
         }
     }
 
