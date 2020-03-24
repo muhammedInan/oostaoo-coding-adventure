@@ -1,4 +1,4 @@
-package com.oostaoo.org.oostaoocodingadventure.ui.addCandidat
+package com.oostaoo.org.oostaoocodingadventure.ui.configEmail
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -17,9 +17,11 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class AddCandidatViewModel(idCampaign: Int, application: Application) : AndroidViewModel(application) {
+class ConfigEmailViewModel(idCampaign: Int, names: ArrayList<String>, emails: ArrayList<String>, application: Application) : AndroidViewModel(application) {
 
     private var mIdCampaign = idCampaign
+    private var mNames = names
+    private var mEmails = emails
     private val repository: DataRepository = DataRepository().getInstance(AppDatabase.getDatabase(application))!!
 
     init {
@@ -28,6 +30,14 @@ class AddCandidatViewModel(idCampaign: Int, application: Application) : AndroidV
 
     fun getCampaign(): LiveData<Campaign> {
         return repository.getCampaign(mIdCampaign)
+    }
+
+    fun getNames() : ArrayList<String> {
+        return mNames
+    }
+
+    fun getEmails() : ArrayList<String> {
+        return mEmails
     }
 
     private fun requestCampaign(idCampaign: Int) {

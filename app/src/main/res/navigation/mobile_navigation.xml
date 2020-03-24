@@ -84,6 +84,16 @@
         android:id="@+id/nav_add_candidat"
         android:name="com.oostaoo.org.oostaoocodingadventure.ui.addCandidat.AddCandidatFragment"
         android:label="@string/menu_add_candidat"
-        tools:layout="@layout/add_candidat_fragment" />
+        tools:layout="@layout/fragment_add_candidat" >
+        <action
+            android:id="@+id/action_nav_add_candidat_to_nav_config_email"
+            app:destination="@id/nav_config_email" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_config_email"
+        android:name="com.oostaoo.org.oostaoocodingadventure.ui.configEmail.ConfigEmailFragment"
+        android:label="@string/menu_config_email"
+        tools:layout="@layout/fragment_config_email" />
 
 </navigation>

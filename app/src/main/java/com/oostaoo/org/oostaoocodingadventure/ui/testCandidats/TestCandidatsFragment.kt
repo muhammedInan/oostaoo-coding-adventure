@@ -53,7 +53,7 @@ class TestCandidatsFragment: Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         if (item.itemId == R.id.add_candidat)
-            addCandidatListener?.onAddCandidatInteraction()
+            addCandidatListener?.onAddCandidatInteraction(campaign!!)
         return super.onOptionsItemSelected(item)
     }
 
@@ -90,6 +90,6 @@ class TestCandidatsFragment: Fragment() {
     }
 
     interface OnAddCandidatListener {
-        fun onAddCandidatInteraction()
+        fun onAddCandidatInteraction(item: Campaign)
     }
 }

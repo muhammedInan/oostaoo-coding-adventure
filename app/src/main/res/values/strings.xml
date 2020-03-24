@@ -5,6 +5,7 @@
     <string name="connection">Connexion</string>
     <string name="username">Username</string>
     <string name="email">Email</string>
+    <string name="email_star">Email *</string>
     <string name="password">Mot de passe</string>
     <string name="connected">Connected</string>
     <string name="already_client">Déjà client ?</string>
@@ -36,6 +37,7 @@
     <string name="menu_test_candidats">Test Candidats</string>
     <string name="menu_list_questions">Liste des questions</string>
     <string name="menu_add_candidat">Ajouter un candidat</string>
+    <string name="menu_config_email">Configuration de l\'email</string>
 
     <string name="select_role">Sélectionnez un rôle</string>
     <string name="or">OU</string>
@@ -92,5 +94,12 @@
     <string name="twitter">Twitter</string>
     <string name="save_changes">Enregistrer les changements</string>
     <string name="report">Rapport</string>
+    <string name="name_email_candidats">Entrez le nom et l\'email des candidats</string>
+    <string name="add_candidat">Ajouter candidat</string>
+    <string name="config_email">Prochaine étape : Configuration d\'email</string>
+    <string name="message">Message :</string>
+    <string name="send_email">Envoyer \nemail</string>
+    <string name="back_candidats">Retour\naux candidats</string>
+    <string name="customize_email">Personnaliser\ncet email</string>
 
 </resources>

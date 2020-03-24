@@ -6,7 +6,6 @@ import android.os.Parcelable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
-@Suppress("UNCHECKED_CAST")
 class TestCandidatsViewModelFactory() : ViewModelProvider.Factory, Parcelable {
 
     private var mIdCampaign = 0

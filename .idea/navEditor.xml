@@ -17,6 +17,15 @@
                             <option name="y" value="-480" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_nav_add_candidat_to_nav_config_email">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -27,6 +36,18 @@
                           <Point>
                             <option name="x" value="-68" />
                             <option name="y" value="606" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="nav_config_email">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="795" />
+                            <option name="y" value="-484" />
                           </Point>
                         </option>
                       </LayoutPositions>

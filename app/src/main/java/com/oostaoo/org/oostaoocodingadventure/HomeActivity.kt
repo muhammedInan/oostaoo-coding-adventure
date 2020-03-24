@@ -15,6 +15,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.oostaoo.org.oostaoocodingadventure.database.campaign.Campaign
 import com.oostaoo.org.oostaoocodingadventure.database.candidat.Candidat
+import com.oostaoo.org.oostaoocodingadventure.ui.addCandidat.AddCandidatFragment
+import com.oostaoo.org.oostaoocodingadventure.ui.configEmail.ConfigEmailFragment
 import com.oostaoo.org.oostaoocodingadventure.ui.listQuestions.ListQuestionsFragment
 import com.oostaoo.org.oostaoocodingadventure.ui.myTests.MyTestsFragment
 import com.oostaoo.org.oostaoocodingadventure.ui.newTest.NewTestFragment
@@ -22,9 +24,14 @@ import com.oostaoo.org.oostaoocodingadventure.ui.testCandidats.TestCandidatsFrag
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.nav_header_home.view.*
 
-class HomeActivity : AppCompatActivity(), MyTestsFragment.OnCampaignListFragmentInteractionListener,
-    TestCandidatsFragment.OnCandidatListFragmentInteractionListener, TestCandidatsFragment.OnAddCandidatListener,
-    NewTestFragment.OnButtonListQuestionsClickListener, ListQuestionsFragment.OnPostCampaignClickListener {
+class HomeActivity : AppCompatActivity(),
+    MyTestsFragment.OnCampaignListFragmentInteractionListener,
+    TestCandidatsFragment.OnCandidatListFragmentInteractionListener,
+    TestCandidatsFragment.OnAddCandidatListener,
+    AddCandidatFragment.OnButtonConfigEmailClickListener,
+    ConfigEmailFragment.OnButtonBackCandidatsClickListener,
+    NewTestFragment.OnButtonListQuestionsClickListener,
+    ListQuestionsFragment.OnPostCampaignClickListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navController: NavController
@@ -83,8 +90,22 @@ class HomeActivity : AppCompatActivity(), MyTestsFragment.OnCampaignListFragment
         navController.navigate(R.id.nav_info_candidat, bundle)
     }
 
-    override fun onAddCandidatInteraction() {
-        navController.navigate(R.id.nav_add_candidat)
+    override fun onAddCandidatInteraction(item: Campaign) {
+        val bundle = Bundle()
+        bundle.putInt("id", item.id)
+        navController.navigate(R.id.nav_add_candidat, bundle)
+    }
+
+    override fun onButtonConfigEmailClickListener(campaign: Campaign, names: ArrayList<String>, emails: ArrayList<String>) {
+        val bundle = Bundle()
+        bundle.putInt("id", campaign.id)
+        bundle.putStringArrayList("names", names)
+        bundle.putStringArrayList("emails", emails)
+        navController.navigate(R.id.nav_config_email, bundle)
+    }
+
+    override fun onButtonBackCandidatsClickListener() {
+        navController.popBackStack()
     }
 
     override fun onButtonListQuestionsClick(name: String, level: String, langs: String, copy_paste: Boolean,
