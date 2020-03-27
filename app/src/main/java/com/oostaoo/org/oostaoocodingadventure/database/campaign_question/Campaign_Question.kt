@@ -1,4 +1,4 @@
-package com.oostaoo.org.oostaoocodingadventure.database.campaign
+package com.oostaoo.org.oostaoocodingadventure.database.campaign_question
 
 import androidx.room.*
 import com.oostaoo.org.oostaoocodingadventure.database.campaign_user.Campaign_User
@@ -7,8 +7,8 @@ import com.oostaoo.org.oostaoocodingadventure.database.profile.Profile
 import com.oostaoo.org.oostaoocodingadventure.database.questionCampaign.QuestionCampaign
 import com.oostaoo.org.oostaoocodingadventure.database.technology.Technology
 
-@Entity(tableName = "campaign_table")
-class Campaign(@PrimaryKey @ColumnInfo(name = "idCampaign") val id: Int,
+@Entity(tableName = "campaign_question_table")
+class Campaign_Question(@PrimaryKey @ColumnInfo(name = "idCampaign") val id: Int,
                         @ColumnInfo(name = "Campaign_name") val Name: String?,
                         @ColumnInfo(name = "level") val level: String?,
                         @ColumnInfo(name = "langs") val langs: String?,
@@ -20,21 +20,8 @@ class Campaign(@PrimaryKey @ColumnInfo(name = "idCampaign") val id: Int,
                         @ColumnInfo(name = "stopwatch") val stopwatch: String?,
                         @ColumnInfo(name = "email_title") val email_title: String?,
                         @ColumnInfo(name = "email_content") val email_content: String?,
-                        @Embedded val profile: Profile?,
+                        val profile: Int?,
                         @ColumnInfo(name = "NbCandidatFinish") val NbCandidatFinish: Int?,
                         @Embedded val user: Campaign_User?,
                         @ColumnInfo(name = "archive") val archive: Boolean?,
-                        @ColumnInfo(name = "pin") val pin: Boolean?,
-                        @TypeConverters(com.oostaoo.org.oostaoocodingadventure.database.TypeConverters::class) val technologies: List<Technology>?,
-                        @TypeConverters(com.oostaoo.org.oostaoocodingadventure.database.TypeConverters::class) val candidats: List<Candidat>?,
-                        @TypeConverters(com.oostaoo.org.oostaoocodingadventure.database.TypeConverters::class) val questions: List<QuestionCampaign>?)
-
-class SendCampaign(val Name: String?,
-                   val level: String?,
-                   val langs: String?,
-                   val copy_paste: Boolean?,
-                   val sent_report: Boolean?,
-                   val profile: Int?,
-                   val user: Int?,
-                   val technologies: List<Int>?,
-                   val questions: List<Int>)
+                        @ColumnInfo(name = "pin") val pin: Boolean?)

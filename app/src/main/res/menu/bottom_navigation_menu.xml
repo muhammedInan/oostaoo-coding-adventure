@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_candidats"
+        android:enabled="true"
+        android:title="@string/menu_test_candidats"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_questions"
+        android:enabled="true"
+        android:title="@string/questions"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_parameters"
+        android:enabled="true"
+        android:title="@string/parameters"
+        app:showAsAction="ifRoom" />
+</menu>

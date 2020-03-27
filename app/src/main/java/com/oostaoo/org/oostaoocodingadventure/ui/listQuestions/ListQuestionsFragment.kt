@@ -19,7 +19,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.oostaoo.org.oostaoocodingadventure.R
 import com.oostaoo.org.oostaoocodingadventure.database.campaign.SendCampaign
-import com.oostaoo.org.oostaoocodingadventure.database.question.Question
+import com.oostaoo.org.oostaoocodingadventure.database.questionCampaign.QuestionCampaign
 import com.oostaoo.org.oostaoocodingadventure.database.technology.Technology
 import kotlinx.android.synthetic.main.fragment_list_questions.*
 import java.util.*
@@ -73,7 +73,7 @@ class ListQuestionsFragment: Fragment() {
         bottom.setOnDragListener(MyDragListener())
 
         listQuestionsViewModel.getTechnologies().observe(viewLifecycleOwner, Observer { technologies ->
-            val listQuestions = ArrayList<Question>()
+            val listQuestions = ArrayList<QuestionCampaign>()
             val selectedTechnologies = ArrayList<Technology>()
             val technologiesName = ArrayList<String>()
             val questionsSizeByTechnology = ArrayList<Int>()
@@ -125,14 +125,14 @@ class ListQuestionsFragment: Fragment() {
 
                 tvTechnology.setTextColor(ContextCompat.getColor(context!!, R.color.orange_next_step))
                 tvTechnology.typeface = typeface
-                /*var questionTechnology = ""
+                var questionTechnology = ""
                 for (i in 0 until questionsSizeByTechnology.size) {
                     if (listQuestions.indexOf(question) < questionsSizeByTechnology[i]) {
                         questionTechnology = selectedTechnologies[i].name!!
                         break
                     }
-                }*/
-                tvTechnology.text = question.technologies!!.name //questionTechnology
+                }
+                tvTechnology.text = questionTechnology
                 layout.addView(tvTechnology)
                 constraintSet.clone(layout)
                 constraintSet.connect(

@@ -19,6 +19,7 @@ class TestCandidatsFragment: Fragment() {
 
     private var candidatsListListener: OnCandidatListFragmentInteractionListener? = null
     private var addCandidatListener: OnAddCandidatListener? = null
+    private var bottomNavigationViewListener: OnBottomNavigationViewListener? = null
     private lateinit var testCandidatsViewModel: TestCandidatsViewModel
     private var campaign: Campaign? = null
 
@@ -42,6 +43,10 @@ class TestCandidatsFragment: Fragment() {
                 Toast.makeText(context, "Error", Toast.LENGTH_LONG).show()
             }
         })
+
+        bottom_navigation_view.setOnNavigationItemSelectedListener {
+            updateMainFragment(it.itemId)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -67,6 +72,15 @@ class TestCandidatsFragment: Fragment() {
         }
     }
 
+    private fun updateMainFragment(integer: Int): Boolean {
+        when (integer) {
+            R.id.action_candidats -> bottomNavigationViewListener?.onBottomNavigationViewInteraction(0, campaign!!.id)
+            R.id.action_questions -> bottomNavigationViewListener?.onBottomNavigationViewInteraction(1, campaign!!.id)
+            R.id.action_parameters -> bottomNavigationViewListener?.onBottomNavigationViewInteraction(2, campaign!!.id)
+        }
+        return true
+    }
+
     override fun onAttach(context: Context) {
 
         super.onAttach(context)
@@ -76,6 +90,9 @@ class TestCandidatsFragment: Fragment() {
 
         if (context is OnAddCandidatListener) addCandidatListener = context
         else throw RuntimeException("$context must implement onAddCandidatListener")
+
+        if (context is OnBottomNavigationViewListener) bottomNavigationViewListener = context
+        else throw RuntimeException("$context must implement onBottomNavigationViewListener")
     }
 
     override fun onDetach() {
@@ -91,5 +108,9 @@ class TestCandidatsFragment: Fragment() {
 
     interface OnAddCandidatListener {
         fun onAddCandidatInteraction(item: Campaign)
+    }
+
+    interface OnBottomNavigationViewListener {
+        fun onBottomNavigationViewInteraction(item: Int, id: Int)
     }
 }

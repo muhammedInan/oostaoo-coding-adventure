@@ -149,7 +149,7 @@
                         <option name="myPosition">
                           <Point>
                             <option name="x" value="196" />
-                            <option name="y" value="-272" />
+                            <option name="y" value="-289" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -165,6 +165,18 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="nav_test_questions">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="194" />
+                            <option name="y" value="-607" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>

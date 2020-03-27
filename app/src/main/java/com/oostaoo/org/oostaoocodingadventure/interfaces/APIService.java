@@ -51,6 +51,6 @@ public interface APIService {
     @GET("api/entreprises/{id}")
     Call<Entreprise> getEntreprise(@Path("id") int id);
 
-    @GET("questions")
+    @GET("api/questions")
     Call<List<Question>> getQuestions();
 }

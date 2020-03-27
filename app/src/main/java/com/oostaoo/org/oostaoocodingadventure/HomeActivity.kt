@@ -28,6 +28,7 @@ class HomeActivity : AppCompatActivity(),
     MyTestsFragment.OnCampaignListFragmentInteractionListener,
     TestCandidatsFragment.OnCandidatListFragmentInteractionListener,
     TestCandidatsFragment.OnAddCandidatListener,
+    TestCandidatsFragment.OnBottomNavigationViewListener,
     AddCandidatFragment.OnButtonConfigEmailClickListener,
     ConfigEmailFragment.OnButtonBackCandidatsClickListener,
     NewTestFragment.OnButtonListQuestionsClickListener,
@@ -94,6 +95,16 @@ class HomeActivity : AppCompatActivity(),
         val bundle = Bundle()
         bundle.putInt("id", item.id)
         navController.navigate(R.id.nav_add_candidat, bundle)
+    }
+
+    override fun onBottomNavigationViewInteraction(item: Int, id: Int) {
+        val bundle = Bundle()
+        bundle.putInt("id", id)
+        when (item) {
+            0 -> navController.navigate(R.id.nav_test_candidats, bundle)
+            1 -> navController.navigate(R.id.nav_test_questions, bundle)
+        }
+
     }
 
     override fun onButtonConfigEmailClickListener(campaign: Campaign, names: ArrayList<String>, emails: ArrayList<String>) {

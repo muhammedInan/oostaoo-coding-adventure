@@ -101,5 +101,7 @@
     <string name="send_email">Envoyer \nemail</string>
     <string name="back_candidats">Retour\naux candidats</string>
     <string name="customize_email">Personnaliser\ncet email</string>
+    <string name="questions">Questions</string>
+    <string name="parameters">Paramètres</string>
 
 </resources>
