@@ -62,7 +62,7 @@ class TestCandidatsFragment: Fragment() {
         if (rv_list_candidats is RecyclerView) {
             with(rv_list_candidats) {
                 layoutManager = LinearLayoutManager(context)
-                adapter = MyCandidatRecyclerViewAdapter(candidats, context, candidatsListListener)
+                adapter = MyCandidatRecyclerViewAdapter(candidats, candidatsListListener)
             }
         }
     }

@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
+import com.oostaoo.org.oostaoocodingadventure.database.campaign.Campaign
 import com.oostaoo.org.oostaoocodingadventure.database.technology.Technology
 
 @Entity(tableName = "question_table")
@@ -17,7 +18,9 @@ class Question(@PrimaryKey @ColumnInfo(name = "idQuestion") val id: Int,
                val content: String?,
                val time: Int?,
                val theme: String?,
-               val technologies: Int?,
+               val technologies: Technology?,
                val answer_value: String?,
                val question: Int?,
-               val numero: Int?)
+               val numero: Int?,
+               @TypeConverters val answers: List<String>?,
+               @TypeConverters val campaigns: List<Campaign>?)

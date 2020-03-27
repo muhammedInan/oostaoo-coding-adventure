@@ -34,7 +34,7 @@
     <string name="menu_data_protection">Protection des données</string>
     <string name="menu_users">Utilisateurs</string>
     <string name="menu_deconnection">Déconnexion</string>
-    <string name="menu_test_candidats">Test Candidats</string>
+    <string name="menu_test_candidats">Candidats</string>
     <string name="menu_list_questions">Liste des questions</string>
     <string name="menu_add_candidat">Ajouter un candidat</string>
     <string name="menu_config_email">Configuration de l\'email</string>

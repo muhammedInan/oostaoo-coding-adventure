@@ -16,9 +16,7 @@ import java.util.*
 
 
 class MyCandidatRecyclerViewAdapter(private val mValues: List<Candidat>,
-                                    private val mContext: Context,
-                                    private val mListener: TestCandidatsFragment.OnCandidatListFragmentInteractionListener?
-)
+                                    private val mListener: TestCandidatsFragment.OnCandidatListFragmentInteractionListener?)
     : RecyclerView.Adapter<MyCandidatRecyclerViewAdapter.ViewHolder>() {
 
     private val mOnClickListener: View.OnClickListener
@@ -40,25 +38,23 @@ class MyCandidatRecyclerViewAdapter(private val mValues: List<Candidat>,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.mNom.text = StringBuilder("Nom : " + mValues[position].Nom)
-        holder.mEmail.text = StringBuilder("Email : " + mValues[position].email)
+        holder.mNom.text = StringBuilder(mValues[position].Nom!!)
+        holder.mEmail.text = StringBuilder(mValues[position].email!!)
         val timestamp = Instant.parse(mValues[position].test_terminer)
-        val sdf = SimpleDateFormat("dd/MM/yyyy à HH:mm:ss")
+        val sdf = SimpleDateFormat("dd/MM/yyyy à HH:mm:ss", Locale.FRENCH)
         val netDate = Date(timestamp.epochSecond * 1000)
         val myDate: String = sdf.format(netDate)
         holder.mTestTerminer.text = StringBuilder("Dernière activité : $myDate")
-        if (mValues[position].points_candidat == null || mValues[position].points_candidat!![5].PourcentTest == null) {
-            holder.mPoint.text = "Score :  0 %"
-        } else {
-            holder.mPoint.text =
-                StringBuilder("Score : " + mValues[position].points_candidat!![5].PourcentTest.toString() + "%")
+        var score = 0
+        if (mValues[position].points_candidat != null && mValues[position].points_candidat!![5].PourcentTest != null) {
+            score = mValues[position].points_candidat!![5].PourcentTest!!
         }
-
+        holder.mPoint.text = StringBuilder("Score : $score%")
+        var seconds = 0
         if (mValues[position].duree != null) {
-            holder.mDuree.text = StringBuilder("Durée : " + mValues[position].duree.toString() + " secondes")
-        } else {
-            holder.mDuree.text = "Durée : 0 secondes"
+            seconds = mValues[position].duree!!
         }
+        holder.mDuree.text = StringBuilder("Durée : $seconds secondes")
 
         with(holder.mView) {
             tag = mValues[position]

@@ -125,14 +125,14 @@ class ListQuestionsFragment: Fragment() {
 
                 tvTechnology.setTextColor(ContextCompat.getColor(context!!, R.color.orange_next_step))
                 tvTechnology.typeface = typeface
-                var questionTechnology = ""
+                /*var questionTechnology = ""
                 for (i in 0 until questionsSizeByTechnology.size) {
                     if (listQuestions.indexOf(question) < questionsSizeByTechnology[i]) {
                         questionTechnology = selectedTechnologies[i].name!!
                         break
                     }
-                }
-                tvTechnology.text = questionTechnology
+                }*/
+                tvTechnology.text = question.technologies!!.name //questionTechnology
                 layout.addView(tvTechnology)
                 constraintSet.clone(layout)
                 constraintSet.connect(

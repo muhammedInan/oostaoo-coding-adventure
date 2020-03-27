@@ -4,6 +4,7 @@ import com.oostaoo.org.oostaoocodingadventure.database.campaign.Campaign;
 import com.oostaoo.org.oostaoocodingadventure.database.entreprise.Entreprise;
 import com.oostaoo.org.oostaoocodingadventure.database.loginRequestResult.LoginRequestResult;
 import com.oostaoo.org.oostaoocodingadventure.database.profile.Profile;
+import com.oostaoo.org.oostaoocodingadventure.database.question.Question;
 import com.oostaoo.org.oostaoocodingadventure.database.technology.Technology;
 import com.oostaoo.org.oostaoocodingadventure.database.user.User;
 
@@ -49,4 +50,7 @@ public interface APIService {
 
     @GET("api/entreprises/{id}")
     Call<Entreprise> getEntreprise(@Path("id") int id);
+
+    @GET("questions")
+    Call<List<Question>> getQuestions();
 }

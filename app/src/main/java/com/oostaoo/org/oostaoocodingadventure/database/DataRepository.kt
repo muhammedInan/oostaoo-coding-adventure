@@ -80,6 +80,10 @@ class DataRepository() {
         mDatabase.questionDao().insert(question)
     }
 
+    fun getQuestions(): LiveData<List<Question>> {
+        return mDatabase.questionDao().getQuestions()
+    }
+
     //User
 
     suspend fun insertUser(user: User) {
