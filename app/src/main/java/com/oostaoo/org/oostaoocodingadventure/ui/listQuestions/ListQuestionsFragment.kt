@@ -21,6 +21,7 @@ import com.oostaoo.org.oostaoocodingadventure.R
 import com.oostaoo.org.oostaoocodingadventure.database.campaign.SendCampaign
 import com.oostaoo.org.oostaoocodingadventure.database.questionCampaign.QuestionCampaign
 import com.oostaoo.org.oostaoocodingadventure.database.technology.Technology
+import com.oostaoo.org.oostaoocodingadventure.utils.secondsToString
 import kotlinx.android.synthetic.main.fragment_list_questions.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -417,12 +418,6 @@ class ListQuestionsFragment: Fragment() {
             }
             return true
         }
-    }
-
-    private fun secondsToString(pTime: Int): String? {
-        val hours = (pTime / 60 / 60)
-        val minutes = (pTime / 60) % 60
-        return String.format("%02d:%02d:%02d", hours, minutes, pTime % 60)
     }
 
     override fun onAttach(context: Context) {
