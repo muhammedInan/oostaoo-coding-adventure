@@ -1,6 +1,7 @@
 package com.oostaoo.org.oostaoocodingadventure.ui.testQuestions
 
 import android.content.ClipData
+import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.*
@@ -14,17 +15,22 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.oostaoo.org.oostaoocodingadventure.R
+import com.oostaoo.org.oostaoocodingadventure.database.campaign.Campaign
 import com.oostaoo.org.oostaoocodingadventure.database.question.Question
 import com.oostaoo.org.oostaoocodingadventure.database.technology.Technology
 import com.oostaoo.org.oostaoocodingadventure.ui.listQuestions.ListQuestionsFragment
+import com.oostaoo.org.oostaoocodingadventure.ui.testCandidats.TestCandidatsFragment
 import com.oostaoo.org.oostaoocodingadventure.utils.secondsToString
 import kotlinx.android.synthetic.main.fragment_test_questions.*
+import kotlinx.android.synthetic.main.fragment_test_questions.bottom_navigation_view
 import java.util.*
 import kotlin.collections.ArrayList
 
 class TestQuestionsFragment : Fragment() {
 
     private lateinit var testQuestionsViewModel: TestQuestionsViewModel
+    private var bottomNavigationViewListener: TestCandidatsFragment.OnBottomNavigationViewListener? = null
+    private var mCampaign: Campaign? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val factory =
@@ -37,6 +43,11 @@ class TestQuestionsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        bottom_navigation_view.selectedItemId = R.id.action_questions
+        bottom_navigation_view.setOnNavigationItemSelectedListener {
+            updateMainFragment(it.itemId)
+        }
 
         top.setOnDragListener(MyDragListener())
         bottom.setOnDragListener(MyDragListener())
@@ -52,6 +63,7 @@ class TestQuestionsFragment : Fragment() {
 
         testQuestionsViewModel.getCampaign()
             .observe(viewLifecycleOwner, Observer { campaign ->
+                mCampaign = campaign
                 if (listQuestions.size > 0 && campaign?.technologies != null && campaign.technologies.isNotEmpty()) {
                     selectedTechnologies.addAll(campaign.technologies)
                     for (i in 0 until listQuestions.size) {
@@ -390,6 +402,29 @@ class TestQuestionsFragment : Fragment() {
         )
         constraintSet.applyTo(layout)
         return layout
+    }
+
+    private fun updateMainFragment(integer: Int): Boolean {
+        when (integer) {
+            R.id.action_candidats -> bottomNavigationViewListener?.onBottomNavigationViewInteraction(0, mCampaign!!.id)
+            R.id.action_questions -> bottomNavigationViewListener?.onBottomNavigationViewInteraction(1, mCampaign!!.id)
+            R.id.action_parameters -> bottomNavigationViewListener?.onBottomNavigationViewInteraction(2, mCampaign!!.id)
+        }
+        return true
+    }
+
+    override fun onAttach(context: Context) {
+
+        super.onAttach(context)
+
+        if (context is TestCandidatsFragment.OnBottomNavigationViewListener) bottomNavigationViewListener = context
+        else throw RuntimeException("$context must implement onBottomNavigationViewListener")
+    }
+
+    override fun onDetach() {
+
+        super.onDetach()
+        bottomNavigationViewListener = null
     }
 
     inner class MyDragListener : OnDragListener {

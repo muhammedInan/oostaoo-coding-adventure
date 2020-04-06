@@ -75,6 +75,12 @@
         tools:layout="@layout/fragment_test_questions" />
 
     <fragment
+        android:id="@+id/nav_parameters_campaign"
+        android:name="com.oostaoo.org.oostaoocodingadventure.ui.parametersCampaign.ParametersCampaignFragment"
+        android:label="@string/action_settings"
+        tools:layout="@layout/fragment_parameters_campaign" />
+
+    <fragment
         android:id="@+id/nav_list_questions"
         android:name="com.oostaoo.org.oostaoocodingadventure.ui.listQuestions.ListQuestionsFragment"
         android:label="@string/menu_list_questions"

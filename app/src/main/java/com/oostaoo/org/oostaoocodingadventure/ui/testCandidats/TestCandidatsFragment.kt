@@ -35,6 +35,11 @@ class TestCandidatsFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        bottom_navigation_view.selectedItemId = R.id.action_candidats
+        bottom_navigation_view.setOnNavigationItemSelectedListener {
+            updateMainFragment(it.itemId)
+        }
+
         testCandidatsViewModel.getCampaign().observe(viewLifecycleOwner, Observer {
             campaign = it
             if (campaign != null && campaign!!.candidats != null) {
@@ -43,10 +48,6 @@ class TestCandidatsFragment: Fragment() {
                 Toast.makeText(context, "Error", Toast.LENGTH_LONG).show()
             }
         })
-
-        bottom_navigation_view.setOnNavigationItemSelectedListener {
-            updateMainFragment(it.itemId)
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -100,6 +101,7 @@ class TestCandidatsFragment: Fragment() {
         super.onDetach()
         candidatsListListener = null
         addCandidatListener = null
+        bottomNavigationViewListener = null
     }
 
     interface OnCandidatListFragmentInteractionListener {

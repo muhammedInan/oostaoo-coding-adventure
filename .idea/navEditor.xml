@@ -143,6 +143,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="nav_parameters_campaign">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="196" />
+                            <option name="y" value="-914" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="nav_test_candidats">
                     <value>
                       <LayoutPositions>

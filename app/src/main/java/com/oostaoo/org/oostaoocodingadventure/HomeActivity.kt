@@ -103,8 +103,8 @@ class HomeActivity : AppCompatActivity(),
         when (item) {
             0 -> navController.navigate(R.id.nav_test_candidats, bundle)
             1 -> navController.navigate(R.id.nav_test_questions, bundle)
+            2 -> navController.navigate(R.id.nav_parameters_campaign, bundle)
         }
-
     }
 
     override fun onButtonConfigEmailClickListener(campaign: Campaign, names: ArrayList<String>, emails: ArrayList<String>) {
