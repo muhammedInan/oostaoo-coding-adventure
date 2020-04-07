@@ -24,10 +24,12 @@ class BusinessProfileViewModel(application: Application) : AndroidViewModel(appl
     private val repository: DataRepository = DataRepository().getInstance(AppDatabase.getDatabase(application))!!
 
     init {
+
         requestEntreprise()
     }
 
     fun getEntreprise() : LiveData<Entreprise> {
+
         return repository.getEntreprise(entrepriseId)
     }
 
@@ -41,7 +43,6 @@ class BusinessProfileViewModel(application: Application) : AndroidViewModel(appl
                 chain.proceed(newRequest)
             }
             .build()
-
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(APIService.BASE_URL + "/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -52,18 +53,14 @@ class BusinessProfileViewModel(application: Application) : AndroidViewModel(appl
         myCall.enqueue(object : Callback<Entreprise> {
             override fun onResponse(call: Call<Entreprise>, response: Response<Entreprise>) {
                 val entreprise = response.body()
-                if(entreprise != null) {
-                    insert(entreprise)
-                }
+                if(entreprise != null) insert(entreprise)
             }
-
-            override fun onFailure(call: Call<Entreprise>, t: Throwable) {
-                Log.d("loadUser", "error")
-            }
+            override fun onFailure(call: Call<Entreprise>, t: Throwable) {}
         })
     }
 
     fun insert(entreprise: Entreprise) = viewModelScope.launch {
+
         repository.insertEntreprise(entreprise)
     }
 }

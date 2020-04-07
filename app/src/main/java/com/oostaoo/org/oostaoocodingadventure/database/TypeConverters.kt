@@ -6,11 +6,9 @@ import com.google.gson.reflect.TypeToken
 import com.oostaoo.org.oostaoocodingadventure.database.campaign.Campaign
 import com.oostaoo.org.oostaoocodingadventure.database.candidat.Candidat
 import com.oostaoo.org.oostaoocodingadventure.database.candidat.PointCandidats
-import com.oostaoo.org.oostaoocodingadventure.database.question.Question
 import com.oostaoo.org.oostaoocodingadventure.database.questionCampaign.QuestionCampaign
 import com.oostaoo.org.oostaoocodingadventure.database.rapport.Rapport
 import com.oostaoo.org.oostaoocodingadventure.database.technology.Technology
-
 
 class TypeConverters {
 
@@ -53,20 +51,6 @@ class TypeConverters {
     fun toCandidatList(value: String): List<Candidat>? {
         val gson = Gson()
         val type = object : TypeToken<List<Candidat>?>() {}.type
-        return gson.fromJson(value, type)
-    }
-
-    @TypeConverter
-    fun fromQuestionList(value: List<Question>?): String {
-        val gson = Gson()
-        val type = object : TypeToken<List<Question>?>() {}.type
-        return gson.toJson(value, type)
-    }
-
-    @TypeConverter
-    fun toQuestionList(value: String): List<Question>? {
-        val gson = Gson()
-        val type = object : TypeToken<List<Question>?>() {}.type
         return gson.fromJson(value, type)
     }
 

@@ -23,10 +23,12 @@ class AddCandidatViewModel(idCampaign: Int, application: Application) : AndroidV
     private val repository: DataRepository = DataRepository().getInstance(AppDatabase.getDatabase(application))!!
 
     init {
+
         requestCampaign(mIdCampaign)
     }
 
     fun getCampaign(): LiveData<Campaign> {
+
         return repository.getCampaign(mIdCampaign)
     }
 
@@ -46,14 +48,14 @@ class AddCandidatViewModel(idCampaign: Int, application: Application) : AndroidV
         myCall.enqueue(object : Callback<Campaign> {
             override fun onResponse(call: Call<Campaign>, response: Response<Campaign>) {
                 val campaign = response.body()
-                if (campaign != null) {
-                    insertCampaign(campaign)
-                }
+                if (campaign != null) insertCampaign(campaign)
             }
             override fun onFailure(call: Call<Campaign>, t: Throwable) {}
         })
     }
+
     fun insertCampaign(campaign: Campaign) = viewModelScope.launch {
+
         repository.insertCampaign(campaign)
     }
 }

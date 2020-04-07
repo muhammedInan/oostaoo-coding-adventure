@@ -38,22 +38,19 @@ class HomeActivity : AppCompatActivity(),
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.nav_my_tests, R.id.nav_new_test, R.id.nav_user_profile,
-                R.id.nav_business_profile, R.id.nav_facturation, R.id.nav_data_protection, R.id.nav_users), drawerLayout)
+        appBarConfiguration = AppBarConfiguration(setOf(R.id.nav_my_tests, R.id.nav_new_test,
+            R.id.nav_user_profile, R.id.nav_business_profile, R.id.nav_facturation,
+            R.id.nav_data_protection, R.id.nav_users), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
         bt_deconnection.setOnClickListener {
             val sharedpreferences = getSharedPreferences("sharedpreferences", 0)
             val editor: SharedPreferences.Editor = sharedpreferences.edit()
@@ -92,12 +89,14 @@ class HomeActivity : AppCompatActivity(),
     }
 
     override fun onAddCandidatInteraction(item: Campaign) {
+
         val bundle = Bundle()
         bundle.putInt("id", item.id)
         navController.navigate(R.id.nav_add_candidat, bundle)
     }
 
     override fun onBottomNavigationViewInteraction(item: Int, id: Int) {
+
         val bundle = Bundle()
         bundle.putInt("id", id)
         when (item) {
@@ -108,6 +107,7 @@ class HomeActivity : AppCompatActivity(),
     }
 
     override fun onButtonConfigEmailClickListener(campaign: Campaign, names: ArrayList<String>, emails: ArrayList<String>) {
+
         val bundle = Bundle()
         bundle.putInt("id", campaign.id)
         bundle.putStringArrayList("names", names)
@@ -116,12 +116,14 @@ class HomeActivity : AppCompatActivity(),
     }
 
     override fun onButtonBackCandidatsClickListener() {
+
         navController.popBackStack()
     }
 
     override fun onButtonListQuestionsClick(name: String, level: String, langs: String, copy_paste: Boolean,
                                             sent_report: Boolean, profile: Int, user: Int, technologiesId: ArrayList<Int>,
                                             technologiesName: ArrayList<String>) {
+
         val bundle = Bundle()
         bundle.putString("Name", name)
         bundle.putString("level", level)
@@ -136,6 +138,7 @@ class HomeActivity : AppCompatActivity(),
     }
 
     override fun onPostCampaignClickListener() {
+
         navController.navigate(R.id.nav_my_tests)
     }
 }

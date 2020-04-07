@@ -23,27 +23,25 @@ class MyTestsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     private var listener: OnCampaignListFragmentInteractionListener? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        myTestsViewModel = ViewModelProvider(this).get(MyTestsViewModel::class.java)
 
+        myTestsViewModel = ViewModelProvider(this).get(MyTestsViewModel::class.java)
         return inflater.inflate(R.layout.fragment_my_tests, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
+        super.onViewCreated(view, savedInstanceState)
         swipe_container_campaigns.setOnRefreshListener(this)
         swipe_container_campaigns.setProgressViewOffset(true, 0, 180)
         swipe_container_campaigns.isRefreshing = true
-
         myTestsViewModel.getCampaigns().observe(viewLifecycleOwner, Observer {campaigns ->
-            if (campaigns.isNotEmpty()) {
-                updateAdapter(campaigns)
-            }
+            if (campaigns.isNotEmpty()) updateAdapter(campaigns)
             swipe_container_campaigns.isRefreshing = false
         })
     }
 
     override fun onRefresh() {
+
         swipe_container_campaigns.isRefreshing = true
         myTestsViewModel.requestCampaigns()
         myTestsViewModel.getCampaigns().observe(owner, Observer { campaigns ->
@@ -65,9 +63,12 @@ class MyTestsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     override fun onAttach(context: Context) {
 
         super.onAttach(context)
-
-        if (context is OnCampaignListFragmentInteractionListener) listener = context
-        else throw RuntimeException("$context must implement OnListFragmentInteractionListener")
+        if (context is OnCampaignListFragmentInteractionListener) {
+            listener = context
+        }
+        else {
+            throw RuntimeException("$context must implement OnCampaignListFragmentInteractionListener")
+        }
     }
 
     override fun onDetach() {
@@ -77,7 +78,6 @@ class MyTestsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     }
 
     interface OnCampaignListFragmentInteractionListener {
-
         fun onCampaignListFragmentInteraction(item: Campaign)
     }
 }

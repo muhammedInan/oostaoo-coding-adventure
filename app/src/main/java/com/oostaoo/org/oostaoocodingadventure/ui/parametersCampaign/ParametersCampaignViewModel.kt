@@ -25,10 +25,12 @@ class ParametersCampaignViewModel(idCampaign: Int, application: Application) : A
     private val tokenJwt = sharedPreferences.getString("jwt", "")
 
     init {
+
         requestCampaign(mIdCampaign)
     }
 
     fun getCampaign(): LiveData<Campaign> {
+
         return repository.getCampaign(mIdCampaign)
     }
 
@@ -42,7 +44,6 @@ class ParametersCampaignViewModel(idCampaign: Int, application: Application) : A
                 chain.proceed(newRequest)
             }
             .build()
-
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(APIService.BASE_URL + "/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -53,15 +54,14 @@ class ParametersCampaignViewModel(idCampaign: Int, application: Application) : A
         myCall.enqueue(object : Callback<Campaign> {
             override fun onResponse(call: Call<Campaign>, response: Response<Campaign>) {
                 val campaign = response.body()
-                if (campaign != null) {
-                    insertCampaign(campaign)
-                }
+                if (campaign != null) insertCampaign(campaign)
             }
             override fun onFailure(call: Call<Campaign>, t: Throwable) {}
         })
     }
 
     fun insertCampaign(campaign: Campaign) = viewModelScope.launch {
+
         repository.insertCampaign(campaign)
     }
 }

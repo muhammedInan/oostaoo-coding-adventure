@@ -25,10 +25,12 @@ class UsersViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: DataRepository = DataRepository().getInstance(AppDatabase.getDatabase(application))!!
 
     init {
+
         requestUsers()
     }
 
     fun getUsers(): LiveData<List<User>> {
+
         return repository.getUsers(adminId)
     }
 
@@ -37,7 +39,6 @@ class UsersViewModel(application: Application) : AndroidViewModel(application) {
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .build()
-
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(APIService.BASE_URL + "/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -57,7 +58,9 @@ class UsersViewModel(application: Application) : AndroidViewModel(application) {
             override fun onFailure(call: Call<List<User>>, t: Throwable) {}
         })
     }
+
     fun insertUser(user: User) = viewModelScope.launch {
+
         repository.insertUser(user)
     }
 }

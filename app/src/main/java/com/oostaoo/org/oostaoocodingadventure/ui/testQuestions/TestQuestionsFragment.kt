@@ -33,34 +33,25 @@ class TestQuestionsFragment : Fragment() {
     private var mCampaign: Campaign? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val factory =
-            TestQuestionsViewModelFactory(arguments!!.getInt("id"), activity!!.application)
-        testQuestionsViewModel =
-            ViewModelProvider(this, factory).get(TestQuestionsViewModel::class.java)
+
+        val factory = TestQuestionsViewModelFactory(arguments!!.getInt("id"), activity!!.application)
+        testQuestionsViewModel = ViewModelProvider(this, factory).get(TestQuestionsViewModel::class.java)
         setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_test_questions, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
-
         bottom_navigation_view.selectedItemId = R.id.action_questions
-        bottom_navigation_view.setOnNavigationItemSelectedListener {
-            updateMainFragment(it.itemId)
-        }
-
+        bottom_navigation_view.setOnNavigationItemSelectedListener { updateMainFragment(it.itemId) }
         top.setOnDragListener(MyDragListener())
         bottom.setOnDragListener(MyDragListener())
-
         val listQuestions = ArrayList<Question>()
         val selectedTechnologies = ArrayList<Technology>()
         val possibleQuestions = ArrayList<Question>()
         val selectedQuestions = ArrayList<Question>()
-
-        testQuestionsViewModel.getQuestions().observe(viewLifecycleOwner, Observer {
-            listQuestions.addAll(it)
-        })
-
+        testQuestionsViewModel.getQuestions().observe(viewLifecycleOwner, Observer { listQuestions.addAll(it) })
         testQuestionsViewModel.getCampaign()
             .observe(viewLifecycleOwner, Observer { campaign ->
                 mCampaign = campaign
@@ -68,9 +59,8 @@ class TestQuestionsFragment : Fragment() {
                     selectedTechnologies.addAll(campaign.technologies)
                     for (i in 0 until listQuestions.size) {
                         for (j in 0 until selectedTechnologies.size) {
-                            if (listQuestions[i].technologies!!.id == selectedTechnologies[j].id) {
+                            if (listQuestions[i].technologies!!.id == selectedTechnologies[j].id)
                                 possibleQuestions.add(listQuestions[i])
-                            }
                         }
                     }
                     val listIndexQuestionToDelete = ArrayList<Int>()
@@ -93,21 +83,16 @@ class TestQuestionsFragment : Fragment() {
                         val layout = setQuestionView(question)
                         bottom.addView(layout)
                     }
-                    if (bottom.childCount > 1) {
-                        tv_drag_drop.visibility = GONE
-                    }
+                    if (bottom.childCount > 1) tv_drag_drop.visibility = GONE
                 }
             })
     }
 
     private fun setQuestionView(question: Question) : View {
+
         val layout = ConstraintLayout(context)
         layout.id = question.id
-
-        layout.layoutParams = ConstraintLayout.LayoutParams(
-            ConstraintLayout.LayoutParams.MATCH_PARENT,
-            400
-        )
+        layout.layoutParams = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, 400)
         layout.setBackgroundResource(R.drawable.background_item_drag_and_drop)
         layout.setOnLongClickListener { view ->
             val data = ClipData.newPlainText("", "")
@@ -116,9 +101,7 @@ class TestQuestionsFragment : Fragment() {
             view.visibility = INVISIBLE
             true
         }
-
-        val typeface =
-            ResourcesCompat.getFont(context!!, R.font.poppins_regular)
+        val typeface = ResourcesCompat.getFont(context!!, R.font.poppins_regular)
         val constraintSet = ConstraintSet()
 
         //TECHNOLOGY
@@ -126,16 +109,9 @@ class TestQuestionsFragment : Fragment() {
         tvTechnology.id = generateViewId()
         val paramsTechnology = ConstraintLayout.LayoutParams(
             ConstraintLayout.LayoutParams.WRAP_CONTENT,
-            ConstraintLayout.LayoutParams.WRAP_CONTENT
-        )
+            ConstraintLayout.LayoutParams.WRAP_CONTENT)
         tvTechnology.layoutParams = paramsTechnology
-
-        tvTechnology.setTextColor(
-            ContextCompat.getColor(
-                context!!,
-                R.color.orange_next_step
-            )
-        )
+        tvTechnology.setTextColor(ContextCompat.getColor(context!!, R.color.orange_next_step))
         tvTechnology.typeface = typeface
         tvTechnology.text = question.technologies!!.name
         layout.addView(tvTechnology)
@@ -145,15 +121,13 @@ class TestQuestionsFragment : Fragment() {
             ConstraintSet.START,
             ConstraintSet.PARENT_ID,
             ConstraintSet.START,
-            10
-        )
+            10)
         constraintSet.connect(
             tvTechnology.id,
             ConstraintSet.TOP,
             ConstraintSet.PARENT_ID,
             ConstraintSet.TOP,
-            10
-        )
+            10)
         constraintSet.applyTo(layout)
 
         //POINTS
@@ -161,39 +135,29 @@ class TestQuestionsFragment : Fragment() {
         tvPoints.id = generateViewId()
         val paramsPoints = ConstraintLayout.LayoutParams(
             ConstraintLayout.LayoutParams.WRAP_CONTENT,
-            ConstraintLayout.LayoutParams.WRAP_CONTENT
-        )
+            ConstraintLayout.LayoutParams.WRAP_CONTENT)
         tvPoints.layoutParams = paramsPoints
-        tvPoints.setTextColor(
-            ContextCompat.getColor(
-                context!!,
-                R.color.colorPrimary
-            )
-        )
+        tvPoints.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
         tvPoints.typeface = typeface
-        tvPoints.text =
-            StringBuilder(question.points.toString() + " points")
+        tvPoints.text = StringBuilder(question.points.toString() + " points")
         layout.addView(tvPoints)
         constraintSet.clone(layout)
         constraintSet.connect(
             tvPoints.id,
             ConstraintSet.START,
             ConstraintSet.PARENT_ID,
-            ConstraintSet.START
-        )
+            ConstraintSet.START)
         constraintSet.connect(
             tvPoints.id,
             ConstraintSet.END,
             ConstraintSet.PARENT_ID,
-            ConstraintSet.END
-        )
+            ConstraintSet.END)
         constraintSet.connect(
             tvPoints.id,
             ConstraintSet.TOP,
             ConstraintSet.PARENT_ID,
             ConstraintSet.TOP,
-            10
-        )
+            10)
         constraintSet.applyTo(layout)
 
         //BUTTON
@@ -206,14 +170,8 @@ class TestQuestionsFragment : Fragment() {
         buttonChoose.text = getString(R.string.choose)
         buttonChoose.setPadding(2, 2, 2, 2)
         buttonChoose.isAllCaps = false
-        buttonChoose.setTextColor(
-            ContextCompat.getColor(
-                context!!,
-                R.color.white
-            )
-        )
-        buttonChoose.typeface =
-            ResourcesCompat.getFont(context!!, R.font.poppins_regular)
+        buttonChoose.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+        buttonChoose.typeface = ResourcesCompat.getFont(context!!, R.font.poppins_regular)
         buttonChoose.transformationMethod = null
         buttonChoose.setOnClickListener(MyButtonClickListener())
         layout.addView(buttonChoose)
@@ -223,15 +181,13 @@ class TestQuestionsFragment : Fragment() {
             ConstraintSet.END,
             ConstraintSet.PARENT_ID,
             ConstraintSet.END,
-            20
-        )
+            20)
         constraintSet.connect(
             buttonChoose.id,
             ConstraintSet.TOP,
             ConstraintSet.PARENT_ID,
             ConstraintSet.TOP,
-            20
-        )
+            20)
         constraintSet.applyTo(layout)
 
         //QUESTION
@@ -239,15 +195,9 @@ class TestQuestionsFragment : Fragment() {
         tvQuestion.id = generateViewId()
         val paramsQuestion = ConstraintLayout.LayoutParams(
             ConstraintLayout.LayoutParams.MATCH_PARENT,
-            ConstraintLayout.LayoutParams.WRAP_CONTENT
-        )
+            ConstraintLayout.LayoutParams.WRAP_CONTENT)
         tvQuestion.layoutParams = paramsQuestion
-        tvQuestion.setTextColor(
-            ContextCompat.getColor(
-                context!!,
-                R.color.colorPrimary
-            )
-        )
+        tvQuestion.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
         tvQuestion.typeface = typeface
         tvQuestion.maxLines = 3
         tvQuestion.ellipsize = TextUtils.TruncateAt.END
@@ -259,31 +209,25 @@ class TestQuestionsFragment : Fragment() {
             ConstraintSet.START,
             ConstraintSet.PARENT_ID,
             ConstraintSet.START,
-            10
-        )
+            10)
         constraintSet.connect(
             tvQuestion.id,
             ConstraintSet.END,
             ConstraintSet.PARENT_ID,
             ConstraintSet.START,
-            265
-        )
+            265)
         constraintSet.connect(
             tvQuestion.id,
             ConstraintSet.TOP,
             tvTechnology.id,
             ConstraintSet.BOTTOM,
-            10
-        )
+            10)
         constraintSet.applyTo(layout)
 
         //LEVEL
         val level = ListQuestionsFragment.Level.valueOf(
-            question.level!!.toUpperCase(
-                Locale.getDefault()
-            )
+            question.level!!.toUpperCase(Locale.getDefault())
         ).getLevel()
-
         val ivBtRadioLevel1 = ImageView(context)
         ivBtRadioLevel1.id = generateViewId()
         val paramsLevel1 = ConstraintLayout.LayoutParams(42, 42)
@@ -300,17 +244,14 @@ class TestQuestionsFragment : Fragment() {
             ConstraintSet.START,
             ConstraintSet.PARENT_ID,
             ConstraintSet.START,
-            10
-        )
+            10)
         constraintSet.connect(
             ivBtRadioLevel1.id,
             ConstraintSet.BOTTOM,
             ConstraintSet.PARENT_ID,
             ConstraintSet.BOTTOM,
-            20
-        )
+            20)
         constraintSet.applyTo(layout)
-
         val ivBtRadioLevel2 = ImageView(context)
         ivBtRadioLevel2.id = generateViewId()
         val paramsLevel2 = ConstraintLayout.LayoutParams(42, 42)
@@ -326,17 +267,14 @@ class TestQuestionsFragment : Fragment() {
             ivBtRadioLevel2.id,
             ConstraintSet.START,
             ivBtRadioLevel1.id,
-            ConstraintSet.END
-        )
+            ConstraintSet.END)
         constraintSet.connect(
             ivBtRadioLevel2.id,
             ConstraintSet.BOTTOM,
             ConstraintSet.PARENT_ID,
             ConstraintSet.BOTTOM,
-            20
-        )
+            20)
         constraintSet.applyTo(layout)
-
         val ivBtRadioLevel3 = ImageView(context)
         ivBtRadioLevel3.id = generateViewId()
         val paramsLevel3 = ConstraintLayout.LayoutParams(42, 42)
@@ -352,15 +290,13 @@ class TestQuestionsFragment : Fragment() {
             ivBtRadioLevel3.id,
             ConstraintSet.START,
             ivBtRadioLevel2.id,
-            ConstraintSet.END
-        )
+            ConstraintSet.END)
         constraintSet.connect(
             ivBtRadioLevel3.id,
             ConstraintSet.BOTTOM,
             ConstraintSet.PARENT_ID,
             ConstraintSet.BOTTOM,
-            20
-        )
+            20)
         constraintSet.applyTo(layout)
 
         //TIME
@@ -368,15 +304,9 @@ class TestQuestionsFragment : Fragment() {
         tvTime.id = generateViewId()
         val paramsTime = ConstraintLayout.LayoutParams(
             ConstraintLayout.LayoutParams.WRAP_CONTENT,
-            ConstraintLayout.LayoutParams.WRAP_CONTENT
-        )
+            ConstraintLayout.LayoutParams.WRAP_CONTENT)
         tvTime.layoutParams = paramsTime
-        tvTime.setTextColor(
-            ContextCompat.getColor(
-                context!!,
-                R.color.colorPrimary
-            )
-        )
+        tvTime.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
         tvTime.typeface = typeface
         tvTime.text = secondsToString(question.time!!)
         layout.addView(tvTime)
@@ -385,26 +315,24 @@ class TestQuestionsFragment : Fragment() {
             tvTime.id,
             ConstraintSet.START,
             ConstraintSet.PARENT_ID,
-            ConstraintSet.START
-        )
+            ConstraintSet.START)
         constraintSet.connect(
             tvTime.id,
             ConstraintSet.END,
             ConstraintSet.PARENT_ID,
-            ConstraintSet.END
-        )
+            ConstraintSet.END)
         constraintSet.connect(
             tvTime.id,
             ConstraintSet.BOTTOM,
             ConstraintSet.PARENT_ID,
             ConstraintSet.BOTTOM,
-            10
-        )
+            10)
         constraintSet.applyTo(layout)
         return layout
     }
 
     private fun updateMainFragment(integer: Int): Boolean {
+
         when (integer) {
             R.id.action_candidats -> bottomNavigationViewListener?.onBottomNavigationViewInteraction(0, mCampaign!!.id)
             R.id.action_questions -> bottomNavigationViewListener?.onBottomNavigationViewInteraction(1, mCampaign!!.id)
@@ -416,9 +344,12 @@ class TestQuestionsFragment : Fragment() {
     override fun onAttach(context: Context) {
 
         super.onAttach(context)
-
-        if (context is TestCandidatsFragment.OnBottomNavigationViewListener) bottomNavigationViewListener = context
-        else throw RuntimeException("$context must implement onBottomNavigationViewListener")
+        if (context is TestCandidatsFragment.OnBottomNavigationViewListener) {
+            bottomNavigationViewListener = context
+        }
+        else {
+            throw RuntimeException("$context must implement onBottomNavigationViewListener")
+        }
     }
 
     override fun onDetach() {
@@ -431,9 +362,6 @@ class TestQuestionsFragment : Fragment() {
 
         override fun onDrag(v: View, event: DragEvent): Boolean {
             when (event.action) {
-                DragEvent.ACTION_DRAG_STARTED -> {
-                }
-
                 DragEvent.ACTION_DROP -> {
                     // Dropped, reassign View to ViewGroup
                     val view = event.localState as View
@@ -444,22 +372,18 @@ class TestQuestionsFragment : Fragment() {
                         tv_drag_drop.visibility = GONE
                         (((view as ConstraintLayout) as ViewGroup).getChildAt(2) as Button).text = getString(R.string.delete)
                     } else if (container == top) {
-                        if (bottom.childCount == 0) {
-                            tv_drag_drop.visibility = VISIBLE
-                        }
+                        if (bottom.childCount == 0) tv_drag_drop.visibility = VISIBLE
                         (((view as ConstraintLayout) as ViewGroup).getChildAt(2) as Button).text = getString(R.string.choose)
                     }
                     container.addView(view)
                     view.visibility = VISIBLE
-                }
-                else -> {
                 }
             }
             return true
         }
     }
 
-    inner class MyButtonClickListener : View.OnClickListener {
+    inner class MyButtonClickListener : OnClickListener {
 
         override fun onClick(view: View?) {
             val owner = view!!.parent.parent as ViewGroup
@@ -474,9 +398,7 @@ class TestQuestionsFragment : Fragment() {
                 tv_drag_drop.visibility = GONE
                 (view as Button).text = getString(R.string.delete)
             } else {
-                if (bottom.childCount == 0) {
-                    tv_drag_drop.visibility = VISIBLE
-                }
+                if (bottom.childCount == 0) tv_drag_drop.visibility = VISIBLE
                 (view as Button).text = getString(R.string.choose)
             }
             container.addView(view.parent as View)

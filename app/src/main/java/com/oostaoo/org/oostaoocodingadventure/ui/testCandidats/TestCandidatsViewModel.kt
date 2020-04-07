@@ -21,10 +21,12 @@ class TestCandidatsViewModel(idCampaign: Int, application: Application) : Androi
     private val repository: DataRepository = DataRepository().getInstance(AppDatabase.getDatabase(application))!!
 
     init {
+
         requestCampaign(mIdCampaign)
     }
 
     fun getCampaign(): LiveData<Campaign> {
+
         return repository.getCampaign(mIdCampaign)
     }
 
@@ -33,7 +35,6 @@ class TestCandidatsViewModel(idCampaign: Int, application: Application) : Androi
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .build()
-
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(APIService.BASE_URL + "/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -44,15 +45,14 @@ class TestCandidatsViewModel(idCampaign: Int, application: Application) : Androi
         myCall.enqueue(object : Callback<Campaign> {
             override fun onResponse(call: Call<Campaign>, response: Response<Campaign>) {
                 val campaign = response.body()
-                if (campaign != null) {
-                    insertCampaign(campaign)
-                }
+                if (campaign != null) insertCampaign(campaign)
             }
             override fun onFailure(call: Call<Campaign>, t: Throwable) {}
         })
     }
 
     fun insertCampaign(campaign: Campaign) = viewModelScope.launch {
+
         repository.insertCampaign(campaign)
     }
 }

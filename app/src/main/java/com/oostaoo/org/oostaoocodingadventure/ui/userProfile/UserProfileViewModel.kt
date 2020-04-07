@@ -26,10 +26,12 @@ class UserProfileViewModel(application: Application) : AndroidViewModel(applicat
     private val repository: DataRepository = DataRepository().getInstance(AppDatabase.getDatabase(application))!!
 
     init {
+
         requestUser()
     }
 
     fun getUser() : LiveData<User> {
+
         return repository.getUser(userId)
     }
 
@@ -43,7 +45,6 @@ class UserProfileViewModel(application: Application) : AndroidViewModel(applicat
                 chain.proceed(newRequest)
             }
             .build()
-
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(APIService.BASE_URL + "/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -54,19 +55,14 @@ class UserProfileViewModel(application: Application) : AndroidViewModel(applicat
         myCall.enqueue(object : Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {
                 val user = response.body()
-                if(user != null) {
-                    insert(user)
-                }
+                if(user != null) insert(user)
             }
-
-            override fun onFailure(call: Call<User>, t: Throwable) {
-                Log.d("loadUser", "error")
-            }
+            override fun onFailure(call: Call<User>, t: Throwable) {}
         })
     }
 
     fun insert(user: User) = viewModelScope.launch {
+
         repository.insertUser(user)
     }
-
 }

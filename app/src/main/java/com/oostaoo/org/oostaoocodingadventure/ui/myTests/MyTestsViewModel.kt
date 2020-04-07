@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.SharedPreferences
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.oostaoo.org.oostaoocodingadventure.database.AppDatabase
 import com.oostaoo.org.oostaoocodingadventure.database.DataRepository
@@ -26,18 +25,20 @@ class MyTestsViewModel(application: Application) : AndroidViewModel(application)
     private val repository: DataRepository = DataRepository().getInstance(AppDatabase.getDatabase(application))!!
 
     init {
+
         requestCampaigns()
     }
 
     fun getCampaigns(): LiveData<List<Campaign>> {
+
         return repository.getCampaigns()
     }
 
     fun requestCampaigns() {
+
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .build()
-
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(APIService.BASE_URL + "/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -61,10 +62,12 @@ class MyTestsViewModel(application: Application) : AndroidViewModel(application)
     }
 
     fun insert(campaign: Campaign) = viewModelScope.launch {
+
         repository.insertCampaign(campaign)
     }
 
     fun deleteAllCampaigns() = viewModelScope.launch {
+
         repository.deleteAllCampaigns()
     }
 }

@@ -12,6 +12,7 @@ class ConfigEmailViewModelFactory() : ViewModelProvider.Factory {
     private var mApplication: Application? = null
 
     constructor(idCampaign: Int, names: ArrayList<String>, emails: ArrayList<String>, application: Application) : this() {
+
         mIdCampaign = idCampaign
         mNames = names
         mEmails = emails
@@ -19,6 +20,7 @@ class ConfigEmailViewModelFactory() : ViewModelProvider.Factory {
     }
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+
         if (modelClass.isAssignableFrom(ConfigEmailViewModel::class.java)) return ConfigEmailViewModel(mIdCampaign, mNames, mEmails, mApplication!!) as T
         throw IllegalArgumentException("Unknown ViewModel class")
     }

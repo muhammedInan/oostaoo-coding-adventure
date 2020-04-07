@@ -12,7 +12,6 @@ import com.oostaoo.org.oostaoocodingadventure.database.question.Question
 import com.oostaoo.org.oostaoocodingadventure.interfaces.APIService
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,15 +26,18 @@ class TestQuestionsViewModel(idCampaign: Int, application: Application) : Androi
     private val tokenJwt = sharedPreferences.getString("jwt", "")
 
     init {
+
         requestQuestions()
         requestCampaign(mIdCampaign)
     }
 
     fun getCampaign(): LiveData<Campaign> {
+
         return repository.getCampaign(mIdCampaign)
     }
 
     fun getQuestions(): LiveData<List<Question>> {
+
         return repository.getQuestions()
     }
 
@@ -49,7 +51,6 @@ class TestQuestionsViewModel(idCampaign: Int, application: Application) : Androi
                 chain.proceed(newRequest)
             }
             .build()
-
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(APIService.BASE_URL + "/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -60,9 +61,7 @@ class TestQuestionsViewModel(idCampaign: Int, application: Application) : Androi
         myCall.enqueue(object : Callback<Campaign> {
             override fun onResponse(call: Call<Campaign>, response: Response<Campaign>) {
                 val campaign = response.body()
-                if (campaign != null) {
-                    insertCampaign(campaign)
-                }
+                if (campaign != null) insertCampaign(campaign)
             }
             override fun onFailure(call: Call<Campaign>, t: Throwable) {}
         })
@@ -78,7 +77,6 @@ class TestQuestionsViewModel(idCampaign: Int, application: Application) : Androi
                 chain.proceed(newRequest)
             }
             .build()
-
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(APIService.BASE_URL + "/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -100,10 +98,12 @@ class TestQuestionsViewModel(idCampaign: Int, application: Application) : Androi
     }
 
     fun insertCampaign(campaign: Campaign) = viewModelScope.launch {
+
         repository.insertCampaign(campaign)
     }
 
     fun insertQuestions(question: Question) = viewModelScope.launch {
+
         repository.insertQuestion(question)
     }
 }

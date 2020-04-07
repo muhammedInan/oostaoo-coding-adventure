@@ -16,7 +16,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.oostaoo.org.oostaoocodingadventure.R
 import com.oostaoo.org.oostaoocodingadventure.database.profile.Profile
-import com.oostaoo.org.oostaoocodingadventure.database.technology.Technology
 import kotlinx.android.synthetic.main.fragment_new_test.*
 
 
@@ -29,22 +28,16 @@ class NewTestFragment : Fragment() {
     private var userId = 0
     private val listProfileTitle = ArrayList<String>()
 
-    override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         newTestViewModel = ViewModelProvider(this).get(NewTestViewModel::class.java)
-
         return inflater.inflate(R.layout.fragment_new_test, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
+        super.onViewCreated(view, savedInstanceState)
         sharedPreferences = context!!.getSharedPreferences("sharedpreferences", 0)
         userId = sharedPreferences.getInt("id", 0)
-
         newTestViewModel.getProfiles().observe(viewLifecycleOwner, Observer {profiles ->
             if (profiles != null) {
                 this.profiles = profiles as ArrayList<Profile>
@@ -56,13 +49,11 @@ class NewTestFragment : Fragment() {
                     listProfileTitle.removeAt(listProfileTitle.indexOf("Personnalisé"))
                     listProfileTitle.add("Personnalisé")
                 }
-                val spinnerAdapter: ArrayAdapter<String> =
-                    ArrayAdapter(context!!, android.R.layout.simple_spinner_item, listProfileTitle)
+                val spinnerAdapter: ArrayAdapter<String> = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, listProfileTitle)
                 spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 spinner_profiles.adapter = spinnerAdapter
             }
         })
-
         newTestViewModel.getTechnologies().observe(viewLifecycleOwner, Observer {technologies ->
             if (technologies != null) {
                 val listItems = ArrayList<Item>()
@@ -74,7 +65,6 @@ class NewTestFragment : Fragment() {
                 spinner_technologies.setSelection(spinner_technologies.getSelectedItems()!!)
             }
         })
-
         spinner_profiles.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: View?,
                 position: Int, id: Long) {
@@ -89,11 +79,8 @@ class NewTestFragment : Fragment() {
                     }
                 }
             }
-
-            override fun onNothingSelected(parentView: AdapterView<*>?) {
-            }
+            override fun onNothingSelected(parentView: AdapterView<*>?) {}
         }
-
         bt_next_step_questions.setOnClickListener {
             val listTechnologiesName = ArrayList<String>()
             val listTechnologiesId = ArrayList<Int>()
@@ -114,16 +101,15 @@ class NewTestFragment : Fragment() {
                     profiles[spinner_profiles.selectedItemPosition].id,
                     userId,
                     listTechnologiesId,
-                    listTechnologiesName
-                )
+                    listTechnologiesName)
             } else {
                 Toast.makeText(context, "Veuillez remplir tous les champs", Toast.LENGTH_LONG).show()
             }
         }
-
     }
 
     override fun onAttach(context: Context) {
+
         super.onAttach(context)
         if (context is OnButtonListQuestionsClickListener) {
             listenerButtonListQuestions = context
@@ -133,6 +119,7 @@ class NewTestFragment : Fragment() {
     }
 
     override fun onDetach() {
+
         super.onDetach()
         listenerButtonListQuestions = null
     }

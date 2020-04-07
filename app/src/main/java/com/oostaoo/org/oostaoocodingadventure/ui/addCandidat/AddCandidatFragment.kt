@@ -31,9 +31,9 @@ class AddCandidatFragment : Fragment() {
     private val listEmail = ArrayList<String>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
         val factory = AddCandidatViewModelFactory(arguments!!.getInt("id"), activity!!.application)
-        addCandidatViewModel =
-            ViewModelProvider(this, factory).get(AddCandidatViewModel::class.java)
+        addCandidatViewModel = ViewModelProvider(this, factory).get(AddCandidatViewModel::class.java)
         return inflater.inflate(R.layout.fragment_add_candidat, container, false)
     }
 
@@ -46,13 +46,10 @@ class AddCandidatFragment : Fragment() {
                 tv_campaign_name.text = StringBuilder("Campagne: " + campaign!!.Name)
             }
         })
-
         addCandidat()
-
         bt_add_candidat.setOnClickListener {
             addCandidat()
         }
-
         bt_config_email.setOnClickListener {
             val group = ll_add_candidat as ViewGroup
             for (i in 0 until group.childCount) {
@@ -61,9 +58,12 @@ class AddCandidatFragment : Fragment() {
                     val view = layout.getChildAt(j)
                     if (view is EditText) {
                         if (view.text.isNotEmpty())
-                            if (view.inputType == InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
+                            if (view.inputType == InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS) {
                                 listEmail.add(view.text.toString())
-                            else listName.add(view.text.toString())
+                            }
+                            else {
+                                listName.add(view.text.toString())
+                            }
                     }
                 }
             }
@@ -72,6 +72,7 @@ class AddCandidatFragment : Fragment() {
     }
 
     override fun onAttach(context: Context) {
+
         super.onAttach(context)
         if (context is OnButtonConfigEmailClickListener) {
             listenerOnButtonConfigEmailClickListener = context
@@ -81,6 +82,7 @@ class AddCandidatFragment : Fragment() {
     }
 
     override fun onDetach() {
+
         super.onDetach()
         listenerOnButtonConfigEmailClickListener = null
     }
@@ -92,7 +94,6 @@ class AddCandidatFragment : Fragment() {
             ConstraintLayout.LayoutParams.MATCH_PARENT,
             ConstraintLayout.LayoutParams.WRAP_CONTENT
         )
-
         val typeface = ResourcesCompat.getFont(context!!, R.font.poppins_regular)
         val constraintSet = ConstraintSet()
 
@@ -226,12 +227,10 @@ class AddCandidatFragment : Fragment() {
             5
         )
         constraintSet.applyTo(layout)
-
         ll_add_candidat.addView(layout)
     }
 
     interface OnButtonConfigEmailClickListener {
         fun onButtonConfigEmailClickListener(campaign: Campaign, names: ArrayList<String>, emails: ArrayList<String>)
     }
-
 }

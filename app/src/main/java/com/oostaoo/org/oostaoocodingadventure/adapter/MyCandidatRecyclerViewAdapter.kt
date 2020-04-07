@@ -1,6 +1,5 @@
 package com.oostaoo.org.oostaoocodingadventure.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import kotlinx.android.synthetic.main.fragment_candidats_card.view.*
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.util.*
-
 
 class MyCandidatRecyclerViewAdapter(private val mValues: List<Candidat>,
                                     private val mListener: TestCandidatsFragment.OnCandidatListFragmentInteractionListener?)
@@ -31,9 +29,7 @@ class MyCandidatRecyclerViewAdapter(private val mValues: List<Candidat>,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.fragment_candidats_card, parent, false)
-        return ViewHolder(view)
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.fragment_candidats_card, parent, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -55,7 +51,6 @@ class MyCandidatRecyclerViewAdapter(private val mValues: List<Candidat>,
             seconds = mValues[position].duree!!
         }
         holder.mDuree.text = StringBuilder("Durée : $seconds secondes")
-
         with(holder.mView) {
             tag = mValues[position]
             setOnClickListener(mOnClickListener)
@@ -65,6 +60,7 @@ class MyCandidatRecyclerViewAdapter(private val mValues: List<Candidat>,
     override fun getItemCount(): Int = mValues.count()
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
+
         val mNom: TextView = mView.tv_nom
         val mEmail: TextView = mView.tv_email
         val mPoint: TextView = mView.tv_point

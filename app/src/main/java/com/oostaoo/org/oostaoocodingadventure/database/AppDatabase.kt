@@ -35,10 +35,10 @@ import com.oostaoo.org.oostaoocodingadventure.database.technology.TechnologyDao
 import com.oostaoo.org.oostaoocodingadventure.database.user.User
 import com.oostaoo.org.oostaoocodingadventure.database.user.UserDao
 
-@Database(entities = arrayOf(Campaign::class, Campaign_Question::class, Campaign_User::class, Candidat::class,
-    Entreprise::class, IndexQuestion::class, LoginRequestResult::class, Profile::class,
-    Question::class, QuestionCampaign::class, Rapport::class, RapportCandidat::class, Role::class, Technology::class,
-    User::class), version = 1)
+@Database(entities = [Campaign::class, Campaign_Question::class, Campaign_User::class, Candidat::class,
+    Entreprise::class, IndexQuestion::class, LoginRequestResult::class, Profile::class, Question::class,
+    QuestionCampaign::class, Rapport::class, RapportCandidat::class, Role::class, Technology::class,
+    User::class], version = 1)
 @TypeConverters(com.oostaoo.org.oostaoocodingadventure.database.TypeConverters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun campaignDao(): CampaignDao

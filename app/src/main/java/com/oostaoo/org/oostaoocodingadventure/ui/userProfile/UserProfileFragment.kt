@@ -19,35 +19,29 @@ class UserProfileFragment : Fragment() {
     private lateinit var userProfileViewModel: UserProfileViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        userProfileViewModel =
-                ViewModelProvider(this).get(UserProfileViewModel::class.java)
+
+        userProfileViewModel = ViewModelProvider(this).get(UserProfileViewModel::class.java)
         return inflater.inflate(R.layout.fragment_user_profile, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
 
-        //PAYS
         val spinnerCountryAdapter: ArrayAdapter<String> =
             ArrayAdapter(context!!, android.R.layout.simple_spinner_item, getCountries())
         spinnerCountryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner_countries.adapter = spinnerCountryAdapter
-
-        //LANGUE
         val spinnerLanguageAdapter: ArrayAdapter<String> =
             ArrayAdapter(context!!, android.R.layout.simple_spinner_item, listOf("Français", "Anglais"))
         spinnerLanguageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner_languages.adapter = spinnerLanguageAdapter
-
-        //FONCTION
         val spinnerFunctionAdapter: ArrayAdapter<String> =
             ArrayAdapter(context!!, android.R.layout.simple_spinner_item, listOf("Commercial", "Direction",
                 "Equipe technique", "Marketing/Communication", "Ressources humaines", "Autre"))
         spinnerFunctionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner_function.adapter = spinnerFunctionAdapter
-
         userProfileViewModel.getUser().observe(viewLifecycleOwner, Observer { user ->
-
             if(user != null) {
                 et_first_name.setText(user.prenom)
                 et_name.setText(user.nom)
@@ -63,13 +57,12 @@ class UserProfileFragment : Fragment() {
     }
 
     private fun getCountries() : ArrayList<String> {
+
         val locales: Array<Locale> = Locale.getAvailableLocales()
         val countries = ArrayList<String>()
         for (locale in locales) {
             val country: String = locale.getDisplayCountry()
-            if (country.trim { it <= ' ' }.isNotEmpty() && !countries.contains(country)) {
-                countries.add(country)
-            }
+            if (country.trim { it <= ' ' }.isNotEmpty() && !countries.contains(country)) countries.add(country)
         }
         countries.sort()
         return countries

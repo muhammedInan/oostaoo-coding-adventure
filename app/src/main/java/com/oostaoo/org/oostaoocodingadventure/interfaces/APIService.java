@@ -7,7 +7,6 @@ import com.oostaoo.org.oostaoocodingadventure.database.profile.Profile;
 import com.oostaoo.org.oostaoocodingadventure.database.question.Question;
 import com.oostaoo.org.oostaoocodingadventure.database.technology.Technology;
 import com.oostaoo.org.oostaoocodingadventure.database.user.User;
-
 import java.util.List;
 import okhttp3.RequestBody;
 import retrofit2.Call;

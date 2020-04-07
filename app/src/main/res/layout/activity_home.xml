@@ -36,7 +36,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginBottom="10dp"
             android:layout_gravity="bottom"
-            android:text="@string/menu_deconnection"
+            android:text="@string/menu_disconnection"
             android:background="@null"
             android:textAllCaps="false"/>
 

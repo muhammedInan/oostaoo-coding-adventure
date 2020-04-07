@@ -10,11 +10,13 @@ class TestCandidatsViewModelFactory() : ViewModelProvider.Factory {
     private var mApplication: Application? = null
 
     constructor(idCampaign: Int, application: Application) : this() {
+
         mIdCampaign = idCampaign
         mApplication = application
     }
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+
         if (modelClass.isAssignableFrom(TestCandidatsViewModel::class.java)) return TestCandidatsViewModel(mIdCampaign, mApplication!!) as T
         throw IllegalArgumentException("Unknown ViewModel class")
     }

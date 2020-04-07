@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-
 import com.oostaoo.org.oostaoocodingadventure.R
 import com.oostaoo.org.oostaoocodingadventure.database.campaign.Campaign
 import com.oostaoo.org.oostaoocodingadventure.ui.testCandidats.TestCandidatsFragment
@@ -21,20 +20,19 @@ class ParametersCampaignFragment : Fragment() {
     private var mCampaign: Campaign? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val factory =
-            ParametersCampaignViewModelFactory(arguments!!.getInt("id"), activity!!.application)
+
+        val factory = ParametersCampaignViewModelFactory(arguments!!.getInt("id"), activity!!.application)
         parametersCampaignViewModel = ViewModelProvider(this, factory).get(ParametersCampaignViewModel::class.java)
         return inflater.inflate(R.layout.fragment_parameters_campaign, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
 
+        super.onActivityCreated(savedInstanceState)
         bottom_navigation_view.selectedItemId = R.id.action_parameters
         bottom_navigation_view.setOnNavigationItemSelectedListener {
             updateMainFragment(it.itemId)
         }
-
         parametersCampaignViewModel.getCampaign().observe(viewLifecycleOwner, Observer { campaign ->
             mCampaign = campaign
             if (campaign != null) {
@@ -58,6 +56,7 @@ class ParametersCampaignFragment : Fragment() {
     }
 
     private fun updateMainFragment(integer: Int): Boolean {
+
         when (integer) {
             R.id.action_candidats -> bottomNavigationViewListener?.onBottomNavigationViewInteraction(0, mCampaign!!.id)
             R.id.action_questions -> bottomNavigationViewListener?.onBottomNavigationViewInteraction(1, mCampaign!!.id)
@@ -69,9 +68,12 @@ class ParametersCampaignFragment : Fragment() {
     override fun onAttach(context: Context) {
 
         super.onAttach(context)
-
-        if (context is TestCandidatsFragment.OnBottomNavigationViewListener) bottomNavigationViewListener = context
-        else throw RuntimeException("$context must implement onBottomNavigationViewListener")
+        if (context is TestCandidatsFragment.OnBottomNavigationViewListener) {
+            bottomNavigationViewListener = context
+        }
+        else {
+            throw RuntimeException("$context must implement onBottomNavigationViewListener")
+        }
     }
 
     override fun onDetach() {

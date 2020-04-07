@@ -24,45 +24,34 @@ class ConnectionActivity: AppCompatActivity() {
     private lateinit var sharedpreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
+        super.onCreate(savedInstanceState)
         sharedpreferences = getSharedPreferences("sharedpreferences", 0)
         identifier = sharedpreferences.getString("identifier", "")!!
         password = sharedpreferences.getString("password", "")!!
         if(identifier != "" && password != "") {
             request()
         }
-
         setContentView(R.layout.activity_connection)
-
         button_registration.setOnClickListener {
             startActivity(Intent(this, RegistrationActivity::class.java))
         }
-
         button_connect.setOnClickListener {
-
             identifier = edit_login.text.toString()
             password = edit_password.text.toString()
-
             when {
-                identifier.isEmpty() -> {
-                    edit_login.error = getString(R.string.error_empty_username)
-                }
-                password.isEmpty() -> {
-                    edit_password.error = getString(R.string.error_empty_password)
-                }
-                else -> {
-                    request()
-                }
+                identifier.isEmpty() -> edit_login.error = getString(R.string.error_empty_username)
+                password.isEmpty() -> edit_password.error = getString(R.string.error_empty_password)
+                else -> request()
             }
         }
     }
 
     private fun request() {
+
         val okHttpClient = OkHttpClient.Builder()
                 .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .build()
-
         val retrofit: Retrofit = Retrofit.Builder()
                 .baseUrl(APIService.BASE_URL + "/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -72,8 +61,7 @@ class ConnectionActivity: AppCompatActivity() {
         val idBody = "{\"identifier\":\"$identifier\", \"password\":\"$password\"}"
         val body = RequestBody.create(
                 okhttp3.MediaType.parse("application/json; charset=utf-8"),
-                idBody
-        )
+                idBody)
         val myCall = apiServiceInterface.logUser(body)
         myCall.enqueue(object : Callback<LoginRequestResult> {
             override fun onResponse(call: Call<LoginRequestResult>?, response: Response<LoginRequestResult>?) {
@@ -93,7 +81,6 @@ class ConnectionActivity: AppCompatActivity() {
                     Toast.makeText(applicationContext, getText(R.string.error_connection), Toast.LENGTH_SHORT).show()
                 }
             }
-
             override fun onFailure(call: Call<LoginRequestResult>?, t: Throwable) {
                 Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
             }
@@ -101,6 +88,7 @@ class ConnectionActivity: AppCompatActivity() {
     }
 
     private fun goHome() {
+
         startActivity(Intent(this, HomeActivity::class.java))
         finish()
     }

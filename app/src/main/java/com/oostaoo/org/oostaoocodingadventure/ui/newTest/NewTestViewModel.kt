@@ -26,15 +26,18 @@ class NewTestViewModel(application: Application) : AndroidViewModel(application)
     private val repository: DataRepository = DataRepository().getInstance(AppDatabase.getDatabase(application))!!
 
     init {
+
         requestProfiles()
         requestTechnologies()
     }
 
     fun getProfiles(): LiveData<List<Profile>> {
+
         return repository.getProfiles()
     }
 
     fun getTechnologies(): LiveData<List<Technology>> {
+
         return repository.getTechnologies()
     }
 
@@ -48,7 +51,6 @@ class NewTestViewModel(application: Application) : AndroidViewModel(application)
                 chain.proceed(newRequest)
             }
             .build()
-
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(APIService.BASE_URL + "/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -65,7 +67,6 @@ class NewTestViewModel(application: Application) : AndroidViewModel(application)
                     }
                 }
             }
-
             override fun onFailure(call: Call<List<Profile>>, t: Throwable) {
             }
         })
@@ -81,7 +82,6 @@ class NewTestViewModel(application: Application) : AndroidViewModel(application)
                 chain.proceed(newRequest)
             }
             .build()
-
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(APIService.BASE_URL + "/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -98,24 +98,17 @@ class NewTestViewModel(application: Application) : AndroidViewModel(application)
                     }
                 }
             }
-
             override fun onFailure(call: Call<List<Technology>>, t: Throwable) {}
         })
     }
 
     fun insertProfile(profile: Profile) = viewModelScope.launch {
+
         repository.insertProfile(profile)
     }
 
-    fun deleteAllProfiles() = viewModelScope.launch {
-        repository.deleteAllProfiles()
-    }
-
     fun insertTechnology(technology: Technology) = viewModelScope.launch {
-        repository.insertTechnology(technology)
-    }
 
-    fun deleteAllTechnologies() = viewModelScope.launch {
-        repository.deleteAllTechnologies()
+        repository.insertTechnology(technology)
     }
 }

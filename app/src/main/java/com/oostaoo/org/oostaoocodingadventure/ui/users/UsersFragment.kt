@@ -19,17 +19,16 @@ class UsersFragment : Fragment() {
     private lateinit var usersViewModel: UsersViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
         usersViewModel = ViewModelProvider(this).get(UsersViewModel::class.java)
         return inflater.inflate(R.layout.fragment_users, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
+        super.onViewCreated(view, savedInstanceState)
         usersViewModel.getUsers().observe(viewLifecycleOwner, Observer { users ->
-            if (users.isNotEmpty()) {
-                updateAdapter(users)
-            }
+            if (users.isNotEmpty()) updateAdapter(users)
         })
     }
 

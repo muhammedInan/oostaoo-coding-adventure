@@ -51,7 +51,8 @@ class ListQuestionsFragment: Fragment() {
     private lateinit var listQuestionsViewModel: ListQuestionsViewModel
     private var listenerOnPostCampaignClickListener: OnPostCampaignClickListener? = null
 
-        override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
         val factory = ListQuestionsViewModelFactory(
             arguments!!.getString("Name")!!,
             arguments!!.getString("level")!!,
@@ -63,22 +64,19 @@ class ListQuestionsFragment: Fragment() {
             arguments!!.getIntegerArrayList("technologiesId")!!,
             arguments!!.getStringArrayList("technologiesName")!!, activity!!.application)
         listQuestionsViewModel = ViewModelProvider(this, factory).get(ListQuestionsViewModel::class.java)
-
         return inflater.inflate(R.layout.fragment_list_questions, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
+        super.onViewCreated(view, savedInstanceState)
         top.setOnDragListener(MyDragListener())
         bottom.setOnDragListener(MyDragListener())
-
         listQuestionsViewModel.getTechnologies().observe(viewLifecycleOwner, Observer { technologies ->
             val listQuestions = ArrayList<QuestionCampaign>()
             val selectedTechnologies = ArrayList<Technology>()
             val technologiesName = ArrayList<String>()
             val questionsSizeByTechnology = ArrayList<Int>()
-
             for (technology in technologies) {
                 technologiesName.add(technology.name!!)
             }
@@ -87,7 +85,6 @@ class ListQuestionsFragment: Fragment() {
                 val technology = technologies[index]
                 selectedTechnologies.add(technology)
             }
-
             for (technology in selectedTechnologies) {
                 if (questionsSizeByTechnology.isEmpty()) {
                     questionsSizeByTechnology.add(technology.questions!!.size)
@@ -101,11 +98,7 @@ class ListQuestionsFragment: Fragment() {
             for (question in listQuestions) {
                 val layout = ConstraintLayout(context)
                 layout.id = question.id
-
-                layout.layoutParams = ConstraintLayout.LayoutParams(
-                    ConstraintLayout.LayoutParams.MATCH_PARENT,
-                    400
-                )
+                layout.layoutParams = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, 400)
                 layout.setBackgroundResource(R.drawable.background_item_drag_and_drop)
                 layout.setOnLongClickListener {
                     val data = ClipData.newPlainText("", "")
@@ -114,16 +107,16 @@ class ListQuestionsFragment: Fragment() {
                     it.visibility = INVISIBLE
                     true
                 }
-
                 val typeface = ResourcesCompat.getFont(context!!, R.font.poppins_regular)
                 val constraintSet = ConstraintSet()
 
                 //TECHNOLOGY
                 val tvTechnology = TextView(context)
                 tvTechnology.id = generateViewId()
-                val paramsTechnology = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT)
+                val paramsTechnology = ConstraintLayout.LayoutParams(
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT)
                 tvTechnology.layoutParams = paramsTechnology
-
                 tvTechnology.setTextColor(ContextCompat.getColor(context!!, R.color.orange_next_step))
                 tvTechnology.typeface = typeface
                 var questionTechnology = ""
@@ -141,21 +134,21 @@ class ListQuestionsFragment: Fragment() {
                     ConstraintSet.START,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.START,
-                    10
-                )
+                    10)
                 constraintSet.connect(
                     tvTechnology.id,
                     ConstraintSet.TOP,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.TOP,
-                    10
-                )
+                    10)
                 constraintSet.applyTo(layout)
 
                 //POINTS
                 val tvPoints = TextView(context)
                 tvPoints.id = generateViewId()
-                val paramsPoints = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT)
+                val paramsPoints = ConstraintLayout.LayoutParams(
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT)
                 tvPoints.layoutParams = paramsPoints
                 tvPoints.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
                 tvPoints.typeface = typeface
@@ -166,21 +159,18 @@ class ListQuestionsFragment: Fragment() {
                     tvPoints.id,
                     ConstraintSet.START,
                     ConstraintSet.PARENT_ID,
-                    ConstraintSet.START
-                )
+                    ConstraintSet.START)
                 constraintSet.connect(
                     tvPoints.id,
                     ConstraintSet.END,
                     ConstraintSet.PARENT_ID,
-                    ConstraintSet.END
-                )
+                    ConstraintSet.END)
                 constraintSet.connect(
                     tvPoints.id,
                     ConstraintSet.TOP,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.TOP,
-                    10
-                )
+                    10)
                 constraintSet.applyTo(layout)
 
                 //BUTTON
@@ -204,21 +194,21 @@ class ListQuestionsFragment: Fragment() {
                     ConstraintSet.END,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.END,
-                    20
-                )
+                    20)
                 constraintSet.connect(
                     buttonChoose.id,
                     ConstraintSet.TOP,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.TOP,
-                    20
-                )
+                    20)
                 constraintSet.applyTo(layout)
 
                 //QUESTION
                 val tvQuestion = TextView(context)
                 tvQuestion.id = generateViewId()
-                val paramsQuestion = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT)
+                val paramsQuestion = ConstraintLayout.LayoutParams(
+                    ConstraintLayout.LayoutParams.MATCH_PARENT,
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT)
                 tvQuestion.layoutParams = paramsQuestion
                 tvQuestion.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
                 tvQuestion.typeface = typeface
@@ -232,27 +222,23 @@ class ListQuestionsFragment: Fragment() {
                     ConstraintSet.START,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.START,
-                    10
-                )
+                    10)
                 constraintSet.connect(
                     tvQuestion.id,
                     ConstraintSet.END,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.START,
-                    265
-                )
+                    265)
                 constraintSet.connect(
                     tvQuestion.id,
                     ConstraintSet.TOP,
                     tvTechnology.id,
                     ConstraintSet.BOTTOM,
-                    10
-                )
+                    10)
                 constraintSet.applyTo(layout)
 
                 //LEVEL
                 val level = Level.valueOf(question.level!!.toUpperCase(Locale.getDefault())).getLevel()
-
                 val ivBtRadioLevel1 = ImageView(context)
                 ivBtRadioLevel1.id = generateViewId()
                 val paramsLevel1 = ConstraintLayout.LayoutParams(42, 42)
@@ -269,17 +255,14 @@ class ListQuestionsFragment: Fragment() {
                     ConstraintSet.START,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.START,
-                    10
-                )
+                    10)
                 constraintSet.connect(
                     ivBtRadioLevel1.id,
                     ConstraintSet.BOTTOM,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.BOTTOM,
-                    20
-                )
+                    20)
                 constraintSet.applyTo(layout)
-
                 val ivBtRadioLevel2 = ImageView(context)
                 ivBtRadioLevel2.id = generateViewId()
                 val paramsLevel2 = ConstraintLayout.LayoutParams(42, 42)
@@ -295,17 +278,14 @@ class ListQuestionsFragment: Fragment() {
                     ivBtRadioLevel2.id,
                     ConstraintSet.START,
                     ivBtRadioLevel1.id,
-                    ConstraintSet.END
-                )
+                    ConstraintSet.END)
                 constraintSet.connect(
                     ivBtRadioLevel2.id,
                     ConstraintSet.BOTTOM,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.BOTTOM,
-                    20
-                )
+                    20)
                 constraintSet.applyTo(layout)
-
                 val ivBtRadioLevel3 = ImageView(context)
                 ivBtRadioLevel3.id = generateViewId()
                 val paramsLevel3 = ConstraintLayout.LayoutParams(42, 42)
@@ -321,15 +301,13 @@ class ListQuestionsFragment: Fragment() {
                     ivBtRadioLevel3.id,
                     ConstraintSet.START,
                     ivBtRadioLevel2.id,
-                    ConstraintSet.END
-                )
+                    ConstraintSet.END)
                 constraintSet.connect(
                     ivBtRadioLevel3.id,
                     ConstraintSet.BOTTOM,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.BOTTOM,
-                    20
-                )
+                    20)
                 constraintSet.applyTo(layout)
 
                 //TIME
@@ -346,23 +324,19 @@ class ListQuestionsFragment: Fragment() {
                     tvTime.id,
                     ConstraintSet.START,
                     ConstraintSet.PARENT_ID,
-                    ConstraintSet.START
-                )
+                    ConstraintSet.START)
                 constraintSet.connect(
                     tvTime.id,
                     ConstraintSet.END,
                     ConstraintSet.PARENT_ID,
-                    ConstraintSet.END
-                )
+                    ConstraintSet.END)
                 constraintSet.connect(
                     tvTime.id,
                     ConstraintSet.BOTTOM,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.BOTTOM,
-                    10
-                )
+                    10)
                 constraintSet.applyTo(layout)
-
                 top.addView(layout)
             }
         })
@@ -391,10 +365,8 @@ class ListQuestionsFragment: Fragment() {
     inner class MyDragListener : OnDragListener {
 
         override fun onDrag(v: View, event: DragEvent): Boolean {
-            when (event.action) {
-                DragEvent.ACTION_DRAG_STARTED -> {
-                }
 
+            when (event.action) {
                 DragEvent.ACTION_DROP -> {
                     // Dropped, reassign View to ViewGroup
                     val view = event.localState as View
@@ -405,15 +377,11 @@ class ListQuestionsFragment: Fragment() {
                         tv_drag_drop.visibility = GONE
                         (((view as ConstraintLayout) as ViewGroup).getChildAt(2) as Button).text = getString(R.string.delete)
                     } else if (container == top) {
-                        if (bottom.childCount == 0) {
-                            tv_drag_drop.visibility = VISIBLE
-                        }
+                        if (bottom.childCount == 0) tv_drag_drop.visibility = VISIBLE
                         (((view as ConstraintLayout) as ViewGroup).getChildAt(2) as Button).text = getString(R.string.choose)
                     }
                     container.addView(view)
                     view.visibility = VISIBLE
-                }
-                else -> {
                 }
             }
             return true
@@ -421,6 +389,7 @@ class ListQuestionsFragment: Fragment() {
     }
 
     override fun onAttach(context: Context) {
+
         super.onAttach(context)
         if (context is OnPostCampaignClickListener) {
             listenerOnPostCampaignClickListener = context
@@ -430,6 +399,7 @@ class ListQuestionsFragment: Fragment() {
     }
 
     override fun onDetach() {
+
         super.onDetach()
         listenerOnPostCampaignClickListener = null
     }
@@ -437,6 +407,7 @@ class ListQuestionsFragment: Fragment() {
     inner class MyButtonClickListener : OnClickListener {
 
         override fun onClick(view: View?) {
+
             val owner = view!!.parent.parent as ViewGroup
             owner.removeView(view.parent as View)
             val container: LinearLayout
@@ -449,9 +420,7 @@ class ListQuestionsFragment: Fragment() {
                 tv_drag_drop.visibility = GONE
                 (view as Button).text = getString(R.string.delete)
             } else {
-                if (bottom.childCount == 0) {
-                    tv_drag_drop.visibility = VISIBLE
-                }
+                if (bottom.childCount == 0) tv_drag_drop.visibility = VISIBLE
                 (view as Button).text = getString(R.string.choose)
             }
             container.addView(view.parent as View)

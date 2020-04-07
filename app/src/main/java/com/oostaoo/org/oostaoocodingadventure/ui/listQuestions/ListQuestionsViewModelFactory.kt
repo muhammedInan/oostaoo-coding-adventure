@@ -20,6 +20,7 @@ class ListQuestionsViewModelFactory() : ViewModelProvider.Factory {
     constructor(Name: String, level: String, langs: String, copy_paste: Boolean, sent_report: Boolean,
                 profile: Int, user: Int, technologiesId: ArrayList<Int>, technologiesName: ArrayList<String>,
                 application: Application) : this() {
+
         mName = Name
         mLevel = level
         mLangs = langs
@@ -33,9 +34,10 @@ class ListQuestionsViewModelFactory() : ViewModelProvider.Factory {
     }
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(ListQuestionsViewModel::class.java)) {
-            return ListQuestionsViewModel(mName, mLevel, mLangs, mCopy_paste, mSent_report, mProfile, mUser, mTechnologiesId, mTechnologiesName, mApplication!!) as T
-        }
+
+        if (modelClass.isAssignableFrom(ListQuestionsViewModel::class.java))
+            return ListQuestionsViewModel(mName, mLevel, mLangs, mCopy_paste, mSent_report,
+                mProfile, mUser, mTechnologiesId, mTechnologiesName, mApplication!!) as T
         throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

@@ -20,19 +20,14 @@ import org.json.JSONObject
 class RegistrationActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_registration)
-
         button_registrate.setOnClickListener {
-
             val username = edit_username.text
             val email = edit_email.text
             val password = edit_password.text
-
-            if(username.isEmpty()) {
-                edit_username.error = getString(R.string.error_empty_username)
-            }
+            if(username.isEmpty()) edit_username.error = getString(R.string.error_empty_username)
             if(email.isEmpty()) {
                 edit_email.error = getString(R.string.error_empty_email)
             }
@@ -46,7 +41,6 @@ class RegistrationActivity: AppCompatActivity() {
                 val okHttpClient = OkHttpClient.Builder()
                         .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                         .build()
-
                 val retrofit: Retrofit = Retrofit.Builder()
                         .baseUrl(APIService.BASE_URL + "/")
                         .addConverterFactory(GsonConverterFactory.create())
@@ -56,20 +50,18 @@ class RegistrationActivity: AppCompatActivity() {
                 val idBody = "{\"username\":\"$username\", \"email\":\"$email\", \"password\":\"$password\"}"
                 val body = RequestBody.create(
                         okhttp3.MediaType.parse("application/json; charset=utf-8"),
-                        idBody
-                )
+                        idBody)
                 val myCall = apiServiceInterface.createUser(body)
                 myCall.enqueue(object : Callback<Any> {
                     override fun onResponse(call: Call<Any>?, response: Response<Any>?) {
                         when (response?.code()) {
                             200 -> goConnection()
                             else -> {
-                                val jObjError = JSONObject(response?.errorBody()?.string())
+                                val jObjError = JSONObject(response?.errorBody()?.string()!!)
                                 Toast.makeText(applicationContext, jObjError.getString("message"), Toast.LENGTH_LONG).show()
                             }
                         }
                     }
-
                     override fun onFailure(call: Call<Any>?, t: Throwable?) {
                         Toast.makeText(applicationContext, t?.message, Toast.LENGTH_SHORT).show()
                     }
@@ -79,6 +71,7 @@ class RegistrationActivity: AppCompatActivity() {
     }
 
     fun goConnection() {
+
         startActivity(Intent(this, ConnectionActivity::class.java))
         finish()
     }

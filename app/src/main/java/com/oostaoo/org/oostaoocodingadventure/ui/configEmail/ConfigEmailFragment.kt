@@ -23,34 +23,29 @@ class ConfigEmailFragment : Fragment() {
     private var listenerOnButtonBackCandidatsClickListener: OnButtonBackCandidatsClickListener? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
         val factory = ConfigEmailViewModelFactory(arguments!!.getInt("id"),
             arguments!!.getStringArrayList("names")!!,
             arguments!!.getStringArrayList("emails")!!,
             activity!!.application)
-        configEmailViewModel =
-            ViewModelProvider(this, factory).get(ConfigEmailViewModel::class.java)
+        configEmailViewModel = ViewModelProvider(this, factory).get(ConfigEmailViewModel::class.java)
         return inflater.inflate(R.layout.fragment_config_email, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
 
+        super.onActivityCreated(savedInstanceState)
         configEmailViewModel.getCampaign().observe(viewLifecycleOwner, Observer {
             campaign = it
             if (campaign != null && campaign!!.candidats != null) {
                 tv_campaign_name.text = StringBuilder("Campagne: " + campaign!!.Name)
             }
         })
-
         tv_nb_receiver.text = java.lang.StringBuilder("Vous avez sélectionné " + configEmailViewModel.getNames().size + " destinataires")
-
         var names = ""
-        for(name in configEmailViewModel.getNames()) {
+        for (name in configEmailViewModel.getNames()) {
             names += name
-            if(name != configEmailViewModel.getNames().last()) {
-                names += ", "
-            }
-
+            if (name != configEmailViewModel.getNames().last()) names += ", "
         }
         val emailContent = StringBuilder("Bonjour $names, \n\n\n" +
                 "Votre candidature a retenu notre attention.\n\nDans le cadre de notre processus " +
@@ -58,20 +53,13 @@ class ConfigEmailFragment : Fragment() {
                 "Vous pourrez choisir le moment le plus approprié pour vous pour passer ce test.\n\n" +
                 "Quand vous serez prêt(e), cliquez sur le lien ci-dessous pour accéder à la page d’accueil de votre session :\n\n" +
                 "http://localhost:4200/evaluate/... \n\n\nBonne chance !\n\nCordialement")
-
         tv_email_content.text = emailContent
-
-                bt_back_candidats.setOnClickListener {
-            listenerOnButtonBackCandidatsClickListener?.onButtonBackCandidatsClickListener()
-        }
-
+        bt_back_candidats.setOnClickListener { listenerOnButtonBackCandidatsClickListener?.onButtonBackCandidatsClickListener() }
         bt_send_email.setOnClickListener {
             var emails = ""
             for (email in configEmailViewModel.getEmails()) {
                 emails += email
-                if(email != configEmailViewModel.getEmails().last()) {
-                    emails += ", "
-                }
+                if(email != configEmailViewModel.getEmails().last()) emails += ", "
             }
             val i = Intent(Intent.ACTION_SEND)
             i.data = Uri.parse("mailto:")
@@ -88,6 +76,7 @@ class ConfigEmailFragment : Fragment() {
     }
 
     override fun onAttach(context: Context) {
+
         super.onAttach(context)
         if (context is OnButtonBackCandidatsClickListener) {
             listenerOnButtonBackCandidatsClickListener = context
@@ -97,6 +86,7 @@ class ConfigEmailFragment : Fragment() {
     }
 
     override fun onDetach() {
+
         super.onDetach()
         listenerOnButtonBackCandidatsClickListener = null
     }

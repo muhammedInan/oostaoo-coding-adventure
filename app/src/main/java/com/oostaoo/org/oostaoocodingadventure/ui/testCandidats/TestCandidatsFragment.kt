@@ -24,22 +24,20 @@ class TestCandidatsFragment: Fragment() {
     private var campaign: Campaign? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val factory =
-            TestCandidatsViewModelFactory(arguments!!.getInt("id"), activity!!.application)
-        testCandidatsViewModel =
-            ViewModelProvider(this, factory).get(TestCandidatsViewModel::class.java)
+
+        val factory = TestCandidatsViewModelFactory(arguments!!.getInt("id"), activity!!.application)
+        testCandidatsViewModel = ViewModelProvider(this, factory).get(TestCandidatsViewModel::class.java)
         setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_test_candidats, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
+        super.onViewCreated(view, savedInstanceState)
         bottom_navigation_view.selectedItemId = R.id.action_candidats
         bottom_navigation_view.setOnNavigationItemSelectedListener {
             updateMainFragment(it.itemId)
         }
-
         testCandidatsViewModel.getCampaign().observe(viewLifecycleOwner, Observer {
             campaign = it
             if (campaign != null && campaign!!.candidats != null) {
@@ -51,15 +49,14 @@ class TestCandidatsFragment: Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
 
+        super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_add_candidats, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        if (item.itemId == R.id.add_candidat)
-            addCandidatListener?.onAddCandidatInteraction(campaign!!)
+        if (item.itemId == R.id.add_candidat) addCandidatListener?.onAddCandidatInteraction(campaign!!)
         return super.onOptionsItemSelected(item)
     }
 
@@ -74,6 +71,7 @@ class TestCandidatsFragment: Fragment() {
     }
 
     private fun updateMainFragment(integer: Int): Boolean {
+
         when (integer) {
             R.id.action_candidats -> bottomNavigationViewListener?.onBottomNavigationViewInteraction(0, campaign!!.id)
             R.id.action_questions -> bottomNavigationViewListener?.onBottomNavigationViewInteraction(1, campaign!!.id)
@@ -85,15 +83,24 @@ class TestCandidatsFragment: Fragment() {
     override fun onAttach(context: Context) {
 
         super.onAttach(context)
-
-        if (context is OnCandidatListFragmentInteractionListener) candidatsListListener = context
-        else throw RuntimeException("$context must implement onCandidatListFragmentInteractionListener")
-
-        if (context is OnAddCandidatListener) addCandidatListener = context
-        else throw RuntimeException("$context must implement onAddCandidatListener")
-
-        if (context is OnBottomNavigationViewListener) bottomNavigationViewListener = context
-        else throw RuntimeException("$context must implement onBottomNavigationViewListener")
+        if (context is OnCandidatListFragmentInteractionListener) {
+            candidatsListListener = context
+        }
+        else {
+            throw RuntimeException("$context must implement onCandidatListFragmentInteractionListener")
+        }
+        if (context is OnAddCandidatListener) {
+            addCandidatListener = context
+        }
+        else {
+            throw RuntimeException("$context must implement onAddCandidatListener")
+        }
+        if (context is OnBottomNavigationViewListener) {
+            bottomNavigationViewListener = context
+        }
+        else {
+            throw RuntimeException("$context must implement onBottomNavigationViewListener")
+        }
     }
 
     override fun onDetach() {

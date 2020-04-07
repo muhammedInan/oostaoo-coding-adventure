@@ -26,10 +26,7 @@ class MyCampaignRecyclerViewAdapter(private val mValues: List<Campaign>,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.fragment_campaign_card, parent, false)
-
-        return ViewHolder(view)
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.fragment_campaign_card, parent, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -39,15 +36,12 @@ class MyCampaignRecyclerViewAdapter(private val mValues: List<Campaign>,
 
         if (mValues[position].candidats!!.size > 1 || mValues[position].candidats!!.isEmpty()) txtInvite += "s"
         if (mValues[position].NbCandidatFinish == null || mValues[position].NbCandidatFinish!! > 1) txtTermine += "s"
-
         holder.mName.text = mValues[position].Name
         holder.mNbInvite.text = StringBuilder(mValues[position].candidats!!.size.toString() + " $txtInvite")
         if(mValues[position].NbCandidatFinish != null) {
-            holder.mNbTermine.text =
-                StringBuilder(mValues[position].NbCandidatFinish.toString() + " $txtTermine")
+            holder.mNbTermine.text = StringBuilder(mValues[position].NbCandidatFinish.toString() + " $txtTermine")
         } else {
-            holder.mNbTermine.text =
-                StringBuilder("0 $txtTermine")
+            holder.mNbTermine.text = StringBuilder("0 $txtTermine")
         }
         with(holder.mView) {
             tag = mValues[position]

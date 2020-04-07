@@ -1,0 +1,122 @@
+<resources>
+    <string name="app_name">Roodeo</string>
+
+    <!--ConnectionActivity-->
+    <string name="registration">Créer un compte</string>
+    <string name="connection">Connexion</string>
+    <string name="already_customer">Déjà client ?</string>
+    <string name="new_customer">Nouveau client</string>
+    <string name="error_empty_username">Entrez un nom d\'utilisateur</string>
+    <string name="error_empty_password">Entrez un mot de passe</string>
+    <string name="error_connection">Connexion erronée</string>
+
+    <!--RegistrationActivity-->
+    <string name="username">Nom d\'utilisateur</string>
+    <string name="error_empty_email">Entrez une adresse mail</string>
+    <string name="error_invalid_email">Email invalide</string>
+
+    <!--HomeActivity-->
+    <string name="title_activity_home">HomeActivity</string>
+
+    <string name="testings">Tests d\'évaluations</string>
+    <string name="menu_my_tests">Mes tests</string>
+    <string name="menu_new_test">Nouveau test</string>
+    <string name="profile">Profil</string>
+    <string name="menu_user_profile">Profil utilisateur</string>
+    <string name="menu_business_profile">Profil entreprise</string>
+    <string name="menu_users">Utilisateurs</string>
+    <string name="menu_facturation">Facturation</string>
+    <string name="menu_data_protection">Protection des données</string>
+    <string name="menu_disconnection">Déconnexion</string>
+
+    <!--MobileNavigation-->
+    <string name="menu_test_candidats">Candidats</string>
+    <string name="questions">Questions</string>
+    <string name="parameters">Paramètres</string>
+    <string name="menu_list_questions">Liste des questions</string>
+    <string name="menu_add_candidat">Ajouter un candidat</string>
+    <string name="menu_config_email">Configuration de l\'email</string>
+
+    <!--NewTestFragment-->
+    <string name="select_role">Sélectionnez un rôle</string>
+    <string name="or">OU</string>
+    <string name="select_technology">Sélectionnez les technologies à tester</string>
+    <string name="select_experience">Sélectionnez l’expérience requise</string>
+    <string name="junior">Junior</string>
+    <string name="senior">Sénior</string>
+    <string name="expert">Expert</string>
+    <string name="campaign_name">Nom de la campagne</string>
+    <string name="enter_name_campaign">Entrez le nom de la campagne</string>
+    <string name="language_question">En quelle langue les questions doivent-elles être posées à vos candidats ?</string>
+    <string name="fr">FR</string>
+    <string name="en">EN</string>
+    <string name="es">ES</string>
+    <string name="jp">JP</string>
+    <string name="copy_paste">Voulez-vous empêcher l\'utilisation du copier/coller pendant le test ?</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="send_report">Souhaitez-vous envoyer le rapport simplifié au candidat à l\'issue de son test ?</string>
+    <string name="questions_next_step">Etape suivante : Questions</string>
+
+    <!--TestQuestionsFragment-->
+    <string name="choose">Choisir</string>
+    <string name="delete">Supprimer</string>
+    <string name="drag_drop">Faire un appui long ou sélectionner \"Choisir\" pour déposer une question ici</string>
+    <string name="register">Enregistrer</string>
+
+    <!--UserProfileFragment-->
+    <string name="first_name">Prénom *</string>
+    <string name="name">Nom *</string>
+    <string name="country">Pays *</string>
+    <string name="language">Langue *</string>
+    <string name="phone_number">N° de téléphone</string>
+    <string name="mobile_number">N° de portable</string>
+    <string name="function">Fonction</string>
+    <string name="email_address">Adresse Email</string>
+    <string name="current_email">Email actuel *</string>
+    <string name="new_email">Nouvel email *</string>
+    <string name="signature">Signature</string>
+    <string name="new_password">Nouveau mot de passe *</string>
+    <string name="confirm_password">Confirmer le mot de passe *</string>
+
+    <!--BusinessProfileFragment-->
+    <string name="completion_fiche">Complétion de\nvotre fiche</string>
+    <string name="edit_details">Éditez les détails de votre entreprise dans la langue de votre choix</string>
+    <string name="choose_language">Choisissez votre langue</string>
+    <string name="business_logo">Logo de l\'entreprise</string>
+    <string name="business_name">Nom de l\'entreprise</string>
+    <string name="business_email">Adresse email de l\'entreprise</string>
+    <string name="business_phone">Numéro de téléphone</string>
+    <string name="industry">Industrie</string>
+    <string name="nb_employee">Nombre d\'employés</string>
+    <string name="nb_developers">Nombre de développeurs</string>
+    <string name="link_video">Lien vidéo</string>
+    <string name="link_site">Lien du site</string>
+    <string name="teaser_business">Teaser de l\'entreprise</string>
+    <string name="add_images">Ajouter des images (10 max)</string>
+    <string name="linkedin">Linkedin</string>
+    <string name="facebook">Facebook</string>
+    <string name="twitter">Twitter</string>
+    <string name="save_changes">Enregistrer les changements</string>
+
+    <!--AddCandidatsFragment-->
+    <string name="email_star">Email *</string>
+    <string name="name_email_candidats">Entrez le nom et l\'email des candidats</string>
+    <string name="add_candidat">Ajouter candidat</string>
+    <string name="config_email">Prochaine étape : Configuration d\'email</string>
+
+    <!--ConfigEmailFragment-->
+    <string name="message">Message :</string>
+    <string name="send_email">Envoyer \nemail</string>
+    <string name="back_candidats">Retour\naux candidats</string>
+    <string name="customize_email">Personnaliser\ncet email</string>
+
+    <!--ParametersCampaignFragment-->
+    <string name="expiration_day">Nombre de jours au bout desquels une invitation expire</string>
+
+    <!--Others-->
+    <string name="email">Email</string>
+    <string name="password">Mot de passe</string>
+    <string name="empty_string" />
+
+</resources>

@@ -22,6 +22,5 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, ConnectionActivity::class.java))
             finish()
         }, 2000)
-
     }
 }
