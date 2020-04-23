@@ -8,13 +8,16 @@ env:
 phases:
   install:
     runtime-versions:
-      nodejs: 10
+      nodejs: 12
     commands:
       - echo Entered the install phase...
       - npm install yarn -g
+      - echo "\n ======== installing client dependencies ======== \n"
       - cd client && yarn install
     finally:
-      - echo This always runs even if the update or install command fails 
+      - echo This always runs even if the update or install command fails
+      - echo "returning to root project directory"
+      - cd ..
   pre_build:
     commands:
       - echo Entered the pre_build phase...
@@ -23,26 +26,35 @@ phases:
   build:
     commands:
       - echo Entered the build phase...
-      - echo Build started on `date`
-      - export NODE_OPTIONS=--max_old_space_size=8192
+      # set env var to increase node max heap memory size (V8 flag)
+      - export NODE_OPTIONS=--max_old_space_size=16384
       - echo $NODE_OPTIONS
-      - cd ../client && yarn run build
-      - yarn run build-i18n:en
-      - yarn run build-i18n:es
-      - yarn run build-i18n:fr
-      - yarn run build-i18n:jp
-      - mkdir ../server/public
-      - cp -R ./dist/client/* ../server/public/
+      - echo "\n ======== Building client static assets... ========"
+      - echo "Build started on $(date)\n"
+      - cd ./client && yarn run build
+      # run i18n builds in parallel with "&"
+      # waiting for all jobs to finish with "wait" command
+      - yarn run build-i18n:en & yarn run build-i18n:es & yarn run build-i18n:fr & yarn run build-i18n:jp & wait
     finally:
       - echo This always runs even if the install command fails
+      # check that client build folder exists
+      - $([ -d "./dist/client" ])
+      - cd ..
   post_build:
     commands:
       - echo Entered the post_build phase...
-      - echo Build completed on `date`
+      - mkdir ./client_built
+      - cp -R ./client/dist/client/* ./client_built
+      - rm -rf ./client
+      - mv ./client_built ./client
+      # check that the translations folders exist
+      - $([ -d "./client/en" ])
+      - $([ -d "./client/es" ])
+      - $([ -d "./client/fr" ])
+      - $([ -d "./client/jp" ])
+      - echo "\n ======== Build completed on $(date) ======== \n"
 
 artifacts:
   files:
-    - 'server/**/*'
-    - 'scripts/**/*'
-    - 'appspec.yml'
-  name: roodeo
+    - 'client/**/*'
+  name: roodeo-scalable-assets
